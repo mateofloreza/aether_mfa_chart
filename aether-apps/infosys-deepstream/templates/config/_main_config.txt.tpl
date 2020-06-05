@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2020 Open Networking Foundation <info@opennetworking.org>
+#
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only
+
 [application]
 enable-perf-measurement=1
 perf-measurement-interval-sec=5
