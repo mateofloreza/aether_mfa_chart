@@ -40,30 +40,26 @@ spec:
       nodeSelector:
         {{ .Values.nodeSelectors.spgwu.label }}: {{ .Values.nodeSelectors.spgwu.value }}
     {{- end }}
+      initContainers:
+      - name: bess-init
+        image: {{ .Values.images.tags.bess | quote }}
+        imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
+        command: ["sh", "-xec"]
+        args:
+        - ip route add {{ .Values.networks.enb.subnet }} via {{ .Values.networks.s1u.gateway }};
+          ip route add default via {{ .Values.networks.sgi.gateway }} metric 110;
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
     {{- if .Values.config.coreDump.enabled }}
 {{ tuple "spgwu" . | include "omec-user-plane.coredump_init" | indent 8 }}
     {{- end }}
       containers:
-      - name: routectl
-        image: {{ .Values.images.tags.bess | quote }}
-        imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
-        env:
-          - name: PYTHONUNBUFFERED
-            value: "1"
-        command: ["/opt/bess/bessctl/conf/route_control.py"]
-        args:
-          - -i
-          - {{ .Values.config.spgwu.s1u.device }}
-          - {{ .Values.config.spgwu.sgi.device }}
-      {{- if .Values.resources.enabled }}
-        resources:
-{{ toYaml .Values.resources.routectl | indent 10 }}
-      {{- end }}
       - name: bessd
         image: {{ .Values.images.tags.bess | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
         securityContext:
-          privileged: true
           capabilities:
             add:
             - IPC_LOCK
@@ -109,6 +105,21 @@ spec:
           - name: coredump
             mountPath: /tmp/coredump
         {{- end }}
+      - name: routectl
+        image: {{ .Values.images.tags.bess | quote }}
+        imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
+        env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+        command: ["/opt/bess/bessctl/conf/route_control.py"]
+        args:
+          - -i
+          - {{ .Values.config.spgwu.s1u.device }}
+          - {{ .Values.config.spgwu.sgi.device }}
+      {{- if .Values.resources.enabled }}
+        resources:
+{{ toYaml .Values.resources.routectl | indent 10 }}
+      {{- end }}
       - name: web
         image: {{ .Values.images.tags.bess | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
