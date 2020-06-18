@@ -1,7 +1,7 @@
-# SPDX-FileCopyrightText: 2020 Open Networking Foundation <info@opennetworking.org>
+# Copyright (c) 2018-2019, NVIDIA CORPORATION. All rights reserved.
 #
-# SPDX-License-Identifier: Apache-2.0
-# SPDX-License-Identifier: LicenseRef-ONF-Member-Only
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+# SPDX-License-Identifier: MIT
 
 [application]
 enable-perf-measurement=1

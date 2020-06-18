@@ -1,7 +1,7 @@
 # Copyright (c) 2018-2019, NVIDIA CORPORATION. All rights reserved.
 #
-# SPDX-License-Identifier: Apache-2.0
-# SPDX-License-Identifier: LicenseRef-ONF-Member-Only
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+# SPDX-License-Identifier: MIT
 
 [message-broker]
 password = {{ .Values.config.deepstream.amqp.password }}

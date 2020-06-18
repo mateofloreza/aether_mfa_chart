@@ -2,8 +2,7 @@
 
 # Copyright 2020-present Open Networking Foundation
 #
-# SPDX-License-Identifier: Apache-2.0
-# SPDX-License-Identifier: LicenseRef-ONF-Member-Only
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
 /google/video_analytics_server_main \
         --mediapipe_graph_path=/google/demo_graph.pbtxt \
