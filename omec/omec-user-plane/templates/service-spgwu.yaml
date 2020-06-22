@@ -34,4 +34,4 @@ spec:
   - name: bess-web
     protocol: TCP
     port: 8000
-    nodePort: {{ .Values.config.bess.web.nodePort }}
+    nodePort: {{ .Values.config.spgwu.bess.web.nodePort }}

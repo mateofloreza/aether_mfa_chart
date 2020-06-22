@@ -5,8 +5,8 @@
 images:
   tags:
     init: docker.io/omecproject/pod-init:1.0.0
-    bess: registry.central.aetherproject.net/upf-epc-bess:0.1.0-dev
-    cpiface: registry.central.aetherproject.net/upf-epc-cpiface:0.1.0-dev
+    bess: docker.io/omecproject/upf-epc-bess:master-latest
+    cpiface: docker.io/omecproject/upf-epc-cpiface:master-latest
   pullPolicy: Always
 
 nodeSelectors:
@@ -19,11 +19,9 @@ resources:
   enabled: true
   bess:
     requests:
-      hugepages-1Gi: 2Gi
       cpu: 2
       memory: 256Mi
     limits:
-      hugepages-1Gi: 2Gi
       cpu: 2
       memory: 256Mi
   routectl:
@@ -52,42 +50,44 @@ config:
   coreDump:
     enabled: false
     path: /tmp/coredump
-  # Provide UPF interface driver.
-  # Available options are dpdk, af_xdp, af_packet.
-  mode: "dpdk"
   spgwu:
-    name: "dp-staging"
+    hugepage:
+      enabled: true
+    sriov:
+      enabled: true
+    # Provide UPF interface driver.
+    # Available options are dpdk, af_xdp, af_packet.
+    mode: "dpdk"
+    name: "dp-name"
     workers: 1
     maxSessions: 50000
     # Provide the S1U and SGI networks facing device name and IP address
     s1u:
       device: s1u
-      ip: 192.168.252.7/24
+      subnet: 192.168.252.0/24
+      gateway: 192.168.252.1
+      ip: 192.168.252.3/24
     sgi:
       device: sgi
-      ip: 192.168.250.7/24
+      subnet: 192.168.250.0/24
+      gateway: 192.168.250.1
+      ip: 192.168.250.3/24
+    enb:
+      subnet: 192.168.251.0/24
+    ue:
+      subnet: 10.250.0.0/16
     zmq:
       recvPort: 20
       spgwc:
-        addr: spgwc-headless.omec.svc.staging.central
+        addr: spgwc-headless
         port: 21
-  bess:
-    web:
-      nodePort: 36000
-
-networks:
-  sriov:
-    enabled: true
-  cniPlugin: vfioveth
-  # Dynamic IP allocation is not supported for the user plane interfaces
-  ipam: static
-  enb:
-    subnet: 192.168.251.0/24
-  ue:
-    subnet: 10.250.0.0/16
-  sgi:
-    subnet: 192.168.250.0/24
-    gateway: 192.168.250.1
-  s1u:
-    subnet: 192.168.252.0/24
-    gateway: 192.168.252.1
+    bess:
+      web:
+        nodePort: 36000
+    # Dynamic IP allocation is not supported for the user plane interfaces
+    ipam: static
+    cniPlugin: vfioveth
+    hugepage:
+      enabled: true
+    sriov:
+      enabled: true

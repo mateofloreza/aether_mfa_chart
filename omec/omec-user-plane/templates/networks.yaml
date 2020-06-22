@@ -9,15 +9,15 @@ apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
   name: s1u-net
-{{- if $.Values.networks.sriov.enabled }}
+{{- if $.Values.config.spgwu.sriov.enabled }}
   annotations:
     k8s.v1.cni.cncf.io/resourceName: intel.com/sriov_vfio_s1u_net
 {{- end }}
 spec:
   config: '{
-    "type": {{ .Values.networks.cniPlugin | quote }},
+    "type": {{ .Values.config.spgwu.cniPlugin | quote }},
     "ipam": {
-        "type": {{ .Values.networks.ipam | quote }}
+        "type": {{ .Values.config.spgwu.ipam | quote }}
     }
   }'
 ---
@@ -25,14 +25,14 @@ apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
   name: sgi-net
-{{- if $.Values.networks.sriov.enabled }}
+{{- if $.Values.config.spgwu.sriov.enabled }}
   annotations:
     k8s.v1.cni.cncf.io/resourceName: intel.com/sriov_vfio_sgi_net
 {{- end }}
 spec:
   config: '{
-    "type": {{ .Values.networks.cniPlugin | quote }},
+    "type": {{ .Values.config.spgwu.cniPlugin | quote }},
     "ipam": {
-        "type": {{ .Values.networks.ipam | quote }}
+        "type": {{ .Values.config.spgwu.ipam | quote }}
     }
   }'

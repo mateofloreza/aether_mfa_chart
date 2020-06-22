@@ -46,8 +46,9 @@ spec:
         imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
         command: ["sh", "-xec"]
         args:
-        - ip route add {{ .Values.networks.enb.subnet }} via {{ .Values.networks.s1u.gateway }};
-          ip route add default via {{ .Values.networks.sgi.gateway }} metric 110;
+        - ip route replace {{ .Values.config.spgwu.enb.subnet }} via {{ .Values.config.spgwu.s1u.gateway }};
+          ip route replace default via {{ .Values.config.spgwu.sgi.gateway }} metric 110;
+          iptables -I OUTPUT -p icmp --icmp-type port-unreachable -j DROP;
         securityContext:
           capabilities:
             add:
@@ -66,7 +67,13 @@ spec:
             - NET_ADMIN
         stdin: true
         tty: true
-        command: ["/bin/bash", "-xc", "bessd -f -grpc-url=0.0.0.0:10514;"]
+        command: ["/bin/bash", "-xc"]
+        args:
+        {{- if .Values.config.spgwu.hugepage.enabled }}
+          - bessd -f -grpc-url=0.0.0.0:10514
+        {{- else }}
+          - bessd -m 0 -f -grpc-url=0.0.0.0:10514
+        {{- end }}
         lifecycle:
           postStart:
             exec:
@@ -81,7 +88,10 @@ spec:
           {{- if .Values.resources.enabled }}
 {{ toYaml .Values.resources.bess.requests | indent 12 }}
           {{- end }}
-          {{- if .Values.networks.sriov.enabled }}
+          {{- if .Values.config.spgwu.hugepage.enabled }}
+            hugepages-1Gi: 2Gi
+          {{- end }}
+          {{- if .Values.config.spgwu.sriov.enabled }}
             intel.com/sriov_vfio_s1u_net: 1
             intel.com/sriov_vfio_sgi_net: 1
           {{- end }}
@@ -89,7 +99,10 @@ spec:
           {{- if .Values.resources.enabled }}
 {{ toYaml .Values.resources.bess.limits | indent 12 }}
           {{- end }}
-          {{- if .Values.networks.sriov.enabled }}
+          {{- if .Values.config.spgwu.hugepage.enabled }}
+            hugepages-1Gi: 2Gi
+          {{- end }}
+          {{- if .Values.config.spgwu.sriov.enabled }}
             intel.com/sriov_vfio_s1u_net: 1
             intel.com/sriov_vfio_sgi_net: 1
           {{- end }}
@@ -97,8 +110,10 @@ spec:
           - name: CONF_FILE
             value: /etc/bess/conf/spgwu.json
         volumeMounts:
+        {{- if .Values.config.spgwu.hugepage.enabled }}
           - name: hugepages
             mountPath: /dev/hugepages
+        {{- end }}
           - name: configs
             mountPath: /etc/bess/conf
         {{- if .Values.config.coreDump.enabled }}
@@ -161,9 +176,11 @@ spec:
         configMap:
           name: spgwu
           defaultMode: 493
+    {{- if .Values.config.spgwu.hugepage.enabled }}
       - name: hugepages
         emptyDir:
           medium: HugePages
+    {{- end }}
     {{- if .Values.config.coreDump.enabled }}
       - name: host-rootfs
         hostPath:

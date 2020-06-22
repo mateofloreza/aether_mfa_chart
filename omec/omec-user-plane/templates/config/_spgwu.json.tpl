@@ -1,6 +1,7 @@
 {
-  "ue_cidr": {{ .Values.networks.ue.subnet | quote }},
-  "enb_cidr": {{ .Values.networks.enb.subnet | quote }},
+  "mode": {{ .Values.config.spgwu.mode | quote }},
+  "ue_cidr": {{ .Values.config.spgwu.ue.subnet | quote }},
+  "enb_cidr": {{ .Values.config.spgwu.enb.subnet | quote }},
   "s1u": {
     "ifname": {{ .Values.config.spgwu.s1u.device | quote }}
   },
