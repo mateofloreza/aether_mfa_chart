@@ -7,9 +7,9 @@
 images:
   tags:
     init: docker.io/omecproject/pod-init:1.0.0
-    hssdb: docker.io/omecproject/c3po-hssdb:latest
-    hss: docker.io/omecproject/c3po-hss:latest
-    mme: docker.io/omecproject/openmme:paging-latest
+    hssdb: docker.io/omecproject/c3po-hssdb:master-latest
+    hss: docker.io/omecproject/c3po-hss:master-latest
+    mme: docker.io/omecproject/openmme:master-latest
     mmeExporter: docker.io/omecproject/mme-exporter:paging-latest
     spgwc: docker.io/omecproject/ngic-cp:central-cp-multi-upfs-latest
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
