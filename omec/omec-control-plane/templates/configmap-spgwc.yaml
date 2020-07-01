@@ -12,6 +12,44 @@ metadata:
   labels:
 {{ tuple "spgwc" . | include "omec-control-plane.metadata_labels" | indent 4 }}
 data:
+{{- if .Values.config.spgwc.pfcp }}
+  cp.cfg: |
+    [GLOBAL]
+    CP_TYPE = 03
+    GX_CONFIG = 0
+    S11_IP = CP_ADDR
+    S11_PORT = 2123
+    S5S8_IP = CP_ADDR
+    S5S8_PORT = 2123
+    PFCP_IP = CP_ADDR
+    PFCP_PORT = 8805
+    UPF_PFCP_IP = 127.0.0.1
+    UPF_PFCP_PORT = 8805
+    TRANSMIT_TIMER = 2
+    PERIODIC_TIMER = 10
+    TRANSMIT_COUNT = 5
+    REQUEST_TIMEOUT=1800000
+    REQUEST_TRIES=3
+    CP_LOGGER = 0
+    [NAMESERVER_CONFIG]
+    [CACHE]
+    concurrent=25
+    percentage=80
+    interval_seconds=60
+    query_timeout_ms=1000
+    query_tries=1
+    [APP]
+    frequency_seconds=3
+    filename=appqueries.json
+    nameserver= {{ .Values.config.spgwc.nameserver}}
+    [OPS]
+    frequency_seconds=3
+    filename=opsqueries.json
+    nameserver= {{ .Values.config.spgwc.nameserver}}
+    [IP_POOL_CONFIG]
+    IP_POOL_IP= {{.Values.config.spgwc.ueIpPool.ip }}
+    IP_POOL_MASK= {{ .Values.config.spgwc.ueIpPool.mask }}
+{{- end }}
   cp_config.cfg: |
     if [ ! -d "/dev/hugepages" ]; then
         MEMORY="--no-huge -m $((MEM_LIMIT-1024))"
@@ -49,4 +87,7 @@ data:
 {{- range $key, $value := .Values.config.spgwc.cfgFiles }}
   {{ $key }}: |-
 {{ $value | indent 4 }}
+{{- end }}
+{{- range $key, $value := .Values.config.spgwc.jsonCfgFiles }}
+  {{ $key }}: {{ toJson $value | quote }}
 {{- end }}

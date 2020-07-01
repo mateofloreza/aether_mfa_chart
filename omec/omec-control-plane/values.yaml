@@ -152,6 +152,7 @@ config:
           numworkers: 4
           concurrent: 10
           ossfile: conf/oss.json
+          verifyroamingsubscribers: false
       oss.json:
         option:
           id: url
@@ -204,6 +205,8 @@ config:
             #plmn1 - aether common plmn, plmn2 is for comac-in-box
             plmn1: "mcc=315,mnc=010"
             plmn2: "mcc=208,mnc=01"
+          apnlist:
+            internet: "spgwc-headless"
         s1ap:
           sctp_port: 36412
           sctp_port_external: 36412
@@ -231,6 +234,7 @@ config:
         - imsi: 208014567891201
           phoneType: "iPhone11-Pro"
   spgwc:
+    pfcp: false
     apn: internet
     # ueStaticPool is used only when multiUpfs is not enabled.
     # In case of multiUpfs, use app_config.cfg to provide static pool per DP.
@@ -241,6 +245,8 @@ config:
       mask: 255.255.0.0
     # This address must match to S1U IP address configured in omec-data-plane
     s1uAddr: 192.168.251.3
+    #DNS Server - 3gpp compliant DNS server
+    nameserver: 127.0.0.1
     s11:
       nodePort:
         enabled: false
@@ -263,8 +269,71 @@ config:
     dpComm:
       addr: spgwu
       port: 20
+    jsonCfgFiles:
+      subscriber_mapping.json:
+        subscriber-selection-rules:
+          - priority: 5
+            keys:
+              serving-plmn:
+                mcc: 208
+                mnc: 10
+                tac: 1
+              imsi-range:
+                from: 200000000000000
+                to: 299999999999999
+            selected-apn-profile: apn-profile1
+            selected-qos-profile: qos-profile1
+            selected-access-profile:
+              - access-all
+            selected-user-plane-profile: user-plane1
+          - priority: 10
+            keys:
+              match-all: true
+            selected-apn-profile: apn-profile1
+            selected-qos-profile: qos-profile1
+            selected-access-profile:
+              - access-all
+            selected-user-plane-profile: user-plane1
+        apn-profiles:
+          apn-profile1:
+            apn-name: internet
+            usage: 1
+            network: lbo
+            gx_enabled: true
+            dns_primary: 8.8.8.4
+            dns_secondary: 8.8.8.8
+            mtu: 1460
+        user-plane-profiles:
+          user-plane1:
+            user-plane: spgwu-headless
+            qos-tags:
+              tag1: BW
+            access-tags:
+              tag1: ACC
+        qos-profiles:
+          mobile:
+            apn-ambr:
+              - 12345678
+              - 12345678
+        access-profiles:
+          access-all:
+            type: allow-all
+          internet-only:
+            type: internet-only
+            filter: No_private_network
+          intranet-only:
+            type: intranet-only
+            filter: only_private_network
+          apps-only: 
+            type: specific-network
+            filter: only_apps_network
+          specific-app:
+            type: specific-destination-only
+            filter: allow-app-name
+          excluding-app:
+            type: excluding-this-app
+            filter: exclude-app-name
     cfgFiles:
-      # See https://github.com/omec-project/ngic-rtc/tree/master/config for details
       app_config.cfg: |
         [GLOBAL]
         NUM_DP_SELECTION_RULES = 2

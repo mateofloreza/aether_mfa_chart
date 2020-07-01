@@ -48,9 +48,14 @@ data:
     MASTER_CDR=./cdr/master.csv
   interface.cfg: |
     [0]
-    zmq_protocol = tcp
     dp_comm_ip = DP_ADDR
+{{- if .Values.config.spgwu.pfcp }}
+    dp_comm_port = 8805
+    zmq_protocol = udp
+{{- else }}
+    zmq_protocol = tcp
     dp_comm_port = 20
+{{- end }}
 {{- if .Values.config.spgwu.multiUpfs }}
     cp_nb_ip = {{ .Values.config.spgwu.cpComm.addr }}
     cp_nb_port = {{ .Values.config.spgwu.cpComm.port }}

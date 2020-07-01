@@ -35,6 +35,7 @@ config:
   sriov:
     enabled: true
   spgwu:
+    pfcp: false
     # Provide the S1U and SGI networks facing device name and IP address
     s1u:
       device: s1u-net
