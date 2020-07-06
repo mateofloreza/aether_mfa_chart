@@ -207,6 +207,10 @@ config:
             plmn2: "mcc=208,mnc=01"
           apnlist:
             internet: "spgwc"
+          security:
+            #int_alg_list: "[EIA0]"
+            int_alg_list: "[EIA1, EIA2, EIA0]"
+            sec_alg_list: "[EEA0, EEA1, EEA2]"
         s1ap:
           sctp_port: 36412
           sctp_port_external: 36412
