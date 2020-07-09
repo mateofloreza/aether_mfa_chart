@@ -65,6 +65,7 @@ spec:
           sqlite3 /data/datastoreRemRw.db "update FapServiceFapControlLteGateway set SecGWServer1='{{ .Values.config.mme.ip }}';";
           sqlite3 /data/datastoreRemRw.db "update FapServiceFapControlLteGateway set SecGWServer2='{{ .Values.config.mme.ip }}';";
           sqlite3 /data/datastoreRemRw.db "update FapServiceFapControlLteGateway set SecGWServer3='{{ .Values.config.mme.ip }}';";
+          sqlite3 /data/datastoreRemRw.db "update FapServiceFapControlLteGateway set S1SigLinkPort='{{ .Values.config.mme.s1apPort }}';";
           sqlite3 /data/datastoreRemRw.db "update FapServiceFapControlLteGateway_S1SigLinkServerListList set S1SigLinkServerList='{{ .Values.config.mme.ip }}';";
           sqlite3 /data/datastoreRemRw.db "update FapServiceCellConfigLteRanRf set FreqBandIndicator='{{ .Values.config.vranL3.freqBand }}';";
           sqlite3 /data/datastore.db "update featureActivation set good1PPSRequired=0;";
