@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
+{{- if .Values.config.mme.deploy }}
 {{ tuple "mme" . | include "omec-control-plane.service_account" }}
 ---
 apiVersion: apps/v1
@@ -45,6 +46,7 @@ spec:
         volumeMounts:
         - name: host-rootfs
           mountPath: /mnt/host-rootfs
+    {{- if .Values.config.hss.deploy }}
       - name: mme-dep-check
         image: {{ .Values.images.tags.depCheck | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy }}
@@ -74,6 +76,7 @@ spec:
           - kubernetes-entrypoint
         volumeMounts:
           []
+    {{- end }}
       - name: mme-init
         image: {{ .Values.images.tags.mme | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy }}
@@ -266,3 +269,4 @@ spec:
         hostPath:
           path: {{ .Values.config.coreDump.path }}
     {{- end }}
+{{- end }}

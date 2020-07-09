@@ -85,9 +85,6 @@ function provision_mme() {
     echo -e "Added mme $id\n"
 }
 
-mme_identity={{ tuple "mme" "identity" . | include "omec-control-plane.diameter_endpoint" }}
-mme_realm={{ tuple "mme" "realm" . | include "omec-control-plane.diameter_endpoint" }}
-
 {{- range .Values.config.hss.bootstrap.users }}
 provision_users \
     {{ .count }} \
@@ -113,15 +110,15 @@ provision_staticusers \
     {{ $.Values.config.hss.hssdb }} \
     $mme_identity \
     $mme_realm \
-    {{ .staticAddr }} 
+    {{ .staticAddr }}
 {{- end }}
 
 {{- range .Values.config.hss.bootstrap.mmes }}
 provision_mme \
     {{ .id }} \
     {{ .isdn }} \
-    $mme_identity \
-    $mme_realm \
+    {{ .mme_identity }} \
+    {{ .mme_realm }} \
     {{ .unreachability }} \
     {{ $.Values.config.hss.hssdb }}
 {{- end }}

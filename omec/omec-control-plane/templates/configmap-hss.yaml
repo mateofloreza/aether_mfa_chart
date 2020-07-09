@@ -8,6 +8,7 @@ This is a YAML-formatted file.
 Declare variables to be passed into your templates.
 */}}
 
+{{- if .Values.config.hss.deploy }}
 {{- $hssJson := index .Values.config.hss.cfgFiles "hss.json" }}
 {{- $hssJsonCommon := index $hssJson "common" }}
 {{- $hssJsonHss := index $hssJson "hss" }}
@@ -97,4 +98,5 @@ data:
 {{ tuple "bin/_hss-bootstrap.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- range $key, $value := .Values.config.hss.cfgFiles }}
   {{ $key }}: {{ toJson $value | quote }}
+{{- end }}
 {{- end }}

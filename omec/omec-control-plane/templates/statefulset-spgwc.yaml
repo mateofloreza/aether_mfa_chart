@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
+{{- if .Values.config.spgwc.deploy }}
 {{ tuple "spgwc" . | include "omec-control-plane.service_account" }}
 ---
 apiVersion: apps/v1
@@ -110,3 +111,4 @@ spec:
         hostPath:
           path: {{ .Values.config.coreDump.path }}
     {{- end }}
+{{- end }}

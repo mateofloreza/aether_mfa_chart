@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
+{{- if .Values.config.mme.deploy }}
 {{- $configJson := index .Values.config.mme.cfgFiles "config.json" }}
 {{- $configJsonS6a := index $configJson "s6a" }}
 
@@ -34,7 +35,7 @@ data:
     #Port = 3868;
     #SecPort = 3869;
 
-    ConnectPeer = {{ tuple "hss" "identity" . | include "omec-control-plane.diameter_endpoint" | quote }} { No_TLS; port = 3868; };
+    ConnectPeer = {{ index $configJsonS6a "host" | quote }} { No_TLS; port = 3868; };
 
     LoadExtension = "/usr/local/lib/freeDiameter/dict_3gpp2_avps.fdx";
     LoadExtension = "/usr/local/lib/freeDiameter/dict_draftload_avps.fdx";
@@ -84,4 +85,5 @@ data:
 {{ tuple "bin/_mme-run.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- range $key, $value := .Values.config.mme.cfgFiles }}
   {{ $key }}: {{ toJson $value | quote }}
+{{- end }}
 {{- end }}

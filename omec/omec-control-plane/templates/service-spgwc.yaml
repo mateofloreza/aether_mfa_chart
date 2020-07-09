@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
+{{- if .Values.config.spgwc.deploy }}
 ---
 apiVersion: v1
 kind: Service
@@ -71,6 +72,7 @@ spec:
   - name: s11
     port: {{ .Values.config.spgwc.s11.port }}
     protocol: UDP
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

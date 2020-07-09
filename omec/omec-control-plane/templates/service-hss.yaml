@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
+{{- if .Values.config.hss.deploy }}
 ---
 apiVersion: v1
 kind: Service
@@ -50,4 +51,5 @@ spec:
     port: 3868
     protocol: TCP
     nodePort: {{ .Values.config.hss.s6a.nodePort.port }}
+{{- end }}
 {{- end }}

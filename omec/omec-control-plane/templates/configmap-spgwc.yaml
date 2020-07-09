@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
+{{- if .Values.config.spgwc.deploy }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -90,4 +91,5 @@ data:
 {{- end }}
 {{- range $key, $value := .Values.config.spgwc.jsonCfgFiles }}
   {{ $key }}: {{ toJson $value | quote }}
+{{- end }}
 {{- end }}

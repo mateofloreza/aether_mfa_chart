@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
+{{- if .Values.config.mme.deploy }}
 {{- $configJson := index .Values.config.mme.cfgFiles "config.json" }}
 {{- $configJsonS11 := index $configJson "s11" }}
 {{- $configJsonS1ap := index $configJson "s1ap" }}
@@ -88,3 +89,4 @@ spec:
       nodePort: {{ .Values.prometheusExporter.mme.port }}
       protocol: TCP
   {{- end }}
+{{- end }}

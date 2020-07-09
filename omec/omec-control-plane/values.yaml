@@ -83,6 +83,7 @@ config:
     enabled: false
     path: /tmp/coredump
   hss:
+    deploy: true
     hssdb: cassandra
     s6a:
       nodePort:
@@ -105,12 +106,10 @@ config:
         - imsiStart: "208014567891200"
           msisdnStart: "1122334455"
           count: 10
-      staticusers:
-        - imsi: "208014567891201"
-          msisdn: "1122334455"
-          staticAddr: 0.0.0.0
       mmes:
         - id: 1
+          mme_identity: mme.omec.svc.cluster.local
+          mme_realm: omec.svc.cluster.local
           isdn: "19136246000"
           unreachability: 1
     # See https://github.com/omec-project/c3po for details of config options
@@ -176,6 +175,7 @@ config:
                   - id: frequency
                     type: integer
   mme:
+    deploy: true
     spgwAddr: spgwc
     s11:
       nodePort:
@@ -234,6 +234,7 @@ config:
         - imsi: 208014567891201
           phoneType: "iPhone11-Pro"
   spgwc:
+    deploy: true
     pfcp: false
     apn: internet
     # ueStaticPool is used only when multiUpfs is not enabled.
