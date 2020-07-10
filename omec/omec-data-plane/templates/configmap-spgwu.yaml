@@ -59,7 +59,11 @@ data:
 {{- if .Values.config.spgwu.multiUpfs }}
     cp_nb_ip = {{ .Values.config.spgwu.cpComm.addr }}
     cp_nb_port = {{ .Values.config.spgwu.cpComm.port }}
+{{- if .Values.config.spgwu.pfcp }}
+    cp_comm_ip = 127.0.0.1
+{{- else }}
     cp_comm_ip = {{ .Values.config.spgwu.cpComm.addr }}
+{{- end }}
     cp_comm_port = {{ .Values.config.spgwu.cpComm.port }}
     zmq_dp_ip=127.0.0.1
     zmq_cp_ip=127.0.0.1
