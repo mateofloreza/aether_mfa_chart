@@ -6,6 +6,6 @@
 
 set -ex
 
-until bessctl run /opt/bess/bessctl/conf/spgwu; do
+until bessctl run /opt/bess/bessctl/conf/up4; do
     sleep 2;
 done;

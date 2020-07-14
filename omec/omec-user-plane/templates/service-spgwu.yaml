@@ -15,10 +15,6 @@ spec:
   clusterIP: None
   selector:
 {{ tuple "spgwu" . | include "omec-user-plane.metadata_labels" | indent 4 }}
-  ports:
-  - name: zmq
-    protocol: TCP
-    port: {{ .Values.config.spgwu.zmq.recvPort }}
 ---
 apiVersion: v1
 kind: Service

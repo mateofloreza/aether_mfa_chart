@@ -4,16 +4,19 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
+{{- $upfConfig := index .Values.config.spgwu.cfgFiles "upf.json" }}
+{{- $s1uConfig := index $upfConfig "s1u" }}
+{{- $sgiConfig := index $upfConfig "sgi" }}
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: spgwu
-  serviceName: spgwu-headless
   labels:
 {{ tuple "spgwu" . | include "omec-user-plane.metadata_labels" | indent 4 }}
 spec:
   replicas: 1
+  serviceName: spgwu-headless
   selector:
     matchLabels:
 {{ tuple "spgwu" . | include "omec-user-plane.metadata_labels" | indent 6 }}
@@ -25,12 +28,12 @@ spec:
         k8s.v1.cni.cncf.io/networks: '[
           {
             "name": "s1u-net",
-            "interface": {{ .Values.config.spgwu.s1u.device | quote }},
+            "interface": {{ index $s1uConfig "ifname" | quote }},
             "ips": {{ .Values.config.spgwu.s1u.ip | quote }}
           },
           {
             "name": "sgi-net",
-            "interface": {{ .Values.config.spgwu.sgi.device | quote }},
+            "interface": {{ index $sgiConfig "ifname" | quote }},
             "ips": {{ .Values.config.spgwu.sgi.ip | quote }}
           }
         ]'
@@ -64,7 +67,6 @@ spec:
           capabilities:
             add:
             - IPC_LOCK
-            - NET_ADMIN
         stdin: true
         tty: true
         command: ["/bin/bash", "-xc"]
@@ -108,7 +110,7 @@ spec:
           {{- end }}
         env:
           - name: CONF_FILE
-            value: /etc/bess/conf/spgwu.json
+            value: /etc/bess/conf/upf.json
         volumeMounts:
         {{- if .Values.config.spgwu.hugepage.enabled }}
           - name: hugepages
@@ -129,8 +131,8 @@ spec:
         command: ["/opt/bess/bessctl/conf/route_control.py"]
         args:
           - -i
-          - {{ .Values.config.spgwu.s1u.device }}
-          - {{ .Values.config.spgwu.sgi.device }}
+          - {{ index $s1uConfig "ifname" }}
+          - {{ index $sgiConfig "ifname" }}
       {{- if .Values.resources.enabled }}
         resources:
 {{ toYaml .Values.resources.routectl | indent 10 }}
@@ -144,33 +146,31 @@ spec:
 {{ toYaml .Values.resources.web | indent 10 }}
       {{- end }}
       - name: cpiface
-        image: {{ .Values.images.tags.cpiface | quote }}
+      {{- if eq .Values.config.spgwu.cpiface.mode "zmq" }}
+        image: {{ .Values.images.tags.zmqiface | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
         env:
-          - name: ZMQD_IP
-            valueFrom:
-              fieldRef:
-                fieldPath: status.podIP
           - name: GLOG_v
             value: "1"
         command: ["zmq-cpiface"]
         args:
-          - --hostname
-          - {{ .Values.config.spgwu.name | quote }}
-          - --zmqd_nb_ip
-          - {{ .Values.config.spgwu.zmq.spgwc.addr | quote }}
-          - --zmqd_nb_port
-          - {{ .Values.config.spgwu.zmq.spgwc.port | quote }}
-          - --zmqd_recv_port
-          - {{ .Values.config.spgwu.zmq.recvPort | quote }}
-          - --zmqd_ip
-          - $(ZMQD_IP)
-          - --s1u_sgw_ip
-          - {{ (split "/" .Values.config.spgwu.s1u.ip)._0 | quote }}
+          - --json_config
+          - /tmp/conf/upf.json
+      {{- else }}
+        image: {{ .Values.images.tags.pfcpiface | quote }}
+        imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
+        command: ["pfcpiface"]
+        args:
+          - -config
+          - /tmp/conf/upf.json
+      {{- end }}
       {{- if .Values.resources.enabled }}
         resources:
 {{ toYaml .Values.resources.cpiface | indent 10 }}
       {{- end }}
+        volumeMounts:
+          - name: configs
+            mountPath: /tmp/conf
       volumes:
       - name: configs
         configMap:

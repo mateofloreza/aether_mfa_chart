@@ -12,7 +12,8 @@ metadata:
   labels:
 {{ tuple "spgwu" . | include "omec-user-plane.metadata_labels" | indent 4 }}
 data:
-  spgwu.json: |
-{{ tuple "config/_spgwu.json.tpl" . | include "omec-user-plane.template" | indent 4 }}
+{{- range $key, $value := .Values.config.spgwu.cfgFiles }}
+  {{ $key }}: {{ toJson $value | quote }}
+{{- end }}
   bessd-poststart.sh: |
 {{ tuple "bin/_bessd-poststart.sh.tpl" . | include "omec-user-plane.template" | indent 4 }}
