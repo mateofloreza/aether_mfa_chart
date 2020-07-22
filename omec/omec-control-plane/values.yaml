@@ -98,12 +98,12 @@ config:
       #ipSec:
     bootstrap:
       enabled: true
-      apn: internet
-      key: "465b5ce8b199b49faa5f0a2ee238a6bc"
-      opc: "d4416644f6154936193433dd20a0ace0"
-      sqn: 96
       users:
-        - imsiStart: "208014567891200"
+        - apn: internet
+          key: "465b5ce8b199b49faa5f0a2ee238a6bc"
+          opc: "d4416644f6154936193433dd20a0ace0"
+          sqn: 96
+          imsiStart: "208014567891200"
           msisdnStart: "1122334455"
           count: 10
       mmes:

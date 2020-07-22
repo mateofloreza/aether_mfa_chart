@@ -90,10 +90,10 @@ provision_users \
     {{ .count }} \
     {{ .imsiStart }} \
     {{ .msisdnStart }} \
-    {{ $.Values.config.hss.bootstrap.apn }} \
-    {{ $.Values.config.hss.bootstrap.key }} \
-    {{ $.Values.config.hss.bootstrap.opc }} \
-    {{ $.Values.config.hss.bootstrap.sqn }} \
+    {{ .apn }} \
+    {{ .key }} \
+    {{ .opc }} \
+    {{ .sqn }} \
     {{ $.Values.config.hss.hssdb }} \
     $mme_identity \
     $mme_realm
@@ -103,10 +103,10 @@ provision_users \
 provision_staticusers \
     {{ .imsi }} \
     {{ .msisdn }} \
-    {{ $.Values.config.hss.bootstrap.apn }} \
-    {{ $.Values.config.hss.bootstrap.key }} \
-    {{ $.Values.config.hss.bootstrap.opc }} \
-    {{ $.Values.config.hss.bootstrap.sqn }} \
+    {{ .apn }} \
+    {{ .key }} \
+    {{ .opc }} \
+    {{ .sqn }} \
     {{ $.Values.config.hss.hssdb }} \
     $mme_identity \
     $mme_realm \

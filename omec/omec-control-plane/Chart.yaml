@@ -1,5 +1,4 @@
 ---
-
 # Copyright 2018 Intel Corporation
 # Copyright 2018-present Open Networking Foundation
 #
@@ -11,4 +10,4 @@ description: OMEC control plane services
 name: omec-control-plane
 icon: https://guide.opencord.org/logos/cord.svg
 
-version: 0.2.2
+version: 0.2.3
