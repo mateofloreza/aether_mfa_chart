@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
+{{- if .Values.config.hss.deploy }}
 {{- if .Values.config.hss.bootstrap }}
 ---
 apiVersion: batch/v1
@@ -61,4 +62,5 @@ spec:
         configMap:
           name: hss
           defaultMode: 493
+{{- end }}
 {{- end }}

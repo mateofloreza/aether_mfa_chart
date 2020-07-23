@@ -1,11 +1,10 @@
-
-
 {{/*
 # Copyright 2019-present Open Networking Foundation
 
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
+{{- if .Values.config.hss.deploy }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -57,3 +56,4 @@ spec:
           command: ["bash", "-xc"]
           args:
             - until cqlsh --file /opt/c3po/hssdb/oai_db.cql {{ .Values.config.hss.hssdb }}; do echo "Provisioning HSSDB"; sleep 2;done
+{{- end }}

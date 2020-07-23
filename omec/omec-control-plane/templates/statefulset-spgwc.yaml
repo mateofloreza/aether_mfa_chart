@@ -30,6 +30,7 @@ spec:
     {{- end }}
       serviceAccountName: spgwc
       initContainers:
+    {{- if .Values.config.mme.deploy }}
       - name: spgwc-dep-check
         image: {{ .Values.images.tags.depCheck | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy }}
@@ -54,6 +55,7 @@ spec:
             value: "echo done"
           - name: DEPENDENCY_POD_JSON
             value: '[{"labels": {"app": "mme"}, "requireSameNode": false}]'
+    {{- end }}
     {{- if .Values.config.coreDump.enabled }}
 {{ tuple "spgwc" . | include "omec-control-plane.coredump_init" | indent 6 }}
     {{- end }}
