@@ -1,0 +1,63 @@
+{{/*
+# Copyright 2019-present Open Networking Foundation
+# Copyright 2019 Intel Corporation
+
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+*/}}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pfcp-agent
+  labels:
+{{ tuple "pfcp-agent" . | include "omec-pfcp-agent.metadata_labels" | indent 4 }}
+spec:
+  selector:
+{{ tuple "pfcp-agent" . | include "omec-pfcp-agent.metadata_labels" | indent 4 }}
+  ports:
+  - name: dp-comm
+    port: {{ .Values.config.pfcpAgent.dpComm.port }}
+{{- if .Values.config.pfcpAgent.multiUpfs }}
+    protocol: TCP
+{{- else }}
+    protocol: UDP
+{{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pfcp-headless
+  labels:
+{{ tuple "pfcp-agent" . | include "omec-pfcp-agent.metadata_labels" | indent 4 }}
+spec:
+  clusterIP: None
+  selector:
+{{ tuple "pfcp-agent" . | include "omec-pfcp-agent.metadata_labels" | indent 4 }}
+  ports:
+  - name: dp-comm
+    port: {{ .Values.config.pfcpAgent.dpComm.port }}
+{{- if .Values.config.pfcpAgent.multiUpfs }}
+    protocol: TCP
+{{- else }}
+    protocol: UDP
+{{- end }}
+{{- if and (not .Values.config.pfcpAgent.multiUpfs) .Values.config.pfcpAgent.dpComm.nodePort.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pfcp-external
+  labels:
+{{ tuple "pfcp-agent" . | include "omec-pfcp-agent.metadata_labels" | indent 4 }}
+spec:
+  selector:
+{{ tuple "pfcp-agent" . | include "omec-pfcp-agent.metadata_labels" | indent 4 }}
+  type: NodePort
+  ports:
+  - name: dp-comm
+    port: {{ .Values.config.pfcpAgent.dpComm.port }}
+    protocol: UDP
+    nodePort: {{ .Values.config.pfcpAgent.dpComm.nodePort.port }}
+{{- end }}

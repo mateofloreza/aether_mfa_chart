@@ -1,0 +1,146 @@
+{{/*
+# Copyright 2018-present Open Networking Foundation
+# Copyright 2018 Intel Corporation
+
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+*/}}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pfcp-agent
+  serviceName: pfcp-headless
+  labels:
+{{ tuple "pfcp-agent" . | include "omec-pfcp-agent.metadata_labels" | indent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+{{ tuple "pfcp-agent" . | include "omec-pfcp-agent.metadata_labels" | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{ tuple "pfcp-agent" . | include "omec-pfcp-agent.metadata_labels" | indent 8 }}
+      annotations:
+        k8s.v1.cni.cncf.io/networks: '[
+          {
+            "name": "s1u-net",
+            "interface": {{ .Values.config.pfcpAgent.s1u.device | quote }},
+            "ips": {{ .Values.config.pfcpAgent.s1u.ip | quote }}
+          },
+          {
+            "name": "sgi-net",
+            "interface": {{ .Values.config.pfcpAgent.sgi.device | quote }},
+            "ips": {{ .Values.config.pfcpAgent.sgi.ip | quote }}
+          }
+        ]'
+    spec:
+    {{- if .Values.nodeSelectors.enabled }}
+      nodeSelector:
+        {{ .Values.nodeSelectors.pfcpAgent.label }}: {{ .Values.nodeSelectors.pfcpAgent.value }}
+    {{- end }}
+    {{- if not .Values.config.sriov.enabled }}
+      initContainers:
+        - name: spgwu-iptables-init
+          image: {{ .Values.images.tags.init | quote }}
+          imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
+          command: [ "sh", "-xec"]
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          args:
+            - iptables -I OUTPUT -p icmp --icmp-type destination-unreachable -j DROP;
+        - name: spgwu-af-iface-init
+          image: {{ .Values.images.tags.init | quote }}
+          imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          command:
+            - /opt/dp/scripts/setup-af-iface.sh
+          volumeMounts:
+            - name: dp-script
+              mountPath: /opt/dp/scripts/setup-af-iface.sh
+              subPath: setup-af-iface.sh
+    {{- end }}
+    {{- if .Values.config.coreDump.enabled }}
+{{ tuple "pfcp-agent" . | include "omec-pfcp-agent.coredump_init" | indent 8 }}
+    {{- end }}
+      containers:
+      - name: pfcp-agent
+        image: {{ .Values.images.tags.pfcpAgent | quote }}
+        imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
+        securityContext:
+      {{- if .Values.config.coreDump.enabled }}
+          privileged: true
+          runAsUser: 0
+      {{- end }}
+          capabilities:
+            add:
+              - IPC_LOCK
+        stdin: true
+        tty: true
+        env:
+        - name: MEM_LIMIT
+          valueFrom:
+            resourceFieldRef:
+              containerName: pfcp-agent
+              resource: limits.memory
+              divisor: 1Mi
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: DP_NAME
+          value: "{{ .Values.config.pfcpAgent.dpName }}"
+        command: ["bash", "-xc"]
+        args:
+        - ip a;
+          /opt/dp/scripts/run.sh;
+        volumeMounts:
+        - name: dp-script
+          mountPath: /opt/dp/scripts/run.sh
+          subPath: run.sh
+        - name: dp-config
+          mountPath: /etc/dp/config
+      {{- if .Values.config.coreDump.enabled }}
+        - name: coredump
+          mountPath: /tmp/coredump
+      {{- end }}
+        resources:
+          requests:
+          {{- if .Values.resources.enabled }}
+{{ toYaml .Values.resources.pfcpAgent.requests | indent 12 }}
+          {{- end }}
+          {{- if .Values.config.sriov.enabled }}
+            intel.com/sriov_vfio_s1u_net: 1
+            intel.com/sriov_vfio_sgi_net: 1
+          {{- end }}
+          limits:
+          {{- if .Values.resources.enabled }}
+{{ toYaml .Values.resources.pfcpAgent.limits | indent 12 }}
+          {{- end }}
+          {{- if .Values.config.sriov.enabled }}
+            intel.com/sriov_vfio_s1u_net: 1
+            intel.com/sriov_vfio_sgi_net: 1
+          {{- end }}
+      volumes:
+      - name: dp-script
+        configMap:
+          name: pfcp-agent
+          defaultMode: 493
+      - name: dp-config
+        configMap:
+          name: pfcp-agent
+          defaultMode: 420
+    {{- if .Values.config.coreDump.enabled }}
+      - name: host-rootfs
+        hostPath:
+          path: /
+      - name: coredump
+        hostPath:
+          path: {{ .Values.config.coreDump.path }}
+    {{- end }}
