@@ -1,0 +1,1044 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "$$hashKey": "object:45",
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "iteration": 1596132584907,
+  "links": [],
+  "panels": [
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "error",
+              "to": "",
+              "type": 1,
+              "value": "-1"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "operator": "",
+              "text": "disconnected",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 3,
+              "operator": "",
+              "text": "connecting",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            },
+            {
+              "from": "",
+              "id": 4,
+              "operator": "",
+              "text": "connected",
+              "to": "",
+              "type": 1,
+              "value": "2"
+            },
+            {
+              "from": "",
+              "id": 5,
+              "operator": "",
+              "text": "no result",
+              "to": "",
+              "type": 1,
+              "value": "-2"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "maxPerRow": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": "edge",
+      "repeatDirection": "h",
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:141",
+          "selected": false,
+          "text": "production-edge-intel",
+          "value": "production-edge-intel"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(aetheredge_status_control_plane{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_status_user_plane{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Status: $edge",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "error",
+              "to": "",
+              "type": 1,
+              "value": "-1"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "operator": "",
+              "text": "disconnected",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 3,
+              "operator": "",
+              "text": "connecting",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            },
+            {
+              "from": "",
+              "id": 4,
+              "operator": "",
+              "text": "connected",
+              "to": "",
+              "type": 1,
+              "value": "2"
+            },
+            {
+              "from": "",
+              "id": 5,
+              "operator": "",
+              "text": "no result",
+              "to": "",
+              "type": 1,
+              "value": "-2"
+            },
+            {
+              "from": "",
+              "id": 6,
+              "operator": "",
+              "text": "no result",
+              "to": "",
+              "type": 1,
+              "value": ""
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      "id": 22,
+      "maxPerRow": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596132584907,
+      "repeatPanelId": 4,
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:142",
+          "selected": false,
+          "text": "production-edge-onf-menlo",
+          "value": "production-edge-onf-menlo"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(aetheredge_status_control_plane{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_status_user_plane{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Status: $edge",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "error",
+              "to": "",
+              "type": 1,
+              "value": "-1"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "operator": "",
+              "text": "disconnected",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 3,
+              "operator": "",
+              "text": "connecting",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            },
+            {
+              "from": "",
+              "id": 4,
+              "operator": "",
+              "text": "connected",
+              "to": "",
+              "type": 1,
+              "value": "2"
+            },
+            {
+              "from": "",
+              "id": 5,
+              "operator": "",
+              "text": "no result",
+              "to": "",
+              "type": 1,
+              "value": "-2"
+            },
+            {
+              "from": "",
+              "id": 6,
+              "operator": "",
+              "text": "no result",
+              "to": "",
+              "type": 1,
+              "value": ""
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      "id": 23,
+      "maxPerRow": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596132584907,
+      "repeatPanelId": 4,
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:143",
+          "selected": false,
+          "text": "production-edge-onf-tucson",
+          "value": "production-edge-onf-tucson"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(aetheredge_status_control_plane{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_status_user_plane{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Status: $edge",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 4
+      },
+      "id": 5,
+      "maxPerRow": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": "edge",
+      "repeatDirection": "h",
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:141",
+          "selected": false,
+          "text": "production-edge-intel",
+          "value": "production-edge-intel"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(clamp_min(aetheredge_status_user_plane{name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Uptime: $edge",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 8,
+        "y": 4
+      },
+      "id": 24,
+      "maxPerRow": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596132584907,
+      "repeatPanelId": 5,
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:142",
+          "selected": false,
+          "text": "production-edge-onf-menlo",
+          "value": "production-edge-onf-menlo"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(clamp_min(aetheredge_status_user_plane{name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Uptime: $edge",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 4
+      },
+      "id": 25,
+      "maxPerRow": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596132584907,
+      "repeatPanelId": 5,
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:143",
+          "selected": false,
+          "text": "production-edge-onf-tucson",
+          "value": "production-edge-onf-tucson"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(clamp_min(aetheredge_status_user_plane{name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Uptime: $edge",
+      "type": "stat"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 1000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 750
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 0,
+        "y": 8
+      },
+      "id": 13,
+      "maxPerRow": 3,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": "edge",
+      "repeatDirection": "h",
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:141",
+          "selected": false,
+          "text": "production-edge-intel",
+          "value": "production-edge-intel"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(time() - aetheredge_last_update{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Seconds since last update",
+      "type": "gauge"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 1000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 750
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 8,
+        "y": 8
+      },
+      "id": 26,
+      "maxPerRow": 3,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596132584907,
+      "repeatPanelId": 13,
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:142",
+          "selected": false,
+          "text": "production-edge-onf-menlo",
+          "value": "production-edge-onf-menlo"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(time() - aetheredge_last_update{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Seconds since last update",
+      "type": "gauge"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 1000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 750
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 16,
+        "y": 8
+      },
+      "id": 27,
+      "maxPerRow": 3,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1596132584907,
+      "repeatPanelId": 13,
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:143",
+          "selected": false,
+          "text": "production-edge-onf-tucson",
+          "value": "production-edge-onf-tucson"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(time() - aetheredge_last_update{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Seconds since last update",
+      "type": "gauge"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "hiddenSeries": false,
+      "id": 21,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "maxPerRow": 3,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(time() - aetheredge_last_update) by (name)",
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Seconds since last update",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:457",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:458",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 25,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "tags": [],
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "RANCHER_MONITORING_GLOBAL",
+        "definition": "aetheredge_status_control_plane",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Edge",
+        "multi": true,
+        "name": "edge",
+        "options": [
+          {
+            "$$hashKey": "object:140",
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "$$hashKey": "object:141",
+            "selected": false,
+            "text": "production-edge-intel",
+            "value": "production-edge-intel"
+          },
+          {
+            "$$hashKey": "object:142",
+            "selected": false,
+            "text": "production-edge-onf-menlo",
+            "value": "production-edge-onf-menlo"
+          },
+          {
+            "$$hashKey": "object:143",
+            "selected": false,
+            "text": "production-edge-onf-tucson",
+            "value": "production-edge-onf-tucson"
+          }
+        ],
+        "query": "aetheredge_status_control_plane",
+        "refresh": 0,
+        "regex": "/.*,name=\"(.*)\",namespace.*/",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Aether Connected Edge",
+  "uid": "AIKTPZVMk",
+  "version": 1
+}

@@ -1,0 +1,23 @@
+# Copyright 2020-present Open Networking Foundation
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+
+# Default values for grafana-aether.
+# This is a YAML-formatted file.
+# This chart loads Grafana and creates configmaps for the datasources and dashboards.
+
+nameOverride: ""
+fullnameOverride: ""
+
+# Project namespaces where Rancher's Prometheus lives.
+# Each dashboard may draw its data from a different Prometheus.
+globalStatusMonitorNamespace: ""
+
+grafana:
+  grafana.ini:
+    auth.anonymous:
+      enabled: true
+  sidecar:
+    dashboards:
+      enabled: true
+    datasources:
+      enabled: true
