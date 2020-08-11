@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1596132584907,
+  "iteration": 1597098589875,
   "links": [],
   "panels": [
     {
@@ -70,6 +70,14 @@
               "to": "",
               "type": 1,
               "value": "-2"
+            },
+            {
+              "from": "-100",
+              "id": 6,
+              "operator": "",
+              "text": "scheduled downtime",
+              "to": "-3",
+              "type": 2
             }
           ],
           "thresholds": {
@@ -78,6 +86,14 @@
               {
                 "color": "red",
                 "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": -100
+              },
+              {
+                "color": "red",
+                "value": -2
               },
               {
                 "color": "#EAB839",
@@ -126,13 +142,13 @@
       },
       "targets": [
         {
-          "expr": "sum(aetheredge_status_control_plane{name=\"$edge\"})",
+          "expr": "sum(aetheredge_status_control_plane{name=\"$edge\"} - (10*aetheredge_in_maintenance_window{name=\"$edge\"}))",
           "interval": "",
           "legendFormat": "Control Plane",
           "refId": "A"
         },
         {
-          "expr": "sum(aetheredge_status_user_plane{name=\"$edge\"})",
+          "expr": "sum(aetheredge_status_user_plane{name=\"$edge\"} - (10*aetheredge_in_maintenance_window{name=\"$edge\"}))",
           "interval": "",
           "legendFormat": "User Plane",
           "refId": "B"
@@ -140,7 +156,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Status: $edge",
+      "title": "Current: $edge",
       "type": "stat"
     },
     {
@@ -196,13 +212,12 @@
               "value": "-2"
             },
             {
-              "from": "",
+              "from": "-100",
               "id": 6,
               "operator": "",
-              "text": "no result",
-              "to": "",
-              "type": 1,
-              "value": ""
+              "text": "scheduled downtime",
+              "to": "-3",
+              "type": 2
             }
           ],
           "thresholds": {
@@ -211,6 +226,14 @@
               {
                 "color": "red",
                 "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": -100
+              },
+              {
+                "color": "red",
+                "value": -2
               },
               {
                 "color": "#EAB839",
@@ -231,7 +254,7 @@
         "x": 8,
         "y": 0
       },
-      "id": 22,
+      "id": 24,
       "maxPerRow": 3,
       "options": {
         "colorMode": "background",
@@ -240,7 +263,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -249,7 +272,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596132584907,
+      "repeatIteration": 1597098589875,
       "repeatPanelId": 4,
       "scopedVars": {
         "edge": {
@@ -261,13 +284,13 @@
       },
       "targets": [
         {
-          "expr": "sum(aetheredge_status_control_plane{name=\"$edge\"})",
+          "expr": "sum(aetheredge_status_control_plane{name=\"$edge\"} - (10*aetheredge_in_maintenance_window{name=\"$edge\"}))",
           "interval": "",
           "legendFormat": "Control Plane",
           "refId": "A"
         },
         {
-          "expr": "sum(aetheredge_status_user_plane{name=\"$edge\"})",
+          "expr": "sum(aetheredge_status_user_plane{name=\"$edge\"} - (10*aetheredge_in_maintenance_window{name=\"$edge\"}))",
           "interval": "",
           "legendFormat": "User Plane",
           "refId": "B"
@@ -275,7 +298,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Status: $edge",
+      "title": "Current: $edge",
       "type": "stat"
     },
     {
@@ -331,13 +354,12 @@
               "value": "-2"
             },
             {
-              "from": "",
+              "from": "-100",
               "id": 6,
               "operator": "",
-              "text": "no result",
-              "to": "",
-              "type": 1,
-              "value": ""
+              "text": "scheduled downtime",
+              "to": "-3",
+              "type": 2
             }
           ],
           "thresholds": {
@@ -346,6 +368,14 @@
               {
                 "color": "red",
                 "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": -100
+              },
+              {
+                "color": "red",
+                "value": -2
               },
               {
                 "color": "#EAB839",
@@ -366,7 +396,7 @@
         "x": 16,
         "y": 0
       },
-      "id": 23,
+      "id": 25,
       "maxPerRow": 3,
       "options": {
         "colorMode": "background",
@@ -375,7 +405,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -384,7 +414,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596132584907,
+      "repeatIteration": 1597098589875,
       "repeatPanelId": 4,
       "scopedVars": {
         "edge": {
@@ -396,13 +426,13 @@
       },
       "targets": [
         {
-          "expr": "sum(aetheredge_status_control_plane{name=\"$edge\"})",
+          "expr": "sum(aetheredge_status_control_plane{name=\"$edge\"} - (10*aetheredge_in_maintenance_window{name=\"$edge\"}))",
           "interval": "",
           "legendFormat": "Control Plane",
           "refId": "A"
         },
         {
-          "expr": "sum(aetheredge_status_user_plane{name=\"$edge\"})",
+          "expr": "sum(aetheredge_status_user_plane{name=\"$edge\"} - (10*aetheredge_in_maintenance_window{name=\"$edge\"}))",
           "interval": "",
           "legendFormat": "User Plane",
           "refId": "B"
@@ -410,7 +440,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Status: $edge",
+      "title": "Current: $edge",
       "type": "stat"
     },
     {
@@ -450,7 +480,7 @@
       "maxPerRow": 3,
       "options": {
         "colorMode": "background",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -525,11 +555,11 @@
         "x": 8,
         "y": 4
       },
-      "id": 24,
+      "id": 26,
       "maxPerRow": 3,
       "options": {
         "colorMode": "background",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -543,7 +573,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596132584907,
+      "repeatIteration": 1597098589875,
       "repeatPanelId": 5,
       "scopedVars": {
         "edge": {
@@ -570,6 +600,7 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Uptime: $edge",
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -605,11 +636,11 @@
         "x": 16,
         "y": 4
       },
-      "id": 25,
+      "id": 27,
       "maxPerRow": 3,
       "options": {
         "colorMode": "background",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -623,7 +654,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596132584907,
+      "repeatIteration": 1597098589875,
       "repeatPanelId": 5,
       "scopedVars": {
         "edge": {
@@ -650,7 +681,399 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Uptime: $edge",
+      "transformations": [],
       "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "fill": 5,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 8
+      },
+      "hiddenSeries": false,
+      "id": 23,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "maxPerRow": 3,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pluginVersion": "7.0.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "edge",
+      "repeatDirection": "h",
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:141",
+          "selected": false,
+          "text": "production-edge-intel",
+          "value": "production-edge-intel"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{name=\"$edge\"} + aetheredge_status_user_plane{name=\"$edge\"} - 3, 0))",
+          "interval": "",
+          "legendFormat": "Edge is up",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_in_maintenance_window{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "Scheduled downtime",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Status: ${edge}",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:453",
+          "decimals": 0,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "1",
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:454",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "fill": 5,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 8
+      },
+      "hiddenSeries": false,
+      "id": 28,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "maxPerRow": 3,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pluginVersion": "7.0.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1597098589875,
+      "repeatPanelId": 23,
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:142",
+          "selected": false,
+          "text": "production-edge-onf-menlo",
+          "value": "production-edge-onf-menlo"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{name=\"$edge\"} + aetheredge_status_user_plane{name=\"$edge\"} - 3, 0))",
+          "interval": "",
+          "legendFormat": "Edge is up",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_in_maintenance_window{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "Scheduled downtime",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Status: ${edge}",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:453",
+          "decimals": 0,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "1",
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:454",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "fill": 5,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 8
+      },
+      "hiddenSeries": false,
+      "id": 29,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "maxPerRow": 3,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pluginVersion": "7.0.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1597098589875,
+      "repeatPanelId": 23,
+      "scopedVars": {
+        "edge": {
+          "$$hashKey": "object:143",
+          "selected": false,
+          "text": "production-edge-onf-tucson",
+          "value": "production-edge-onf-tucson"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{name=\"$edge\"} + aetheredge_status_user_plane{name=\"$edge\"} - 3, 0))",
+          "interval": "",
+          "legendFormat": "Edge is up",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_in_maintenance_window{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "Scheduled downtime",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Status: ${edge}",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:453",
+          "decimals": 0,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "1",
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:454",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "datasource": "RANCHER_MONITORING_GLOBAL",
@@ -676,10 +1099,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 8,
         "x": 0,
-        "y": 8
+        "y": 13
       },
       "id": 13,
       "maxPerRow": 3,
@@ -743,12 +1166,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 8,
         "x": 8,
-        "y": 8
+        "y": 13
       },
-      "id": 26,
+      "id": 30,
       "maxPerRow": 3,
       "options": {
         "orientation": "auto",
@@ -765,7 +1188,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596132584907,
+      "repeatIteration": 1597098589875,
       "repeatPanelId": 13,
       "scopedVars": {
         "edge": {
@@ -812,12 +1235,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 8,
         "x": 16,
-        "y": 8
+        "y": 13
       },
-      "id": 27,
+      "id": 31,
       "maxPerRow": 3,
       "options": {
         "orientation": "auto",
@@ -834,7 +1257,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1596132584907,
+      "repeatIteration": 1597098589875,
       "repeatPanelId": 13,
       "scopedVars": {
         "edge": {
@@ -875,7 +1298,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 21,
@@ -1020,12 +1443,11 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
-      "5s",
       "10s",
       "30s",
       "1m",
