@@ -11,7 +11,7 @@ images:
     hss: docker.io/omecproject/c3po-hss:master-latest
     mme: docker.io/omecproject/nucleus:master-latest
     mmeExporter: docker.io/omecproject/mme-exporter:paging-latest
-    spgwc: docker.io/omecproject/spgwc:master-latest
+    spgwc: docker.io/omecproject/spgw:master-latest
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
   pullPolicy: IfNotPresent
 
