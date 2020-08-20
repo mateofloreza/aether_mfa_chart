@@ -8,31 +8,31 @@
 apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
-  name: s1u-net
-{{- if $.Values.config.spgwu.sriov.enabled }}
+  name: access-net
+{{- if $.Values.config.upf.sriov.enabled }}
   annotations:
-    k8s.v1.cni.cncf.io/resourceName: intel.com/sriov_vfio_s1u_net
+    k8s.v1.cni.cncf.io/resourceName: intel.com/sriov_vfio_access_net
 {{- end }}
 spec:
   config: '{
-    "type": {{ .Values.config.spgwu.cniPlugin | quote }},
+    "type": {{ .Values.config.upf.cniPlugin | quote }},
     "ipam": {
-        "type": {{ .Values.config.spgwu.ipam | quote }}
+        "type": {{ .Values.config.upf.ipam | quote }}
     }
   }'
 ---
 apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
-  name: sgi-net
-{{- if $.Values.config.spgwu.sriov.enabled }}
+  name: core-net
+{{- if $.Values.config.upf.sriov.enabled }}
   annotations:
-    k8s.v1.cni.cncf.io/resourceName: intel.com/sriov_vfio_sgi_net
+    k8s.v1.cni.cncf.io/resourceName: intel.com/sriov_vfio_core_net
 {{- end }}
 spec:
   config: '{
-    "type": {{ .Values.config.spgwu.cniPlugin | quote }},
+    "type": {{ .Values.config.upf.cniPlugin | quote }},
     "ipam": {
-        "type": {{ .Values.config.spgwu.ipam | quote }}
+        "type": {{ .Values.config.upf.ipam | quote }}
     }
   }'

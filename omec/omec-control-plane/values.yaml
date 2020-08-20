@@ -318,7 +318,7 @@ config:
             mtu: 1460
         user-plane-profiles:
           user-plane1:
-            user-plane: spgwu-headless
+            user-plane: upf-headless
             qos-tags:
               tag1: BW
             access-tags:

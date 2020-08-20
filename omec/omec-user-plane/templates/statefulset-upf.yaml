@@ -4,44 +4,44 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
-{{- $upfConfig := index .Values.config.spgwu.cfgFiles "upf.json" }}
-{{- $s1uConfig := index $upfConfig "s1u" }}
-{{- $sgiConfig := index $upfConfig "sgi" }}
+{{- $upfConfig := index .Values.config.upf.cfgFiles "upf.json" }}
+{{- $accessConfig := index $upfConfig "access" }}
+{{- $coreConfig := index $upfConfig "core" }}
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: spgwu
+  name: upf
   labels:
-{{ tuple "spgwu" . | include "omec-user-plane.metadata_labels" | indent 4 }}
+{{ tuple "upf" . | include "omec-user-plane.metadata_labels" | indent 4 }}
 spec:
   replicas: 1
-  serviceName: spgwu-headless
+  serviceName: upf-headless
   selector:
     matchLabels:
-{{ tuple "spgwu" . | include "omec-user-plane.metadata_labels" | indent 6 }}
+{{ tuple "upf" . | include "omec-user-plane.metadata_labels" | indent 6 }}
   template:
     metadata:
       labels:
-{{ tuple "spgwu" . | include "omec-user-plane.metadata_labels" | indent 8 }}
+{{ tuple "upf" . | include "omec-user-plane.metadata_labels" | indent 8 }}
       annotations:
         k8s.v1.cni.cncf.io/networks: '[
           {
-            "name": "s1u-net",
-            "interface": {{ index $s1uConfig "ifname" | quote }},
-            "ips": {{ .Values.config.spgwu.s1u.ip | quote }}
+            "name": "access-net",
+            "interface": {{ index $accessConfig "ifname" | quote }},
+            "ips": {{ .Values.config.upf.access.ip | quote }}
           },
           {
-            "name": "sgi-net",
-            "interface": {{ index $sgiConfig "ifname" | quote }},
-            "ips": {{ .Values.config.spgwu.sgi.ip | quote }}
+            "name": "core-net",
+            "interface": {{ index $coreConfig "ifname" | quote }},
+            "ips": {{ .Values.config.upf.core.ip | quote }}
           }
         ]'
     spec:
       shareProcessNamespace: true
     {{- if .Values.nodeSelectors.enabled }}
       nodeSelector:
-        {{ .Values.nodeSelectors.spgwu.label }}: {{ .Values.nodeSelectors.spgwu.value }}
+        {{ .Values.nodeSelectors.upf.label }}: {{ .Values.nodeSelectors.upf.value }}
     {{- end }}
       initContainers:
       - name: bess-init
@@ -49,15 +49,15 @@ spec:
         imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
         command: ["sh", "-xec"]
         args:
-        - ip route replace {{ .Values.config.spgwu.enb.subnet }} via {{ .Values.config.spgwu.s1u.gateway }};
-          ip route replace default via {{ .Values.config.spgwu.sgi.gateway }} metric 110;
+        - ip route replace {{ .Values.config.upf.enb.subnet }} via {{ .Values.config.upf.access.gateway }};
+          ip route replace default via {{ .Values.config.upf.core.gateway }} metric 110;
           iptables -I OUTPUT -p icmp --icmp-type port-unreachable -j DROP;
         securityContext:
           capabilities:
             add:
             - NET_ADMIN
     {{- if .Values.config.coreDump.enabled }}
-{{ tuple "spgwu" . | include "omec-user-plane.coredump_init" | indent 8 }}
+{{ tuple "upf" . | include "omec-user-plane.coredump_init" | indent 8 }}
     {{- end }}
       containers:
       - name: bessd
@@ -71,7 +71,7 @@ spec:
         tty: true
         command: ["/bin/bash", "-xc"]
         args:
-        {{- if .Values.config.spgwu.hugepage.enabled }}
+        {{- if .Values.config.upf.hugepage.enabled }}
           - bessd -f -grpc-url=0.0.0.0:10514
         {{- else }}
           - bessd -m 0 -f -grpc-url=0.0.0.0:10514
@@ -90,29 +90,29 @@ spec:
           {{- if .Values.resources.enabled }}
 {{ toYaml .Values.resources.bess.requests | indent 12 }}
           {{- end }}
-          {{- if .Values.config.spgwu.hugepage.enabled }}
+          {{- if .Values.config.upf.hugepage.enabled }}
             hugepages-1Gi: 2Gi
           {{- end }}
-          {{- if .Values.config.spgwu.sriov.enabled }}
-            intel.com/sriov_vfio_s1u_net: 1
-            intel.com/sriov_vfio_sgi_net: 1
+          {{- if .Values.config.upf.sriov.enabled }}
+            intel.com/sriov_vfio_access_net: 1
+            intel.com/sriov_vfio_core_net: 1
           {{- end }}
           limits:
           {{- if .Values.resources.enabled }}
 {{ toYaml .Values.resources.bess.limits | indent 12 }}
           {{- end }}
-          {{- if .Values.config.spgwu.hugepage.enabled }}
+          {{- if .Values.config.upf.hugepage.enabled }}
             hugepages-1Gi: 2Gi
           {{- end }}
-          {{- if .Values.config.spgwu.sriov.enabled }}
-            intel.com/sriov_vfio_s1u_net: 1
-            intel.com/sriov_vfio_sgi_net: 1
+          {{- if .Values.config.upf.sriov.enabled }}
+            intel.com/sriov_vfio_access_net: 1
+            intel.com/sriov_vfio_core_net: 1
           {{- end }}
         env:
           - name: CONF_FILE
             value: /etc/bess/conf/upf.json
         volumeMounts:
-        {{- if .Values.config.spgwu.hugepage.enabled }}
+        {{- if .Values.config.upf.hugepage.enabled }}
           - name: hugepages
             mountPath: /dev/hugepages
         {{- end }}
@@ -131,8 +131,8 @@ spec:
         command: ["/opt/bess/bessctl/conf/route_control.py"]
         args:
           - -i
-          - {{ index $s1uConfig "ifname" }}
-          - {{ index $sgiConfig "ifname" }}
+          - {{ index $accessConfig "ifname" }}
+          - {{ index $coreConfig "ifname" }}
       {{- if .Values.resources.enabled }}
         resources:
 {{ toYaml .Values.resources.routectl | indent 10 }}
@@ -146,7 +146,7 @@ spec:
 {{ toYaml .Values.resources.web | indent 10 }}
       {{- end }}
       - name: cpiface
-      {{- if eq .Values.config.spgwu.cpiface.mode "zmq" }}
+      {{- if eq .Values.config.upf.cpiface.mode "zmq" }}
         image: {{ .Values.images.tags.zmqiface | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
         env:
@@ -174,9 +174,9 @@ spec:
       volumes:
       - name: configs
         configMap:
-          name: spgwu
+          name: upf
           defaultMode: 493
-    {{- if .Values.config.spgwu.hugepage.enabled }}
+    {{- if .Values.config.upf.hugepage.enabled }}
       - name: hugepages
         emptyDir:
           medium: HugePages

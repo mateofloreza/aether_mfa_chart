@@ -12,7 +12,7 @@ images:
 
 nodeSelectors:
   enabled: false
-  spgwu:
+  upf:
     label: omec-upf
     value: enabled
 
@@ -51,7 +51,7 @@ config:
   coreDump:
     enabled: false
     path: /tmp/coredump
-  spgwu:
+  upf:
     hugepage:
       enabled: true
     sriov:
@@ -61,10 +61,10 @@ config:
     cniPlugin: vfioveth
     enb:
       subnet: 192.168.251.0/24
-    s1u:
+    access:
       gateway: 192.168.252.1
       ip: 192.168.252.3/24
-    sgi:
+    core:
       gateway: 192.168.250.1
       ip: 192.168.250.3/24
     cfgFiles:
@@ -75,10 +75,10 @@ config:
         cpiface:
           nb_dst_ip: spgwc-headless
           hostname: upf-bess
-        s1u:
-          ifname: s1u
-        sgi:
-          ifname: sgi
+        access:
+          ifname: access
+        core:
+          ifname: core
         measure: true
     bess:
       web:
