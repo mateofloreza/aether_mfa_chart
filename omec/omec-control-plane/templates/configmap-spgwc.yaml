@@ -26,6 +26,7 @@ data:
     PFCP_PORT = 8805
     UPF_PFCP_IP = 127.0.0.1
     UPF_PFCP_PORT = 8805
+    PROMETHEUS_PORT = {{ .Values.config.spgwc.prometheus.port }}
     TRANSMIT_TIMER = 2
     PERIODIC_TIMER = 10
     TRANSMIT_COUNT = 5
@@ -90,6 +91,7 @@ data:
 {{ $value | indent 4 }}
 {{- end }}
 {{- range $key, $value := .Values.config.spgwc.jsonCfgFiles }}
-  {{ $key }}: {{ toJson $value | quote }}
+  {{ $key }}: |-
+{{ toPrettyJson $value | indent 4 }}
 {{- end }}
 {{- end }}

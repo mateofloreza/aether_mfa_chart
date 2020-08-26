@@ -6,8 +6,10 @@
 
 {{- if .Values.config.mme.deploy }}
 {{- $configJson := index .Values.config.mme.cfgFiles "config.json" }}
+{{- $configJsonMme := index $configJson "mme" }}
 {{- $configJsonS6a := index $configJson "s6a" }}
 
+{{- $_ := .Values.config.mme.prometheus.port | set $configJsonMme "prom_port" -}}
 {{- if not (hasKey $configJsonS6a "host") -}}
 {{- $_ := tuple "hss" "identity" . | include "omec-control-plane.diameter_endpoint" | set $configJsonS6a "host" -}}
 {{- end }}
@@ -84,6 +86,7 @@ data:
   mme-run.sh: |
 {{ tuple "bin/_mme-run.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- range $key, $value := .Values.config.mme.cfgFiles }}
-  {{ $key }}: {{ toJson $value | quote }}
+  {{ $key }}: |-
+{{ toPrettyJson $value | indent 4 }}
 {{- end }}
 {{- end }}

@@ -27,6 +27,9 @@ spec:
   - name: s11
     port: {{ .Values.config.spgwc.s11.port }}
     protocol: UDP
+  - name: prometheus-exporter
+    port: {{ .Values.config.spgwc.prometheus.port }}
+    protocol: TCP
 ---
 apiVersion: v1
 kind: Service
@@ -63,6 +66,12 @@ spec:
   selector:
 {{ tuple "spgwc" . | include "omec-control-plane.metadata_labels" | indent 4 }}
   ports:
+{{- if .Values.config.spgwc.prometheus.nodePort.enabled }}
+  - name: prometheus-exporter
+    port: {{ .Values.config.spgwc.prometheus.port }}
+    protocol: TCP
+    nodePort: {{ .Values.config.spgwc.prometheus.nodePort.port }}
+{{- end }}
 {{- if .Values.config.spgwc.cpComm.nodePort.enabled }}
   - name: cp-comm
     port: {{ .Values.config.spgwc.cpComm.port }}

@@ -29,11 +29,9 @@ spec:
     - name: s1ap
       port: {{ index $configJsonS1ap "sctp_port" }}
       protocol: SCTP
-{{- if .Values.prometheusExporter.mme.enabled }}
-    - name: exporter
-      port: 3081
+    - name: prometheus-exporter
+      port: {{ .Values.config.mme.prometheus.port }}
       protocol: TCP
-{{- end }}
 ---
 apiVersion: v1
 kind: Service
@@ -67,6 +65,12 @@ spec:
 {{ tuple "mme" . | include "omec-control-plane.metadata_labels" | indent 4 }}
   type: NodePort
   ports:
+  {{- if .Values.config.mme.prometheus.nodePort.enabled }}
+    - name: prometheus-exporter
+      port: {{ .Values.config.mme.prometheus.port }}
+      protocol: TCP
+      nodePort: {{ .Values.config.mme.prometheus.nodePort.port }}
+  {{- end }}
   {{- if .Values.config.mme.s11.nodePort.enabled }}
     - name: s11
       port: {{ index $configJsonS11 "egtp_default_port" }}
@@ -83,10 +87,4 @@ spec:
       port: {{ index $configJsonS1ap "sctp_port" }}
       nodePort: {{ index $configJsonS1ap "sctp_port_external" }}
       protocol: SCTP
-  {{- if .Values.prometheusExporter.mme.enabled }}
-    - name: exporter
-      port: 3081
-      nodePort: {{ .Values.prometheusExporter.mme.port }}
-      protocol: TCP
-  {{- end }}
 {{- end }}

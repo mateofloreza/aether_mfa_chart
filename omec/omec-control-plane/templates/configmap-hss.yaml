@@ -13,6 +13,7 @@ Declare variables to be passed into your templates.
 {{- $hssJsonCommon := index $hssJson "common" }}
 {{- $hssJsonHss := index $hssJson "hss" }}
 
+{{- $_ := .Values.config.hss.prometheus.port | set $hssJsonCommon "prom_port" -}}
 {{- if not (hasKey $hssJsonCommon "originhost") -}}
 {{- $_ := tuple "hss" "identity" . | include "omec-control-plane.diameter_endpoint" | set $hssJsonCommon "originhost" -}}
 {{- end }}
@@ -97,6 +98,7 @@ data:
   hss-bootstrap.sh: |
 {{ tuple "bin/_hss-bootstrap.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- range $key, $value := .Values.config.hss.cfgFiles }}
-  {{ $key }}: {{ toJson $value | quote }}
+  {{ $key }}: |-
+{{ toPrettyJson $value | indent 4 }}
 {{- end }}
 {{- end }}

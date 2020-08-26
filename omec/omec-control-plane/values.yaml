@@ -10,7 +10,6 @@ images:
     hssdb: docker.io/omecproject/c3po-hssdb:master-latest
     hss: docker.io/omecproject/c3po-hss:master-latest
     mme: docker.io/omecproject/nucleus:master-latest
-    mmeExporter: docker.io/omecproject/mme-exporter:paging-latest
     spgwc: docker.io/omecproject/spgw:master-latest
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
   pullPolicy: IfNotPresent
@@ -89,6 +88,11 @@ config:
       nodePort:
         enabled: false
         port: 33868
+    prometheus:
+      port: 9089
+      nodePort:
+        enabled: false
+        port: 30086
     # Provide the peer whitelist extension
     # The peer name must be a fqdn. We allow also a special "*" character as the
     # first label of the fqdn, to allow all fqdn with the same domain name.
@@ -193,6 +197,11 @@ config:
       nodePort:
         enabled: false
         port: 33869
+    prometheus:
+      port: 3081
+      nodePort:
+        enabled: false
+        port: 30085
     # See https://github.com/omec-project/openmme/blob/master/README.txt for more config options
     cfgFiles:
       config.json:
@@ -232,19 +241,6 @@ config:
           # host and realm will be set dynamically if unset
           #host:
           #realm:
-      mme_exporter.json:
-        edges:
-        - id: onf-menlo
-          tac: 202
-          edgeName: edge-onf-menlo
-        - id: oaisim
-          tac: 1
-          edgeName: edge-oaisim
-        phoneTypes:
-        - imsi: 208014567891200
-          phoneType: "Pixel-4"
-        - imsi: 208014567891201
-          phoneType: "iPhone11-Pro"
   spgwc:
     deploy: true
     pfcp: true
@@ -282,6 +278,11 @@ config:
     dpComm:
       addr: spgwu
       port: 20
+    prometheus:
+      port: 9089
+      nodePort:
+        enabled: false
+        port: 30084
     jsonCfgFiles:
       subscriber_mapping.json:
         subscriber-selection-rules:
@@ -406,8 +407,3 @@ config:
         LOCAL_HIGH_LIMIT_PORT = 65535
         REMOTE_LOW_LIMIT_PORT = 0
         REMOTE_HIGH_LIMIT_PORT = 65535
-
-prometheusExporter:
-  mme:
-    enabled: true # if it is set to false, subscriber-monitoring will not be operational
-    port: 33081 # for NodePort
