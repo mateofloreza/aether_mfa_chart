@@ -8,9 +8,22 @@
 nameOverride: ""
 fullnameOverride: ""
 
-# Project namespaces where Rancher's Prometheus lives.
-# Each dashboard may draw its data from a different Prometheus.
-globalStatusMonitorNamespace: ""
+# URL of Prometheus that collects E2E test results from edge monitoring server
+edgeServerDatasourceURL: ""
+
+# List of cluster Prometheus datasources.
+clusterDatasources: []
+# - cluster: production-edge-onf-menlo
+#   prometheusURL: http://10.53.154.24
+
+# Configure Google Cloud Monitoring datasource
+googleCloudMonitoring: {}
+# clientEmail: grafana@onf-vpn.iam.gserviceaccount.com
+# defaultProject: onf-vpn
+# key: |
+#   -----BEGIN PRIVATE KEY-----
+#   ...
+#   -----END PRIVATE KEY-----
 
 grafana:
   grafana.ini:

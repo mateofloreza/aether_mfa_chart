@@ -16,9 +16,208 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1597098589875,
+  "iteration": 1598917519580,
   "links": [],
   "panels": [
+    {
+      "datasource": "Google Cloud Monitoring",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 0,
+              "operator": "",
+              "text": "down",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "up",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            }
+          ],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "aether-gcp-argela"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Argela"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "aether-gcp-att"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "ATT"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "aether-gcp-ciena"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Ciena"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "aether-gcp-menlo-prd"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "ONF Menlo Prod"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "aether-gcp-menlo-stg"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "ONF Menlo Staging"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "aether-gcp-ntt"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "NTT"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "aether-gcp-telefonica"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Telefonica"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "aether-gcp-tucson"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "ONF Tucson"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "menlo-gcp1-tunnel-4"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Intel"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 33,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": null,
+      "targets": [
+        {
+          "metricQuery": {
+            "aliasBy": "{{ metric.label.tunnel_name }}",
+            "alignmentPeriod": "stackdriver-auto",
+            "crossSeriesReducer": "REDUCE_NONE",
+            "filters": [],
+            "groupBys": [],
+            "metricKind": "GAUGE",
+            "metricType": "vpn.googleapis.com/tunnel_established",
+            "perSeriesAligner": "ALIGN_INTERPOLATE",
+            "projectName": "onf-vpn",
+            "unit": "1",
+            "valueType": "DOUBLE"
+          },
+          "queryType": "metrics",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "VPN connections from Google Cloud",
+      "type": "stat"
+    },
     {
       "datasource": null,
       "description": "",
@@ -112,7 +311,7 @@
         "h": 4,
         "w": 8,
         "x": 0,
-        "y": 0
+        "y": 4
       },
       "id": 4,
       "maxPerRow": 3,
@@ -252,9 +451,9 @@
         "h": 4,
         "w": 8,
         "x": 8,
-        "y": 0
+        "y": 4
       },
-      "id": 24,
+      "id": 34,
       "maxPerRow": 3,
       "options": {
         "colorMode": "background",
@@ -272,7 +471,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1597098589875,
+      "repeatIteration": 1598917519580,
       "repeatPanelId": 4,
       "scopedVars": {
         "edge": {
@@ -394,9 +593,9 @@
         "h": 4,
         "w": 8,
         "x": 16,
-        "y": 0
+        "y": 4
       },
-      "id": 25,
+      "id": 35,
       "maxPerRow": 3,
       "options": {
         "colorMode": "background",
@@ -414,7 +613,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1597098589875,
+      "repeatIteration": 1598917519580,
       "repeatPanelId": 4,
       "scopedVars": {
         "edge": {
@@ -474,7 +673,7 @@
         "h": 4,
         "w": 8,
         "x": 0,
-        "y": 4
+        "y": 8
       },
       "id": 5,
       "maxPerRow": 3,
@@ -553,9 +752,9 @@
         "h": 4,
         "w": 8,
         "x": 8,
-        "y": 4
+        "y": 8
       },
-      "id": 26,
+      "id": 36,
       "maxPerRow": 3,
       "options": {
         "colorMode": "background",
@@ -573,7 +772,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1597098589875,
+      "repeatIteration": 1598917519580,
       "repeatPanelId": 5,
       "scopedVars": {
         "edge": {
@@ -634,9 +833,9 @@
         "h": 4,
         "w": 8,
         "x": 16,
-        "y": 4
+        "y": 8
       },
-      "id": 27,
+      "id": 37,
       "maxPerRow": 3,
       "options": {
         "colorMode": "background",
@@ -654,7 +853,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1597098589875,
+      "repeatIteration": 1598917519580,
       "repeatPanelId": 5,
       "scopedVars": {
         "edge": {
@@ -716,7 +915,7 @@
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 8
+        "y": 12
       },
       "hiddenSeries": false,
       "id": 23,
@@ -845,10 +1044,10 @@
         "h": 5,
         "w": 8,
         "x": 8,
-        "y": 8
+        "y": 12
       },
       "hiddenSeries": false,
-      "id": 28,
+      "id": 38,
       "legend": {
         "avg": false,
         "current": false,
@@ -872,7 +1071,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1597098589875,
+      "repeatIteration": 1598917519580,
       "repeatPanelId": 23,
       "scopedVars": {
         "edge": {
@@ -976,10 +1175,10 @@
         "h": 5,
         "w": 8,
         "x": 16,
-        "y": 8
+        "y": 12
       },
       "hiddenSeries": false,
-      "id": 29,
+      "id": 39,
       "legend": {
         "avg": false,
         "current": false,
@@ -1003,7 +1202,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1597098589875,
+      "repeatIteration": 1598917519580,
       "repeatPanelId": 23,
       "scopedVars": {
         "edge": {
@@ -1102,7 +1301,7 @@
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 13
+        "y": 17
       },
       "id": 13,
       "maxPerRow": 3,
@@ -1169,9 +1368,9 @@
         "h": 5,
         "w": 8,
         "x": 8,
-        "y": 13
+        "y": 17
       },
-      "id": 30,
+      "id": 40,
       "maxPerRow": 3,
       "options": {
         "orientation": "auto",
@@ -1188,7 +1387,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1597098589875,
+      "repeatIteration": 1598917519580,
       "repeatPanelId": 13,
       "scopedVars": {
         "edge": {
@@ -1238,9 +1437,9 @@
         "h": 5,
         "w": 8,
         "x": 16,
-        "y": 13
+        "y": 17
       },
-      "id": 31,
+      "id": 41,
       "maxPerRow": 3,
       "options": {
         "orientation": "auto",
@@ -1257,7 +1456,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1597098589875,
+      "repeatIteration": 1598917519580,
       "repeatPanelId": 13,
       "scopedVars": {
         "edge": {
@@ -1298,7 +1497,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 21,

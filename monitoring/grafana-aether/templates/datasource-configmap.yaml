@@ -12,12 +12,34 @@ data:
     apiVersion: 1
 
     datasources:
-{{ if .Values.globalStatusMonitorNamespace }}
+{{- if .Values.edgeServerDatasourceURL }}
     - name: RANCHER_MONITORING_GLOBAL
       type: prometheus
       access: proxy
       basicAuth: false
       editable: false
       isDefault: true
-      url: http://access-prometheus.{{.Values.globalStatusMonitorNamespace}}:80
-{{ end }}
+      url: {{ .Values.edgeServerDatasourceURL }}
+{{- end }}
+{{- range .Values.clusterDatasources }}
+    - name: {{ .cluster }}
+      type: prometheus
+      access: proxy
+      basicAuth: false
+      editable: false
+      isDefault: false
+      url: {{ .prometheusURL }}
+{{- end }}
+{{- if .Values.googleCloudMonitoring }}
+    - name: Google Cloud Monitoring
+      type: stackdriver
+      access: proxy
+      jsonData:
+        tokenUri: https://oauth2.googleapis.com/token
+        clientEmail: {{ .Values.googleCloudMonitoring.clientEmail }}
+        authenticationType: jwt
+        defaultProject: {{ .Values.googleCloudMonitoring.defaultProject }}
+      secureJsonData:
+        privateKey: |
+{{ .Values.googleCloudMonitoring.key | indent 10 }}
+{{- end }}
