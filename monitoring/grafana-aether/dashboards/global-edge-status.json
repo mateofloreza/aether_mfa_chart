@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1598917519580,
+  "iteration": 1599668410701,
   "links": [],
   "panels": [
     {
@@ -309,12 +309,12 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 8,
+        "w": 6,
         "x": 0,
         "y": 4
       },
       "id": 4,
-      "maxPerRow": 3,
+      "maxPerRow": 6,
       "options": {
         "colorMode": "background",
         "graphMode": "none",
@@ -333,7 +333,6 @@
       "repeatDirection": "h",
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:141",
           "selected": false,
           "text": "production-edge-intel",
           "value": "production-edge-intel"
@@ -449,12 +448,12 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 8,
-        "x": 8,
+        "w": 6,
+        "x": 6,
         "y": 4
       },
       "id": 34,
-      "maxPerRow": 3,
+      "maxPerRow": 6,
       "options": {
         "colorMode": "background",
         "graphMode": "none",
@@ -471,11 +470,10 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598917519580,
+      "repeatIteration": 1599668410701,
       "repeatPanelId": 4,
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:142",
           "selected": false,
           "text": "production-edge-onf-menlo",
           "value": "production-edge-onf-menlo"
@@ -591,12 +589,12 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 8,
-        "x": 16,
+        "w": 6,
+        "x": 12,
         "y": 4
       },
       "id": 35,
-      "maxPerRow": 3,
+      "maxPerRow": 6,
       "options": {
         "colorMode": "background",
         "graphMode": "none",
@@ -613,14 +611,154 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598917519580,
+      "repeatIteration": 1599668410701,
       "repeatPanelId": 4,
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:143",
           "selected": false,
           "text": "production-edge-onf-tucson",
           "value": "production-edge-onf-tucson"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(aetheredge_status_control_plane{name=\"$edge\"} - (10*aetheredge_in_maintenance_window{name=\"$edge\"}))",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_status_user_plane{name=\"$edge\"} - (10*aetheredge_in_maintenance_window{name=\"$edge\"}))",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current: $edge",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "error",
+              "to": "",
+              "type": 1,
+              "value": "-1"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "operator": "",
+              "text": "disconnected",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 3,
+              "operator": "",
+              "text": "connecting",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            },
+            {
+              "from": "",
+              "id": 4,
+              "operator": "",
+              "text": "connected",
+              "to": "",
+              "type": 1,
+              "value": "2"
+            },
+            {
+              "from": "",
+              "id": 5,
+              "operator": "",
+              "text": "no result",
+              "to": "",
+              "type": 1,
+              "value": "-2"
+            },
+            {
+              "from": "-100",
+              "id": 6,
+              "operator": "",
+              "text": "scheduled downtime",
+              "to": "-3",
+              "type": 2
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": -100
+              },
+              {
+                "color": "red",
+                "value": -2
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 4
+      },
+      "id": 36,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1599668410701,
+      "repeatPanelId": 4,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "production-edge-test",
+          "value": "production-edge-test"
         }
       },
       "targets": [
@@ -671,12 +809,12 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 8,
+        "w": 6,
         "x": 0,
         "y": 8
       },
       "id": 5,
-      "maxPerRow": 3,
+      "maxPerRow": 6,
       "options": {
         "colorMode": "background",
         "graphMode": "none",
@@ -695,7 +833,6 @@
       "repeatDirection": "h",
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:141",
           "selected": false,
           "text": "production-edge-intel",
           "value": "production-edge-intel"
@@ -750,12 +887,12 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 8,
-        "x": 8,
+        "w": 6,
+        "x": 6,
         "y": 8
       },
-      "id": 36,
-      "maxPerRow": 3,
+      "id": 37,
+      "maxPerRow": 6,
       "options": {
         "colorMode": "background",
         "graphMode": "none",
@@ -772,11 +909,10 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598917519580,
+      "repeatIteration": 1599668410701,
       "repeatPanelId": 5,
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:142",
           "selected": false,
           "text": "production-edge-onf-menlo",
           "value": "production-edge-onf-menlo"
@@ -831,12 +967,12 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 8,
-        "x": 16,
+        "w": 6,
+        "x": 12,
         "y": 8
       },
-      "id": 37,
-      "maxPerRow": 3,
+      "id": 38,
+      "maxPerRow": 6,
       "options": {
         "colorMode": "background",
         "graphMode": "none",
@@ -853,14 +989,93 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598917519580,
+      "repeatIteration": 1599668410701,
       "repeatPanelId": 5,
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:143",
           "selected": false,
           "text": "production-edge-onf-tucson",
           "value": "production-edge-onf-tucson"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(clamp_min(aetheredge_status_user_plane{name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Uptime: $edge",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 8
+      },
+      "id": 39,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1599668410701,
+      "repeatPanelId": 5,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "production-edge-test",
+          "value": "production-edge-test"
         }
       },
       "targets": [
@@ -913,7 +1128,7 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 5,
-        "w": 8,
+        "w": 6,
         "x": 0,
         "y": 12
       },
@@ -930,7 +1145,7 @@
       },
       "lines": true,
       "linewidth": 0,
-      "maxPerRow": 3,
+      "maxPerRow": 6,
       "nullPointMode": "null",
       "options": {
         "dataLinks": []
@@ -944,7 +1159,6 @@
       "repeatDirection": "h",
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:141",
           "selected": false,
           "text": "production-edge-intel",
           "value": "production-edge-intel"
@@ -1042,12 +1256,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 5,
-        "w": 8,
-        "x": 8,
+        "w": 6,
+        "x": 6,
         "y": 12
       },
       "hiddenSeries": false,
-      "id": 38,
+      "id": 40,
       "legend": {
         "avg": false,
         "current": false,
@@ -1059,7 +1273,7 @@
       },
       "lines": true,
       "linewidth": 0,
-      "maxPerRow": 3,
+      "maxPerRow": 6,
       "nullPointMode": "null",
       "options": {
         "dataLinks": []
@@ -1071,11 +1285,10 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598917519580,
+      "repeatIteration": 1599668410701,
       "repeatPanelId": 23,
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:142",
           "selected": false,
           "text": "production-edge-onf-menlo",
           "value": "production-edge-onf-menlo"
@@ -1173,12 +1386,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 5,
-        "w": 8,
-        "x": 16,
+        "w": 6,
+        "x": 12,
         "y": 12
       },
       "hiddenSeries": false,
-      "id": 39,
+      "id": 41,
       "legend": {
         "avg": false,
         "current": false,
@@ -1190,7 +1403,7 @@
       },
       "lines": true,
       "linewidth": 0,
-      "maxPerRow": 3,
+      "maxPerRow": 6,
       "nullPointMode": "null",
       "options": {
         "dataLinks": []
@@ -1202,14 +1415,143 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598917519580,
+      "repeatIteration": 1599668410701,
       "repeatPanelId": 23,
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:143",
           "selected": false,
           "text": "production-edge-onf-tucson",
           "value": "production-edge-onf-tucson"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{name=\"$edge\"} + aetheredge_status_user_plane{name=\"$edge\"} - 3, 0))",
+          "interval": "",
+          "legendFormat": "Edge is up",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_in_maintenance_window{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "Scheduled downtime",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Status: ${edge}",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:453",
+          "decimals": 0,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "1",
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:454",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "fill": 5,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 12
+      },
+      "hiddenSeries": false,
+      "id": 42,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "maxPerRow": 6,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pluginVersion": "7.0.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1599668410701,
+      "repeatPanelId": 23,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "production-edge-test",
+          "value": "production-edge-test"
         }
       },
       "seriesOverrides": [],
@@ -1299,12 +1641,12 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 8,
+        "w": 6,
         "x": 0,
         "y": 17
       },
       "id": 13,
-      "maxPerRow": 3,
+      "maxPerRow": 6,
       "options": {
         "orientation": "auto",
         "reduceOptions": {
@@ -1322,7 +1664,6 @@
       "repeatDirection": "h",
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:141",
           "selected": false,
           "text": "production-edge-intel",
           "value": "production-edge-intel"
@@ -1366,12 +1707,12 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 8,
-        "x": 8,
+        "w": 6,
+        "x": 6,
         "y": 17
       },
-      "id": 40,
-      "maxPerRow": 3,
+      "id": 43,
+      "maxPerRow": 6,
       "options": {
         "orientation": "auto",
         "reduceOptions": {
@@ -1387,11 +1728,10 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598917519580,
+      "repeatIteration": 1599668410701,
       "repeatPanelId": 13,
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:142",
           "selected": false,
           "text": "production-edge-onf-menlo",
           "value": "production-edge-onf-menlo"
@@ -1435,12 +1775,12 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 8,
-        "x": 16,
+        "w": 6,
+        "x": 12,
         "y": 17
       },
-      "id": 41,
-      "maxPerRow": 3,
+      "id": 44,
+      "maxPerRow": 6,
       "options": {
         "orientation": "auto",
         "reduceOptions": {
@@ -1456,14 +1796,81 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1598917519580,
+      "repeatIteration": 1599668410701,
       "repeatPanelId": 13,
       "scopedVars": {
         "edge": {
-          "$$hashKey": "object:143",
           "selected": false,
           "text": "production-edge-onf-tucson",
           "value": "production-edge-onf-tucson"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(time() - aetheredge_last_update{name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Seconds since last update",
+      "type": "gauge"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 1000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 750
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 17
+      },
+      "id": 45,
+      "maxPerRow": 6,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.0.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1599668410701,
+      "repeatPanelId": 13,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "production-edge-test",
+          "value": "production-edge-test"
         }
       },
       "targets": [
@@ -1602,34 +2009,9 @@
         "label": "Edge",
         "multi": true,
         "name": "edge",
-        "options": [
-          {
-            "$$hashKey": "object:140",
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "$$hashKey": "object:141",
-            "selected": false,
-            "text": "production-edge-intel",
-            "value": "production-edge-intel"
-          },
-          {
-            "$$hashKey": "object:142",
-            "selected": false,
-            "text": "production-edge-onf-menlo",
-            "value": "production-edge-onf-menlo"
-          },
-          {
-            "$$hashKey": "object:143",
-            "selected": false,
-            "text": "production-edge-onf-tucson",
-            "value": "production-edge-onf-tucson"
-          }
-        ],
+        "options": [],
         "query": "aetheredge_status_control_plane",
-        "refresh": 0,
+        "refresh": 1,
         "regex": "/.*,name=\"(.*)\",namespace.*/",
         "skipUrlSync": false,
         "sort": 1,
