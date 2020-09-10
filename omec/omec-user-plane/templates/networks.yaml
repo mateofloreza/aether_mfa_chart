@@ -15,6 +15,9 @@ metadata:
 {{- end }}
 spec:
   config: '{
+{{- if semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion }}
+    "cniVersion": "0.3.1",
+{{- end }}
     "type": {{ .Values.config.upf.cniPlugin | quote }},
     "ipam": {
         "type": {{ .Values.config.upf.ipam | quote }}
@@ -31,6 +34,9 @@ metadata:
 {{- end }}
 spec:
   config: '{
+{{- if semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion }}
+    "cniVersion": "0.3.1",
+{{- end }}
     "type": {{ .Values.config.upf.cniPlugin | quote }},
     "ipam": {
         "type": {{ .Values.config.upf.ipam | quote }}

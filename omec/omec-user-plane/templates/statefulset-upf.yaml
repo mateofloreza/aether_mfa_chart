@@ -29,12 +29,20 @@ spec:
           {
             "name": "access-net",
             "interface": {{ index $accessConfig "ifname" | quote }},
+{{- if semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion }}
+            "ips": [{{ .Values.config.upf.access.ip | quote }}]
+{{- else }}
             "ips": {{ .Values.config.upf.access.ip | quote }}
+{{- end }}
           },
           {
             "name": "core-net",
             "interface": {{ index $coreConfig "ifname" | quote }},
+{{- if semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion }}
+            "ips": [{{ .Values.config.upf.core.ip | quote }}]
+{{- else }}
             "ips": {{ .Values.config.upf.core.ip | quote }}
+{{- end }}
           }
         ]'
     spec:

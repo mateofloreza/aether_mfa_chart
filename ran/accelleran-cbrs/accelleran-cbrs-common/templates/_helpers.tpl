@@ -32,7 +32,11 @@ metadata:
   labels:
 {{ tuple $saName $context | include "accelleran-cbrs-common.metadata_labels" | indent 4 }}
 ---
+{{- if semverCompare ">=1.16-0" $context.Capabilities.KubeVersion.GitVersion }}
+apiVersion: rbac.authorization.k8s.io/v1
+{{- else }}
 apiVersion: rbac.authorization.k8s.io/v1beta1
+{{- end }}
 kind: RoleBinding
 metadata:
   name: {{ $saName }}
@@ -48,7 +52,11 @@ subjects:
     name: {{ $saName }}
     namespace: {{ $saNamespace }}
 ---
+{{- if semverCompare ">=1.16-0" $context.Capabilities.KubeVersion.GitVersion }}
+apiVersion: rbac.authorization.k8s.io/v1
+{{- else }}
 apiVersion: rbac.authorization.k8s.io/v1beta1
+{{- end }}
 kind: Role
 metadata:
   name: {{ $saName }}

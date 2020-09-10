@@ -72,9 +72,6 @@ config:
         mode: dpdk
         workers: 1
         max_sessions: 50000
-        cpiface:
-          nb_dst_ip: spgwc-headless
-          hostname: upf-bess
         access:
           ifname: access
         core:
