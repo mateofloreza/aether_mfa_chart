@@ -27,6 +27,10 @@ spec:
     metadata:
       labels:
 {{ tuple "hss" . | include "omec-control-plane.metadata_labels" | indent 8 }}
+    {{- with .Values.config.hss.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
     spec:
     {{- if .Values.nodeSelectors.enabled }}
       nodeSelector:

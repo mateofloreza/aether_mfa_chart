@@ -14,8 +14,6 @@ metadata:
 {{ tuple "hss" . | include "omec-control-plane.metadata_labels" | indent 4 }}
 spec:
   template:
-    metadata:
-{{ tuple "hss" . | include "omec-control-plane.metadata_labels" | indent 8 }}
     spec:
     {{- if .Values.nodeSelectors.enabled }}
       nodeSelector:

@@ -83,6 +83,8 @@ config:
     path: /tmp/coredump
   hss:
     deploy: true
+    podAnnotations:
+      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
     hssdb: cassandra
     s6a:
       nodePort:
@@ -188,6 +190,8 @@ config:
                     type: integer
   mme:
     deploy: true
+    podAnnotations:
+      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":3081,"schema":"HTTP"}]'
     spgwAddr: spgwc
     s11:
       nodePort:
@@ -243,6 +247,8 @@ config:
           #realm:
   spgwc:
     deploy: true
+    podAnnotations:
+      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
     pfcp: true
     apn: internet
     # ueStaticPool is used only when multiUpfs is not enabled.

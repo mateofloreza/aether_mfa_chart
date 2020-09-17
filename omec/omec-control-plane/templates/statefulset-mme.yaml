@@ -23,6 +23,10 @@ spec:
     metadata:
       labels:
 {{ tuple "mme" . | include "omec-control-plane.metadata_labels" | indent 8 }}
+    {{- with .Values.config.mme.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
     spec:
     {{- if .Values.nodeSelectors.enabled }}
       nodeSelector:
