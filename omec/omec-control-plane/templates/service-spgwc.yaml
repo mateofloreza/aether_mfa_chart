@@ -30,6 +30,9 @@ spec:
   - name: prometheus-exporter
     port: {{ .Values.config.spgwc.prometheus.port }}
     protocol: TCP
+  - name: restendpoint
+    port: {{ .Values.config.spgwc.http.port }}
+    protocol: TCP
 ---
 apiVersion: v1
 kind: Service
@@ -81,6 +84,12 @@ spec:
   - name: s11
     port: {{ .Values.config.spgwc.s11.port }}
     protocol: UDP
+{{- end }}
+{{- if .Values.config.spgwc.http.nodePort.enabled }}
+  - name: restendpoint
+    port: {{ .Values.config.spgwc.http.port }}
+    protocol: TCP
+    nodePort: {{ .Values.config.spgwc.http.nodePort.port }}
 {{- end }}
 {{- end }}
 {{- end }}
