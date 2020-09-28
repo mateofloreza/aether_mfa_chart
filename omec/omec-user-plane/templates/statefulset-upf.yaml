@@ -65,7 +65,7 @@ spec:
             add:
             - NET_ADMIN
     {{- if .Values.config.coreDump.enabled }}
-{{ tuple "upf" . | include "omec-user-plane.coredump_init" | indent 8 }}
+{{ tuple "upf" . | include "omec-user-plane.coredump_init" | indent 6 }}
     {{- end }}
       containers:
       - name: bessd

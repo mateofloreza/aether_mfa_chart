@@ -17,21 +17,17 @@ spec:
   selector:
 {{ tuple "spgwc" . | include "omec-control-plane.metadata_labels" | indent 4 }}
   ports:
-  - name: cp-comm
-    port: {{ .Values.config.spgwc.cpComm.port }}
-{{- if .Values.config.spgwc.multiUpfs }}
-    protocol: TCP
-{{- else }}
-    protocol: UDP
-{{- end }}
   - name: s11
     port: {{ .Values.config.spgwc.s11.port }}
+    protocol: UDP
+  - name: pfcp
+    port: {{ .Values.config.spgwc.n4.port }}
     protocol: UDP
   - name: prometheus-exporter
     port: {{ .Values.config.spgwc.prometheus.port }}
     protocol: TCP
-  - name: restendpoint
-    port: {{ .Values.config.spgwc.http.port }}
+  - name: rest
+    port: {{ .Values.config.spgwc.rest.port }}
     protocol: TCP
 ---
 apiVersion: v1
@@ -44,19 +40,7 @@ spec:
   clusterIP: None
   selector:
 {{ tuple "spgwc" . | include "omec-control-plane.metadata_labels" | indent 4 }}
-  ports:
-  - name: cp-comm
-    port: {{ .Values.config.spgwc.cpComm.port }}
-{{- if .Values.config.spgwc.multiUpfs }}
-    protocol: TCP
-{{- else }}
-    protocol: UDP
-{{- end }}
-  - name: s11
-    port: {{ .Values.config.spgwc.s11.port }}
-    protocol: UDP
-{{- if not .Values.config.spgwc.multiUpfs }}
-{{- if or .Values.config.spgwc.cpComm.nodePort.enabled .Values.config.spgwc.s11.nodePort.enabled }}
+{{- if or .Values.config.spgwc.s11.nodePort.enabled .Values.config.spgwc.n4.nodePort.enabled .Values.config.spgwc.prometheus.nodePort.enabled .Values.config.spgwc.rest.nodePort.enabled }}
 ---
 apiVersion: v1
 kind: Service
@@ -69,28 +53,29 @@ spec:
   selector:
 {{ tuple "spgwc" . | include "omec-control-plane.metadata_labels" | indent 4 }}
   ports:
+{{- if .Values.config.spgwc.s11.nodePort.enabled }}
+  - name: s11
+    port: {{ .Values.config.spgwc.s11.port }}
+    protocol: UDP
+    nodePort: {{ .Values.config.spgwc.s11.nodePort.port }}
+{{- end }}
+{{- if .Values.config.spgwc.n4.nodePort.enabled }}
+  - name: pfcp
+    port: {{ .Values.config.spgwc.n4.port }}
+    protocol: UDP
+    nodePort: {{ .Values.config.spgwc.n4.nodePort.port }}
+{{- end }}
 {{- if .Values.config.spgwc.prometheus.nodePort.enabled }}
   - name: prometheus-exporter
     port: {{ .Values.config.spgwc.prometheus.port }}
     protocol: TCP
     nodePort: {{ .Values.config.spgwc.prometheus.nodePort.port }}
 {{- end }}
-{{- if .Values.config.spgwc.cpComm.nodePort.enabled }}
-  - name: cp-comm
-    port: {{ .Values.config.spgwc.cpComm.port }}
+{{- if .Values.config.spgwc.rest.nodePort.enabled }}
+  - name: rest
+    port: {{ .Values.config.spgwc.rest.port }}
     protocol: TCP
-{{- end }}
-{{- if .Values.config.spgwc.s11.nodePort.enabled }}
-  - name: s11
-    port: {{ .Values.config.spgwc.s11.port }}
-    protocol: UDP
-{{- end }}
-{{- if .Values.config.spgwc.http.nodePort.enabled }}
-  - name: restendpoint
-    port: {{ .Values.config.spgwc.http.port }}
-    protocol: TCP
-    nodePort: {{ .Values.config.spgwc.http.nodePort.port }}
-{{- end }}
+    nodePort: {{ .Values.config.spgwc.rest.nodePort.port }}
 {{- end }}
 {{- end }}
 {{- end }}

@@ -13,78 +13,40 @@ metadata:
   labels:
 {{ tuple "spgwc" . | include "omec-control-plane.metadata_labels" | indent 4 }}
 data:
-{{- if .Values.config.spgwc.pfcp }}
   cp.cfg: |
     [GLOBAL]
     CP_TYPE = 03
     GX_CONFIG = 0
-    S11_IP = CP_ADDR
-    S11_PORT = 2123
-    S5S8_IP = CP_ADDR
     S5S8_PORT = 2123
-    PFCP_IP = CP_ADDR
-    PFCP_PORT = 8805
-    UPF_PFCP_IP = 127.0.0.1
     UPF_PFCP_PORT = 8805
+    S11_PORT = {{ .Values.config.spgwc.s11.port }}
+    PFCP_PORT = {{ .Values.config.spgwc.n4.port }}
     PROMETHEUS_PORT = {{ .Values.config.spgwc.prometheus.port }}
-    HTTP_PORT = {{ .Values.config.spgwc.http.port }}
-    TRANSMIT_TIMER = 2
-    PERIODIC_TIMER = 10
-    TRANSMIT_COUNT = 5
-    REQUEST_TIMEOUT=1800000
-    REQUEST_TRIES=3
-    CP_LOGGER = 0
+    HTTP_PORT = {{ .Values.config.spgwc.rest.port }}
+    TRANSMIT_TIMER = {{ .Values.config.spgwc.global.transmitTimerSec }}
+    PERIODIC_TIMER = {{ .Values.config.spgwc.global.periodicTimerSec }}
+    TRANSMIT_COUNT = {{ .Values.config.spgwc.global.transmitCount }}
+    REQUEST_TIMEOUT = {{ .Values.config.spgwc.global.requestTimeoutMilliSec }}
+    REQUEST_TRIES = {{ .Values.config.spgwc.global.requestTries }}
+    CP_LOGGER = {{ .Values.config.spgwc.global.cpLogger }}
     [NAMESERVER_CONFIG]
     [CACHE]
-    concurrent=25
-    percentage=80
-    interval_seconds=60
-    query_timeout_ms=1000
-    query_tries=1
+    concurrent = {{ .Values.config.spgwc.dns.cache.concurrent }}
+    percentage = {{ .Values.config.spgwc.dns.cache.percentage }}
+    interval_seconds = {{ .Values.config.spgwc.dns.cache.intervalSec }}
+    query_timeout_ms = {{ .Values.config.spgwc.dns.cache.queryTimeoutMilliSec }}
+    query_tries = {{ .Values.config.spgwc.dns.cache.queryTries }}
     [APP]
-    frequency_seconds=3
-    filename=appqueries.json
-    nameserver= {{ .Values.config.spgwc.nameserver}}
+    frequency_seconds = {{ .Values.config.spgwc.dns.app.frequencySec }}
+    filename = {{ .Values.config.spgwc.dns.app.filename }}
+    nameserver = {{ .Values.config.spgwc.dns.app.nameserver }}
     [OPS]
-    frequency_seconds=3
-    filename=opsqueries.json
-    nameserver= {{ .Values.config.spgwc.nameserver}}
+    frequency_seconds = {{ .Values.config.spgwc.dns.ops.frequencySec }}
+    filename = {{ .Values.config.spgwc.dns.ops.filename }}
+    nameserver = {{ .Values.config.spgwc.dns.ops.nameserver }}
     [IP_POOL_CONFIG]
     IP_POOL_IP= {{.Values.config.spgwc.ueIpPool.ip }}
     IP_POOL_MASK= {{ .Values.config.spgwc.ueIpPool.mask }}
-{{- end }}
-  cp_config.cfg: |
-    if [ ! -d "/dev/hugepages" ]; then
-        MEMORY="--no-huge -m $((MEM_LIMIT-1024))"
-    fi
-    CORES="-c $(taskset -p $$ | awk '{print $NF}')"
-    EAL_ARGS="${CORES} ${MEMORY} --no-pci"
-
-    MGMT_INFO="-s ${POD_IP} -w {{ .Values.config.spgwc.s1uAddr }}"
-    APN_INFO="-i {{ .Values.config.spgwc.ueIpPool.ip }} -p {{ .Values.config.spgwc.ueIpPool.mask }} -a {{ .Values.config.spgwc.apn }}"
-    MISC="-l 2"
-    SPGW_CFG="-d 03"
-
-{{- if .Values.config.spgwc.multiUpfs }}
-    CONFIG_UPDATE_FOLDER="-f /etc/cp/config/"
-    APP_ARGS="${MGMT_INFO} ${APN_INFO} ${MISC} ${SPGW_CFG} ${CONFIG_UPDATE_FOLDER}"
-{{- else }}
-    APP_ARGS="${MGMT_INFO} ${APN_INFO} ${MISC} ${SPGW_CFG} "
-{{- end }}
-  interface.cfg: |
-    [0]
-    zmq_protocol = tcp
-    cp_comm_ip = CP_ADDR
-    cp_comm_port = 21
-{{- if .Values.config.spgwc.multiUpfs }}
-    cp_nb_ip = CP_ADDR
-    cp_nb_port = 21
-    dp_comm_ip = 127.0.0.1
-    dp_comm_port = 20
-{{- else }}
-    dp_comm_ip = {{ .Values.config.spgwc.dpComm.addr }}
-    dp_comm_port = {{ .Values.config.spgwc.dpComm.port }}
-{{- end }}
   spgwc-run.sh: |
 {{ tuple "bin/_spgwc-run.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- range $key, $value := .Values.config.spgwc.cfgFiles }}

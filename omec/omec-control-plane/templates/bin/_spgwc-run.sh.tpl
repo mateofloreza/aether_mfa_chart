@@ -12,15 +12,13 @@ cp /bin/ngic_controlplane /tmp/coredump/
 
 mkdir -p /opt/cp/config
 cd /opt/cp/config
+cp /etc/cp/config/{*.cfg,*.json} .
 
-cp /etc/cp/config/{adc_rules.cfg,cp_config.cfg,interface.cfg,meter_profile.cfg,pcc_rules.cfg,sdf_rules.cfg,app_config.cfg} .
-sed -i "s/CP_ADDR/$POD_IP/g" interface.cfg
+if [ ! -d "/dev/hugepages" ]; then
+    MEMORY="--no-huge -m $((MEM_LIMIT-1024))"
+fi
+CORES="-c $(taskset -p $$ | awk '{print $NF}')"
+EAL_ARGS="${CORES} ${MEMORY} --no-pci"
 
-{{- if .Values.config.spgwc.pfcp }}
-cp /etc/cp/config/{cp.cfg,subscriber_mapping.json} .
-sed -i "s/CP_ADDR/$POD_IP/g" cp.cfg
 cat /opt/cp/config/subscriber_mapping.json
-{{- end }}
-
-. cp_config.cfg
-ngic_controlplane $EAL_ARGS -- $APP_ARGS
+ngic_controlplane $EAL_ARGS -- -f /etc/cp/config/

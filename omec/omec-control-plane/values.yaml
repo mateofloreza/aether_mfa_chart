@@ -249,47 +249,48 @@ config:
     deploy: true
     podAnnotations:
       field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
-    pfcp: true
-    apn: internet
-    # ueStaticPool is used only when multiUpfs is not enabled.
-    # In case of multiUpfs, use app_config.cfg to provide static pool per DP.
-    #ueStaticPool: 10.250.255.0/24
-    ueStaticPool: None
-    ueIpPool:
-      ip: 10.250.0.0
-      mask: 255.255.0.0
-    # This address must match to S1U IP address configured in omec-data-plane
-    s1uAddr: 192.168.251.3
+    global:
+      transmitTimerSec: 2
+      periodicTimerSec: 10
+      transmitCount: 5
+      requestTimeoutMilliSec: 5000
+      requestTries: 3
+      cpLogger: 0
     #DNS Server - 3gpp compliant DNS server
-    nameserver: 127.0.0.1
+    dns:
+      cache:
+        concurrent: 25
+        percentage: 80
+        intervalSec: 60
+        queryTimeoutMilliSec: 1000
+        queryTries: 1
+      app:
+        frequencySec: 3
+        filename: "appqueries.json"
+        nameserver: "127.0.0.1"
+      ops:
+        frequencySec: 3
+        filename: "opsqueries.json"
+        nameserver: "127.0.0.1"
+    ueIpPool:
+      ip: "10.250.0.0"
+      mask: "255.255.0.0"
     s11:
+      port: 2123
       nodePort:
         enabled: false
         port: 32123
-      port: 2123
-    # ZMQ mode is used for cp-dp communication when multiple UPFs is set
-    # Otherwise, direct UDP mode is used
-    # Note that enabling NodePort is valid only in direct UDP mode
-    multiUpfs: true
-    cpComm:
+    n4:
+      port: 8805
       nodePort:
         enabled: false
         port: 30021
-      port: 21
-    # dpComm is required only when direct UDP mode is used
-    # When you deploy CP and DP to separate clusters in direct UDP mode, enable nodePort
-    # from both cpComm(omec-control-plane) and dpComm(omec-data-plane) and
-    # set "addr" to remote cluster's entry node IP and
-    # "port" to dpComm.nodePort.port value configured in omec-data-plane.
-    dpComm:
-      addr: spgwu
-      port: 20
     prometheus:
       port: 9089
       nodePort:
         enabled: false
         port: 30084
-    http:
+    rest:
       port: 8080
       nodePort:
         enabled: false
@@ -330,7 +331,7 @@ config:
             mtu: 1460
         user-plane-profiles:
           user-plane1:
-            user-plane: upf-headless
+            user-plane: upf
             qos-tags:
               tag1: BW
             access-tags:
@@ -349,7 +350,7 @@ config:
           intranet-only:
             type: intranet-only
             filter: only_private_network
-          apps-only: 
+          apps-only:
             type: specific-network
             filter: only_apps_network
           specific-app:
@@ -359,21 +360,6 @@ config:
             type: excluding-this-app
             filter: exclude-app-name
     cfgFiles:
-      app_config.cfg: |
-        [GLOBAL]
-        NUM_DP_SELECTION_RULES = 2
-        [DP_SELECTION_RULE_1]
-        DPID = 1
-        DPNAME = onf-menlo
-        MCC = 315
-        MNC = 010
-        TAC = 202
-        [DP_SELECTION_RULE_2]
-        DPID = 2
-        DPNAME = oaisim
-        MCC = 208
-        MNC = 01
-        TAC = 1
       adc_rules.cfg: |
         [GLOBAL]
         NUM_ADC_RULES = 0
@@ -385,7 +371,6 @@ config:
         NUM_PCC_FILTERS = 1
         UL_AMBR_MTR_PROFILE_IDX = 1
         DL_AMBR_MTR_PROFILE_IDX = 2
-
         [PCC_FILTER_1]
         RULE_NAME = DefaultRule
         RATING_GROUP = 9
@@ -408,7 +393,6 @@ config:
       sdf_rules.cfg: |
         [GLOBAL]
         NUM_SDF_FILTERS = 1
-
         [SDF_FILTER_1]
         DIRECTION = downlink_only
         IPV4_REMOTE = 13.2.1.113
