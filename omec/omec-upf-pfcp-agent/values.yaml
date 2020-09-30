@@ -1,0 +1,37 @@
+# Copyright 2020-present Open Networking Foundation
+#
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+
+images:
+  tags:
+    init: docker.io/omecproject/pod-init:1.0.0
+    pfcpiface: docker.io/omecproject/upf-epc-pfcpiface:up4
+  pullPolicy: Always
+
+nodeSelectors:
+  enabled: false
+  pfcp:
+    label: omec-upf
+    value: enabled
+
+resources:
+  enabled: true
+  pfcpiface:
+    requests:
+      cpu: 256m
+      memory: 128Mi
+    limits:
+      cpu: 256m
+      memory: 128Mi
+
+config:
+  coreDump:
+    enabled: false
+    path: /tmp/coredump
+  pfcp:
+    p4RtcServer:
+      addr: "onos-tost-onos-classic-hs"
+      port: 51001
+    cfgFiles:
+      upf.json:
+        measure: true
