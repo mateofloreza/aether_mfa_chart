@@ -8,9 +8,19 @@ metadata:
   labels:
      grafana_dashboard: "1"
 data:
+{{- if .Values.globalDashboard }}
 {{- if and .Values.edgeServerDatasourceURL .Values.googleCloudMonitoring }}
 {{ (.Files.Glob "dashboards/global*.json").AsConfig | indent 2 }}
 {{- end }}
+{{- end }}
+{{- if .Values.multiSiteDashboard }}
 {{- if and .Values.edgeServerDatasourceURL .Values.clusterDatasources }}
 {{ (.Files.Glob "dashboards/multi*.json").AsConfig | indent 2 }}
+{{- end }}
+{{- end }}
+{{- if .Values.enterpriseDashboard }}
+{{- if and .Values.edgeServerDatasourceURL .Values.clusterDatasources }}
+{{- $path := printf "dashboards/%s*.json" .Values.enterpriseDashboard }}
+{{ (.Files.Glob $path).AsConfig | indent 2 }}
+{{- end }}
 {{- end }}
