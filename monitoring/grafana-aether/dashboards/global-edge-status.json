@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1601493165046,
+  "iteration": 1601940913118,
   "links": [],
   "panels": [
     {
@@ -201,9 +201,9 @@
             "alignmentPeriod": "stackdriver-auto",
             "crossSeriesReducer": "REDUCE_NONE",
             "filters": [
-              "metric.label.tunnel_name",
-              "!=~",
-              "^aws.*"
+              "metric.label.gateway_name",
+              "=",
+              "menlo-gcp1"
             ],
             "groupBys": [],
             "metricKind": "GAUGE",
@@ -474,7 +474,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 4,
       "scopedVars": {
         "edge": {
@@ -615,7 +615,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 4,
       "scopedVars": {
         "edge": {
@@ -756,7 +756,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 4,
       "scopedVars": {
         "edge": {
@@ -897,7 +897,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 4,
       "scopedVars": {
         "edge": {
@@ -1054,7 +1054,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 5,
       "scopedVars": {
         "edge": {
@@ -1134,7 +1134,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 5,
       "scopedVars": {
         "edge": {
@@ -1214,7 +1214,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 5,
       "scopedVars": {
         "edge": {
@@ -1294,7 +1294,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 5,
       "scopedVars": {
         "edge": {
@@ -1510,7 +1510,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 23,
       "scopedVars": {
         "edge": {
@@ -1640,7 +1640,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 23,
       "scopedVars": {
         "edge": {
@@ -1770,7 +1770,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 23,
       "scopedVars": {
         "edge": {
@@ -1900,7 +1900,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 23,
       "scopedVars": {
         "edge": {
@@ -2083,7 +2083,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 13,
       "scopedVars": {
         "edge": {
@@ -2151,7 +2151,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 13,
       "scopedVars": {
         "edge": {
@@ -2219,7 +2219,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 13,
       "scopedVars": {
         "edge": {
@@ -2287,7 +2287,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1601493165046,
+      "repeatIteration": 1601940913118,
       "repeatPanelId": 13,
       "scopedVars": {
         "edge": {
