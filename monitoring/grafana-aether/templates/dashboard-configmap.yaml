@@ -24,3 +24,8 @@ data:
 {{ (.Files.Glob $path).AsConfig | indent 2 }}
 {{- end }}
 {{- end }}
+{{- if .Values.sdCoreDashboard }}
+{{- if .Values.sdCoreDatasourceURL }}
+{{ (.Files.Glob "dashboards/sdcore*.json").AsConfig | indent 2 }}
+{{- end }}
+{{- end }}

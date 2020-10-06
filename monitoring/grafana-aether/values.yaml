@@ -9,13 +9,17 @@ nameOverride: ""
 fullnameOverride: ""
 
 globalDashboard: true
-multiSiteDashboard: true
+multiSiteDashboard: false
+sdCoreDashboard: false
 
 # Specify an enterprise to deploy its dashboard, i.e., "telefonica"
 enterpriseDashboard: ""
 
 # URL of Prometheus that collects E2E test results from edge monitoring server
 edgeServerDatasourceURL: ""
+
+# URL of Prometheus that collects SD-CORE metrics
+sdCoreDatasourceURL: ""
 
 # List of cluster Prometheus datasources.
 clusterDatasources: []
