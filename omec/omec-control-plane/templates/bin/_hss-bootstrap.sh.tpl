@@ -85,6 +85,12 @@ function provision_mme() {
     echo -e "Added mme $id\n"
 }
 
+until cqlsh --file /opt/c3po/hssdb/oai_db.cql {{ .Values.config.hss.hssdb }};
+    do echo "Provisioning HSSDB";
+    sleep 2;
+done
+
+{{- if .Values.config.hss.bootstrap.enabled }}
 {{- range .Values.config.hss.bootstrap.users }}
 provision_users \
     {{ .count }} \
@@ -122,3 +128,5 @@ provision_mme \
     {{ .unreachability }} \
     {{ $.Values.config.hss.hssdb }}
 {{- end }}
+{{- end }}
+

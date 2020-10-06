@@ -38,33 +38,14 @@ spec:
     {{- end }}
       serviceAccountName: hss
       initContainers:
-      - name: hss-dep-check
-        image: {{ .Values.images.tags.depCheck | quote }}
+      - name: hss-bootstrap
+        image: {{ .Values.images.tags.hssdb }}
         imagePullPolicy: {{ .Values.images.pullPolicy }}
-        securityContext:
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: false
-          runAsUser: 0
-        env:
-          - name: NAMESPACE
-            valueFrom:
-              fieldRef:
-                apiVersion: v1
-                fieldPath: metadata.namespace
-          - name: PATH
-            value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/
-          - name: COMMAND
-            value: "echo done"
-          - name: DEPENDENCY_JOBS
-          {{- if .Values.config.hss.bootstrap }}
-            value: job-hss-db-sync,job-hss-bootstrap
-          {{- else }}
-            value: job-hss-db-sync
-          {{- end }}
-        command:
-          - kubernetes-entrypoint
+        command: ["/opt/c3po/hss/hss-bootstrap.sh"]
         volumeMounts:
-          []
+        - name: hss-script
+          mountPath: /opt/c3po/hss/hss-bootstrap.sh
+          subPath: hss-bootstrap.sh
     {{- if .Values.config.coreDump.enabled }}
 {{ tuple "hss" . | include "omec-control-plane.coredump_init" | indent 6 }}
     {{- end }}
