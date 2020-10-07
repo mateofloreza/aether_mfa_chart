@@ -2363,7 +2363,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(time() - aetheredge_last_update{name!~\"production.*|.*dongle\"}) by (name)",
+          "expr": "sum(time() - aetheredge_last_update{name!~\"production.*|.*dongle|ace-argela\"}) by (name)",
           "interval": "",
           "legendFormat": "{{name}}",
           "refId": "A"
