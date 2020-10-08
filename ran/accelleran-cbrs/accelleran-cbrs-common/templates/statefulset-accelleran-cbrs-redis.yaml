@@ -44,7 +44,24 @@ spec:
         - mountPath: /data
           name: redis-data-volume
       volumes:
+{{- if not .Values.config.redis.persistence.enabled }}
       - name: redis-data-volume
         hostPath:
-          path: /tmp/redis-storage
+          path: /etc/redis-storage
           type: DirectoryOrCreate
+{{- else }}
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data-volume
+      labels:
+{{ tuple "accelleran-cbrs-redis" . | include "accelleran-cbrs-common.metadata_labels" | indent 8 }}
+    spec:
+      accessModes:
+      - {{ .Values.config.redis.persistence.accessMode | quote }}
+      resources:
+        requests:
+          storage: {{ .Values.config.redis.persistence.size | quote }}
+    {{- if .Values.config.redis.persistence.storageClass }}
+      storageClassName: "{{ .Values.config.redis.persistence.storageClass }}"
+    {{- end }}
+{{- end }}
