@@ -18,6 +18,9 @@ enterpriseDashboard: ""
 # URL of Prometheus that collects E2E test results from edge monitoring server
 edgeServerDatasourceURL: ""
 
+# URL of Prometheus that collects metrics from SD-CORE services
+sdCoreDatasourceURL: ""
+
 # URL of Prometheus that collects SD-CORE metrics
 sdCoreDatasourceURL: ""
 

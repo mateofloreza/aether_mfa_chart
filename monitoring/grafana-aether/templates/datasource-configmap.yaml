@@ -30,6 +30,15 @@ data:
       isDefault: false
       url: {{ .prometheusURL }}
 {{- end }}
+{{- if .Values.sdCoreDatasourceURL }}
+    - name: RANCHER_MONITORING_SDCORE
+      type: prometheus
+      access: proxy
+      basicAuth: false
+      editable: false
+      isDefault: false
+      url: {{ .Values.sdCoreDatasourceURL }}
+{{- end }}
 {{- if .Values.googleCloudMonitoring }}
     - name: Google Cloud Monitoring
       type: stackdriver
