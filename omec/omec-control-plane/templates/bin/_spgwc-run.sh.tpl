@@ -4,21 +4,48 @@
 #
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
+APPLICATION=$1
 set -xe
-
-{{- if .Values.config.coreDump.enabled }}
-cp /bin/ngic_controlplane /tmp/coredump/
-{{- end }}
 
 mkdir -p /opt/cp/config
 cd /opt/cp/config
-cp /etc/cp/config/{*.cfg,*.json} .
+cp /etc/cp/config/{*.cfg,*.json,*.conf,*.sh} .
 
-if [ ! -d "/dev/hugepages" ]; then
-    MEMORY="--no-huge -m $((MEM_LIMIT-1024))"
-fi
-CORES="-c $(taskset -p $$ | awk '{print $NF}')"
-EAL_ARGS="${CORES} ${MEMORY} --no-pci"
+case $APPLICATION in
+    "ngic_controlplane")
+      echo "Starting ngic controlplane app"
+      if [ ! -d "/dev/hugepages" ]; then
+          MEMORY="--no-huge -m $((MEM_LIMIT-1024))"
+      fi
+      CORES="-c $(taskset -p $$ | awk '{print $NF}')"
+      EAL_ARGS="${CORES} ${MEMORY} --no-pci"
+      cat /opt/cp/config/subscriber_mapping.json
+      {{- if .Values.config.coreDump.enabled }}
+      cp /bin/ngic_controlplane /tmp/coredump/
+      {{- end }}
 
-cat /opt/cp/config/subscriber_mapping.json
-ngic_controlplane $EAL_ARGS -- -f /etc/cp/config/
+      ngic_controlplane $EAL_ARGS -- -f /etc/cp/config/
+      ;;
+
+    "gx-app")
+      echo "Starting gx-app"
+      SPGWC_IDENTITY={{ tuple "spgwc" "identity" . | include "omec-control-plane.diameter_endpoint" | quote }};
+      DIAMETER_HOST=$(echo $SPGWC_IDENTITY| cut -d'.' -f1)
+      DIAMETER_REALM={{ tuple "spgwc" "realm" . | include "omec-control-plane.diameter_endpoint" | quote }};
+      chmod +x /bin/make_certs.sh
+      cp /bin/make_certs.sh /opt/cp/config
+      /bin/make_certs.sh $DIAMETER_HOST $DIAMETER_REALM
+      {{- if .Values.config.coreDump.enabled }}
+      cp /bin/gx_app /tmp/coredump/
+      {{- end }}
+      cd /opt/cp/
+      gx_app
+      ;;
+
+    *)
+      echo "invalid app $APPLICATION"
+      ;;
+esac
+    
+
+

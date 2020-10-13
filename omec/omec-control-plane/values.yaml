@@ -11,6 +11,8 @@ images:
     hss: docker.io/omecproject/c3po-hss:master-latest
     mme: docker.io/omecproject/nucleus:master-latest
     spgwc: docker.io/omecproject/spgw:master-latest
+    pcrf: omecproject/c3po-pcrf:pcrf-latest
+    pcrfdb: omecproject/c3po-pcrfdb:pcrf-latest
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
   pullPolicy: IfNotPresent
   credentials: {}
@@ -24,6 +26,9 @@ nodeSelectors:
   hss:
     label: omec-cp
     value: enabled
+  pcrf:
+    label: omec-cp
+    value: enabled
   mme:
     label: omec-cp
     value: enabled
@@ -33,6 +38,13 @@ nodeSelectors:
 
 resources:
   enabled: true
+  pcrf:
+    requests:
+      cpu: 2
+      memory: 1Gi
+    limits:
+      cpu: 2
+      memory: 1Gi
   hss:
     requests:
       cpu: 2
@@ -84,8 +96,95 @@ cassandra:
 config:
   clusterDomain: cluster.local
   coreDump:
-    enabled: false
+    enabled: true
     path: /tmp/coredump
+  pcrf:
+    deploy: true
+    pcrfdb: cassandra
+    gx:
+      nodePort:
+        enabled: false
+        port: 33868
+    prometheus:
+      port: 9089
+      nodePort:
+        enabled: false
+        port: 30086
+    # Provide the peer whitelist extension
+    # The peer name must be a fqdn. We allow also a special "*" character as the
+    # first label of the fqdn, to allow all fqdn with the same domain name.
+    # Example: *.example.net will allow host1.example.net and host2.example.net
+    acl:
+      oldTls: "*.cluster.local"
+      #ipSec:
+    bootstrap:
+      enabled: false
+    # See https://github.com/omec-project/c3po for details of config options
+    cfgFiles:
+      pcrf.json:
+        common:
+          fdcfg: conf/pcrf.conf
+          # Origin host and realm will be set automatically if unset
+          #originhost: ""
+          #originrealm: ""
+        pcrf:
+          gtwhost: "*"
+          gtwport: 9080
+          restport: 9081
+          ossport: 9082
+          # casssrv will be set to cassandra in the same cluster if unset
+          #casssrv: ""
+          casskeyspace: vpcrf
+          casshost: "cassandra"
+          cassusr: root
+          casspwd: root
+          cassdb: vpcrf
+          casscoreconnections: 2
+          cassmaxconnections: 8
+          cassioqueuesize: 32768
+          cassiothreads: 2
+          randv: true
+          optkey: "63bfa50ee6523365ff14c1f45f88737d"
+          reloadkey: false
+          logsize: 20
+          lognumber: 5
+          logname: logs/pcrf.log
+          logqsize: 8192
+          statlogsize: 20
+          statlognumber: 5
+          statlogname: logs/pcrf_stat.log
+          auditlogsize: 20
+          auditlognumber: 5
+          auditlogname: logs/pcrf_audit.log
+          statfreq: 2000
+          numworkers: 4
+          concurrent: 10
+          ossfile: conf/oss.json
+          verifyroamingsubscribers: false
+      oss.json:
+        option:
+          id: url
+          type: string
+        services:
+          - id: logger
+            commands:
+              - id: describe_loggers
+              - id: set_logger_level
+                options:
+                  - id: name
+                    type: string
+                  - id: level
+                    type: integer
+          - id: stats
+            commands:
+              - id: describe_stats_frequency
+              - id: describe_stats_live
+              - id: set_stats_frequency
+                options:
+                  - id: frequency
+                    type: integer
+
+
   hss:
     deploy: true
     podAnnotations:
@@ -193,6 +292,7 @@ config:
                 options:
                   - id: frequency
                     type: integer
+
   mme:
     deploy: true
     podAnnotations:
@@ -233,6 +333,8 @@ config:
             plmn2: "mcc=208,mnc=01"
           apnlist:
             internet: "spgwc"
+          feature_list:
+            dcnr_support: "disabled"
           security:
             #int_alg_list: "[EIA0]"
             int_alg_list: "[EIA1, EIA2, EIA0]"
@@ -261,6 +363,7 @@ config:
       requestTimeoutMilliSec: 5000
       requestTries: 3
       cpLogger: 0
+      gx_config: 0
     #DNS Server - 3gpp compliant DNS server
     dns:
       cache:
@@ -301,6 +404,12 @@ config:
         enabled: false
         port: 30080
     jsonCfgFiles:
+      config.json:
+        gx:
+          host_type: freediameter
+          # host and realm will be set dynamically if unset
+          #host:
+          #realm:
       subscriber_mapping.json:
         subscriber-selection-rules:
           - priority: 5

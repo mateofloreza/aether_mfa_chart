@@ -52,7 +52,9 @@ spec:
       {{- end }}
         stdin: true
         tty: true
-        command: ["/opt/cp/scripts/spgwc-run.sh"]
+        command: ["bash", "-xc"]
+        args: 
+        - /opt/cp/scripts/spgwc-run.sh ngic_controlplane
         livenessProbe:
           httpGet:
             path: /liveness
@@ -95,6 +97,49 @@ spec:
           subPath: spgwc-run.sh
         - name: cp-config
           mountPath: /etc/cp/config
+        - name: shared-app
+          mountPath: /tmp
+      {{- if .Values.config.coreDump.enabled }}
+        - name: coredump
+          mountPath: /tmp/coredump
+      {{- end }}
+
+      - name: gx-app
+        image: {{ .Values.images.tags.spgwc }}
+        imagePullPolicy: {{ .Values.images.pullPolicy }}
+      {{- if .Values.config.coreDump.enabled }}
+        securityContext:
+          privileged: true
+          runAsUser: 0
+      {{- end }}
+        stdin: true
+        tty: true
+        command: ["bash", "-xc"]
+        args:
+        - /opt/cp/scripts/spgwc-run.sh gx-app
+        env:
+        - name: MEM_LIMIT
+          valueFrom:
+            resourceFieldRef:
+              containerName: spgwc
+              resource: limits.memory
+              divisor: 1Mi
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+      {{- if .Values.resources.enabled }}
+        resources:
+{{ toYaml .Values.resources.spgwc | indent 10 }}
+      {{- end }}
+        volumeMounts:
+        - name: cp-script
+          mountPath: /opt/cp/scripts/spgwc-run.sh
+          subPath: spgwc-run.sh
+        - name: cp-config
+          mountPath: /etc/cp/config
+        - name: shared-app
+          mountPath: /tmp
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump
@@ -108,10 +153,12 @@ spec:
         configMap:
           name: spgwc
           defaultMode: 420
-    {{- if .Values.config.coreDump.enabled }}
+      - name: shared-app
+        emptyDir: {}
       - name: host-rootfs
         hostPath:
           path: /
+    {{- if .Values.config.coreDump.enabled }}
       - name: coredump
         hostPath:
           path: {{ .Values.config.coreDump.path }}
