@@ -33,6 +33,10 @@ spec:
         {{ .Values.nodeSelectors.spgwc.label }}: {{ .Values.nodeSelectors.spgwc.value }}
     {{- end }}
       serviceAccountName: spgwc
+    {{- if .Values.images.credentials }}
+      imagePullSecrets:
+        - name: {{ .Release.Name }}.registry
+    {{- end }}
     {{- if .Values.config.coreDump.enabled }}
       initContainers:
 {{ tuple "spgwc" . | include "omec-control-plane.coredump_init" | indent 6 }}

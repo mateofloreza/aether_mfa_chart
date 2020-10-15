@@ -51,6 +51,10 @@ spec:
       nodeSelector:
         {{ .Values.nodeSelectors.upf.label }}: {{ .Values.nodeSelectors.upf.value }}
     {{- end }}
+    {{- if .Values.images.credentials }}
+      imagePullSecrets:
+        - name: {{ .Release.Name }}.registry
+    {{- end }}
       initContainers:
       - name: bess-init
         image: {{ .Values.images.tags.bess | quote }}

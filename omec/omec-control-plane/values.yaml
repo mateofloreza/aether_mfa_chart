@@ -13,6 +13,11 @@ images:
     spgwc: docker.io/omecproject/spgw:master-latest
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
   pullPolicy: IfNotPresent
+  credentials: {}
+  # If specified, use this credential to access the image
+  #   registry:
+  #   username:
+  #   password:
 
 nodeSelectors:
   enabled: false

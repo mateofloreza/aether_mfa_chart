@@ -29,6 +29,10 @@ spec:
       nodeSelector:
         {{ .Values.nodeSelectors.accelleranCBRSCU.label }}: {{ .Values.nodeSelectors.accelleranCBRSCU.value }}
     {{- end }}
+    {{- if .Values.images.credentials }}
+      imagePullSecrets:
+        - name: {{ .Release.Name }}.registry
+    {{- end }}
       initContainers:
       - name: cu-init
         image: {{ .Values.images.tags.initCU }}

@@ -28,7 +28,12 @@ spec:
       nodeSelector:
         {{ .Values.nodeSelectors.pfcp.label }}: {{ .Values.nodeSelectors.pfcp.value }}
     {{- end }}
+    {{- if .Values.images.credentials }}
+      imagePullSecrets:
+        - name: {{ .Release.Name }}.registry
+    {{- end }}
     {{- if .Values.config.coreDump.enabled }}
+      initContainers:
 {{ tuple "pfcp" . | include "omec-upf-pfcp-agent.coredump_init" | indent 8 }}
     {{- end }}
       containers:

@@ -7,6 +7,11 @@ images:
     omecCni: docker.io/omecproject/omec-cni:1.0.2
     sriovPlugin: docker.io/nfvpe/sriov-device-plugin:v3.2
   pullPolicy: IfNotPresent
+  credentials: {}
+  # If specified, use this credential to access the image
+  #   registry:
+  #   username:
+  #   password:
 
 config:
   sriov:

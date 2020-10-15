@@ -33,6 +33,10 @@ spec:
         {{ .Values.nodeSelectors.mme.label }}: {{ .Values.nodeSelectors.mme.value }}
     {{- end }}
       serviceAccountName: mme
+    {{- if .Values.images.credentials }}
+      imagePullSecrets:
+        - name: {{ .Release.Name }}.registry
+    {{- end }}
       initContainers:
       - name: mme-load-sctp-module
         image: {{ .Values.images.tags.init | quote }}

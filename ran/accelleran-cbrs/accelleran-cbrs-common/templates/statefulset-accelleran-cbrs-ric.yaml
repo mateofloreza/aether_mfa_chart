@@ -30,6 +30,10 @@ spec:
         {{ .Values.nodeSelectors.accelleranCBRSCommon.label }}: {{ .Values.nodeSelectors.accelleranCBRSCommon.value }}
     {{- end }}
       serviceAccountName: accelleran-cbrs-ric
+    {{- if .Values.images.credentials }}
+      imagePullSecrets:
+        - name: {{ .Release.Name }}.registry
+    {{- end }}
       initContainers:
       - name: redis-init-dep-check
         image: {{ .Values.images.tags.depCheck }}

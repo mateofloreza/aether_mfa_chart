@@ -9,6 +9,11 @@ images:
     pfcpiface: docker.io/omecproject/upf-epc-pfcpiface:master-latest
     zmqiface: docker.io/omecproject/upf-epc-cpiface:master-latest
   pullPolicy: Always
+  credentials: {}
+  # If specified, use this credential to access the image
+  #   registry:
+  #   username:
+  #   password:
 
 nodeSelectors:
   enabled: false

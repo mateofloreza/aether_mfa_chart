@@ -7,6 +7,11 @@ images:
     init: docker.io/omecproject/pod-init:1.0.0
     pfcpiface: docker.io/omecproject/upf-epc-pfcpiface:up4
   pullPolicy: Always
+  credentials: {}
+  # If specified, use this credential to access the image
+  #   registry:
+  #   username:
+  #   password:
 
 nodeSelectors:
   enabled: false
