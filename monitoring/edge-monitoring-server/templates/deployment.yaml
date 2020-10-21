@@ -46,6 +46,8 @@ spec:
                 secretKeyRef:
                   name: {{ include "edge-monitoring-server.fullname" . }}-calendar-secret
                   key: iCalUrl
+            - name: AETHER_ENV
+              value: {{ .Values.aetherEnv }}
           livenessProbe:
             httpGet:
               path: /edges/healthz

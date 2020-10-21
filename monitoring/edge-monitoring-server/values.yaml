@@ -16,6 +16,9 @@ image:
 # URL of calendar containing scheduled downtimes, in iCal format
 iCalUrl: ""
 
+# Name of environment that server is monitoring (e.g., "staging")
+aetherEnv: "production"
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
