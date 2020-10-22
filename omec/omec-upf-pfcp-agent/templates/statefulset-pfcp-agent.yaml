@@ -48,13 +48,9 @@ spec:
         command: ["pfcpiface"]
         args:
           - -config
-          - /opt/bess/bessctl/conf/upf.json
+          - /tmp/conf/upf.json
           - -n4SrcIPStr
           - $(POD_IP)
-          - -p4RtcServerIP
-          - {{ .Values.config.pfcp.p4RtcServer.addr }}
-          - -p4RtcServerPort
-          - {{ .Values.config.pfcp.p4RtcServer.port | quote }}
       {{- if .Values.resources.enabled }}
         resources:
 {{ toYaml .Values.resources.pfcpiface | indent 10 }}
