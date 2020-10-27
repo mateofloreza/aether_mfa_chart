@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1603317820454,
+  "iteration": 1603767548038,
   "links": [],
   "panels": [
     {
@@ -78,19 +78,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "aether-gcp-argela"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Argela"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "aether-gcp-att"
+              "options": "production-ace-att"
             },
             "properties": [
               {
@@ -102,7 +90,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "aether-gcp-ciena"
+              "options": "production-ace-ciena"
             },
             "properties": [
               {
@@ -114,31 +102,19 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "aether-gcp-menlo-prd"
+              "options": "production-ace-menlo"
             },
             "properties": [
               {
                 "id": "displayName",
-                "value": "ONF Menlo Prod"
+                "value": "ONF Menlo"
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "aether-gcp-menlo-stg"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "ONF Menlo Staging"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "aether-gcp-ntt"
+              "options": "production-ace-ntt"
             },
             "properties": [
               {
@@ -150,7 +126,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "aether-gcp-telefonica"
+              "options": "production-ace-tef"
             },
             "properties": [
               {
@@ -162,7 +138,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "aether-gcp-tucson"
+              "options": "production-ace-tucson"
             },
             "properties": [
               {
@@ -174,7 +150,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "menlo-gcp1-tunnel-4"
+              "options": "production-ace-intel"
             },
             "properties": [
               {
@@ -214,13 +190,9 @@
             "alignmentPeriod": "stackdriver-auto",
             "crossSeriesReducer": "REDUCE_NONE",
             "filters": [
-              "metric.label.gateway_name",
-              "=",
-              "menlo-gcp1",
-              "AND",
               "metric.label.tunnel_name",
-              "!=",
-              "aether-gcp-argela"
+              "=",
+              "production-ace-*"
             ],
             "groupBys": [],
             "metricKind": "GAUGE",
@@ -687,7 +659,7 @@
       "id": 70,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -812,7 +784,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -892,7 +864,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -986,7 +958,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1102,7 +1074,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1137,7 +1109,7 @@
       "id": 75,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -1262,7 +1234,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1342,7 +1314,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1436,7 +1408,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1552,7 +1524,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1587,7 +1559,7 @@
       "id": 80,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -1712,7 +1684,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1792,7 +1764,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1886,7 +1858,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2002,7 +1974,7 @@
       "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1603317820454,
+      "repeatIteration": 1603767548038,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2148,7 +2120,6 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
           "text": "All",
           "value": [
             "$__all"
@@ -2176,7 +2147,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
