@@ -5,6 +5,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-datasource
+{{- if .Values.datasourceNamespace }}
+  namespace: {{ .Values.datasourceNamespace }}
+{{- end }}
   labels:
      grafana_datasource: "1"
 data:

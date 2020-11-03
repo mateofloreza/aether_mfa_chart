@@ -38,7 +38,14 @@ googleCloudMonitoring: {}
 #   ...
 #   -----END PRIVATE KEY-----
 
+# Namespace to deploy dashboard ConfigMaps (leave blank for chart namespace)
+dashboardNamespace: ""
+
+# Namespace to deploy datasource ConfigMaps (leave blank for chart namespace)
+datasourceNamespace: ""
+
 grafana:
+  enabled: true
   grafana.ini:
     auth.anonymous:
       enabled: true
