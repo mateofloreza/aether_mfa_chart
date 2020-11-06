@@ -8,3 +8,6 @@ requirements.lock
 
 # ignore dependent chart dirs
 charts
+
+# ignore MacOS DS_Store
+*.DS_Store
