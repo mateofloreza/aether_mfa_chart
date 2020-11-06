@@ -76,6 +76,9 @@ spec:
         image: {{ .Values.images.tags.bess | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
         securityContext:
+        {{- if .Values.config.upf.privileged }}
+          privileged: true
+        {{- end }}
           capabilities:
             add:
             - IPC_LOCK

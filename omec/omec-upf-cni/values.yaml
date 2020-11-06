@@ -19,8 +19,8 @@ config:
     # If your cluster has multiple nodes with different interface names,
     # simply provide the whole list
     resourceList:
-      # Provide PF name with VF range for S1U and SGI interfaces.
-      # Note that VF range of S1U must be smaller than SGI's.
+      # Provide PF name with VF range or PCI address for access and core interfaces.
+      # PCI address has higher precedence when both provided.
       vfio:
         accessPfNames:
           - eno1#0-3
@@ -29,10 +29,9 @@ config:
       # Provide PF name with its VFs bounded to PF's driver
       # The driver name must be specified to prevent one interface is
       # registered to both vfio and netdevice resource pools
-      # NOTE: netDevice is required to use CDN service
-      netDevice:
-        pfNames:
-          - eno1
-        drivers:
-          - i40evf
-          - ixgbevf
+      #netDevice:
+      #  pfNames:
+      #    - eno1
+      #  drivers:
+      #    - i40evf
+      #    - ixgbevf

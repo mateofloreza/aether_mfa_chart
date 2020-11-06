@@ -18,15 +18,23 @@ data:
         {
           "resourceName": "sriov_vfio_access_net",
           "selectors": {
+{{- if hasKey .Values.config.sriov.resourceList.vfio "accessPciAddresses" }}
+              "pciAddresses": {{ toJson .Values.config.sriov.resourceList.vfio.accessPciAddresses }}
+{{- else if hasKey .Values.config.sriov.resourceList.vfio "accessPfNames" }}
               "pfNames": {{ toJson .Values.config.sriov.resourceList.vfio.accessPfNames }},
               "drivers": ["vfio-pci"]
+{{- end }}
           }
         },
         {
           "resourceName": "sriov_vfio_core_net",
           "selectors": {
+{{- if hasKey .Values.config.sriov.resourceList.vfio "corePciAddresses" }}
+              "pciAddresses": {{ toJson .Values.config.sriov.resourceList.vfio.corePciAddresses }}
+{{- else if hasKey .Values.config.sriov.resourceList.vfio "corePfNames" }}
               "pfNames": {{ toJson .Values.config.sriov.resourceList.vfio.corePfNames }},
               "drivers": ["vfio-pci"]
+{{- end }}
           }
         }
 {{- if hasKey .Values.config.sriov.resourceList "netDevice" }}
