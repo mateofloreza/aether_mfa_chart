@@ -1,0 +1,93 @@
+{{/*
+# Copyright 2020-present Open Networking Foundation
+
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+*/}}
+
+{{- if .Values.config.nrf.deploy }}
+{{ tuple "nrf" . | include "5g-control-plane.service_account" }}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nrf
+  labels:
+{{ tuple "nrf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
+spec:
+  replicas: 1
+  serviceName: nrf-headless
+  selector:
+    matchLabels:
+{{ tuple "nrf" . | include "5g-control-plane.metadata_labels" | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{ tuple "nrf" . | include "5g-control-plane.metadata_labels" | indent 8 }}
+    {{- with .Values.config.nrf.podAnnotations }}
+      annotations:
+        helm.sh/hook: pre-install
+        helm.sh/hook-weight: "2"
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    spec:
+    {{- if .Values.nodeSelectors.enabled }}
+      nodeSelector:
+        {{ .Values.nodeSelectors.nrf.label }}: {{ .Values.nodeSelectors.nrf.value }}
+    {{- end }}
+      serviceAccountName: nrf
+    {{- if .Values.images.credentials }}
+      imagePullSecrets:
+        - name: {{ .Release.Name }}.registry
+    {{- end }}
+    {{- if .Values.config.coreDump.enabled }}
+      initContainers:
+{{ tuple "nrf" . | include "5g-control-plane.coredump_init" | indent 6 }}
+    {{- end }}
+      containers:
+      - name: nrf
+        image: {{ .Values.images.tags.nrf }}
+        imagePullPolicy: {{ .Values.images.pullPolicy }}
+      {{- if .Values.config.coreDump.enabled }}
+        securityContext:
+          runAsUser: 0
+      {{- end }}
+        stdin: true
+        tty: true
+        command: ["/opt/cp/scripts/nrf-run.sh"]
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+      {{- if .Values.resources.enabled }}
+        resources:
+{{ toYaml .Values.resources.nrf | indent 10 }}
+      {{- end }}
+        volumeMounts:
+        - name: cp-script
+          mountPath: /opt/cp/scripts/nrf-run.sh
+          subPath: nrf-run.sh
+        - name: cp-config
+          mountPath: /free5gc/config
+      {{- if .Values.config.coreDump.enabled }}
+        - name: coredump
+          mountPath: /tmp/coredump
+      {{- end }}
+      volumes:
+      - name: cp-script
+        configMap:
+          name: nrf
+          defaultMode: 493
+      - name: cp-config
+        configMap:
+          name: nrf
+          defaultMode: 493
+    {{- if .Values.config.coreDump.enabled }}
+      - name: host-rootfs
+        hostPath:
+          path: /
+      - name: coredump
+        hostPath:
+          path: {{ .Values.config.coreDump.path }}
+    {{- end }}
+{{- end }}

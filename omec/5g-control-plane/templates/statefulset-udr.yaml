@@ -1,0 +1,95 @@
+{{/*
+# Copyright 2020-present Open Networking Foundation
+
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+*/}}
+
+{{- if .Values.config.udr.deploy }}
+{{ tuple "udr" . | include "5g-control-plane.service_account" }}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: udr
+  labels:
+{{ tuple "udr" . | include "5g-control-plane.metadata_labels" | indent 4 }}
+spec:
+  replicas: 1
+  serviceName: udr-headless
+  selector:
+    matchLabels:
+{{ tuple "udr" . | include "5g-control-plane.metadata_labels" | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{ tuple "udr" . | include "5g-control-plane.metadata_labels" | indent 8 }}
+    {{- with .Values.config.udr.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    spec:
+    {{- if .Values.nodeSelectors.enabled }}
+      nodeSelector:
+        {{ .Values.nodeSelectors.udr.label }}: {{ .Values.nodeSelectors.udr.value }}
+    {{- end }}
+      serviceAccountName: udr
+    {{- if .Values.images.credentials }}
+      imagePullSecrets:
+        - name: {{ .Release.Name }}.registry
+    {{- end }}
+      initContainers:
+      - name: wait-nrf-module
+        image: {{ .Values.images.tags.init | quote }}
+        imagePullPolicy: {{ .Values.images.pullPolicy }}
+        command: ['sh', '-c', 'until nslookup nrf; do echo waiting for nrf; sleep 4; done;']
+    {{- if .Values.config.coreDump.enabled }}
+{{ tuple "udr" . | include "5g-control-plane.coredump_init" | indent 6 }}
+    {{- end }}
+      containers:
+      - name: udr
+        image: {{ .Values.images.tags.udr }}
+        imagePullPolicy: {{ .Values.images.pullPolicy }}
+      {{- if .Values.config.coreDump.enabled }}
+        securityContext:
+          runAsUser: 0
+      {{- end }}
+        stdin: true
+        tty: true
+        command: ["/opt/cp/scripts/udr-run.sh"]
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+      {{- if .Values.resources.enabled }}
+        resources:
+{{ toYaml .Values.resources.udr | indent 10 }}
+      {{- end }}
+        volumeMounts:
+        - name: cp-script
+          mountPath: /opt/cp/scripts/udr-run.sh
+          subPath: udr-run.sh
+        - name: cp-config
+          mountPath: /free5gc/config
+      {{- if .Values.config.coreDump.enabled }}
+        - name: coredump
+          mountPath: /tmp/coredump
+      {{- end }}
+      volumes:
+      - name: cp-script
+        configMap:
+          name: udr
+          defaultMode: 493
+      - name: cp-config
+        configMap:
+          name: udr
+          defaultMode: 420
+    {{- if .Values.config.coreDump.enabled }}
+      - name: host-rootfs
+        hostPath:
+          path: /
+      - name: coredump
+        hostPath:
+          path: {{ .Values.config.coreDump.path }}
+    {{- end }}
+{{- end }}

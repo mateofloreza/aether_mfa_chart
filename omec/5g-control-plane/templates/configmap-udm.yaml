@@ -1,0 +1,22 @@
+{{/*
+# Copyright 2020-present Open Networking Foundation
+
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+*/}}
+
+{{- if .Values.config.udm.deploy }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: udm
+  labels:
+{{ tuple "udm" . | include "5g-control-plane.metadata_labels" | indent 4 }}
+data:
+  udm-run.sh: |
+{{ tuple "bin/_udm-run.sh.tpl" . | include "5g-control-plane.template" | indent 4 }}
+{{- range $key, $value := .Values.config.udm.yamlCfgFiles }}
+  {{ $key }}: |-
+{{ toYaml $value | indent 4 }}
+{{- end }}
+{{- end }}
