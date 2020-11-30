@@ -1,9 +1,7 @@
 {{- /*
-
 # Copyright 2020-present Open Networking Foundation
 #
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
-
 */ -}}
 
 ---
@@ -22,10 +20,22 @@ spec:
     metadata:
       labels:
 {{ tuple "wowza" . | include "phylo.metadata_labels" | indent 8 }}
+    {{- if .Values.config.userPlane.enabled }}
+      annotations:
+        danm.k8s.io/interfaces: |
+          [
+            {"clusterNetwork": "default"},
+            {"clusterNetwork": {{ .Values.config.userPlane.name | quote }}, "ip": "dynamic"}
+          ]
+    {{- end }}
     spec:
     {{- if .Values.nodeSelectors.enabled }}
       nodeSelector:
         {{ .Values.nodeSelectors.wowza.label }}: {{ .Values.nodeSelectors.wowza.value }}
+    {{- end }}
+    {{- if .Values.images.credentials }}
+      imagePullSecrets:
+        - name: {{ .Release.Name }}.registry
     {{- end }}
       containers:
       - name: wowza

@@ -1,9 +1,7 @@
 {{- /*
-
 # Copyright 2020-present Open Networking Foundation
 #
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
-
 */ -}}
 
 {{ tuple "phylo" . | include "phylo.service_account" }}
@@ -26,10 +24,22 @@ spec:
     metadata:
       labels:
 {{ tuple $name $context | include "phylo.metadata_labels" | indent 8 }}
+    {{- if $context.Values.config.userPlane.enabled }}
+      annotations:
+        danm.k8s.io/interfaces: |
+          [
+            {"clusterNetwork": "default"},
+            {"clusterNetwork": {{ $context.Values.config.userPlane.name | quote }}, "ip": "dynamic"}
+          ]
+    {{- end }}
     spec:
     {{- if $context.Values.nodeSelectors.enabled }}
       nodeSelector:
         {{ $context.Values.nodeSelectors.phylo.label }}: {{ $context.Values.nodeSelectors.phylo.value }}
+    {{- end }}
+    {{- if $context.Values.images.credentials }}
+      imagePullSecrets:
+        - name: {{ $context.Release.Name }}.registry
     {{- end }}
       serviceAccountName: phylo
       initContainers:

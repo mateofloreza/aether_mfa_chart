@@ -11,7 +11,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq-{{ .key }}-external
+  name: rabbitmq-{{ .key }}
   labels:
 {{ tuple $name $context | include "phylo.metadata_labels" | indent 4 }}
 spec:
