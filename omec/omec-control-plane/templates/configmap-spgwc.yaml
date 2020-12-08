@@ -28,6 +28,8 @@ data:
     [GLOBAL]
     CP_TYPE = 03
     GX_CONFIG = {{ .Values.config.spgwc.global.gx_config }}
+    URR_CONFIG = {{ .Values.config.spgwc.global.urr_config }}
+    LOGGING_LEVEL = {{ .Values.config.spgwc.global.logging_level}}
     S5S8_PORT = 2123
     UPF_PFCP_PORT = 8805
     S11_PORT = {{ .Values.config.spgwc.s11.port }}

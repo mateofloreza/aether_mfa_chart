@@ -364,6 +364,8 @@ config:
       requestTries: 3
       cpLogger: 0
       gx_config: 0
+      urr_config: 0
+      logging_level: "LOG_DEBUG"
     #DNS Server - 3gpp compliant DNS server
     dns:
       cache:
