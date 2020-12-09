@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1605130115650,
+  "iteration": 1607545836934,
   "links": [],
   "panels": [
     {
@@ -194,6 +194,54 @@
                 "value": "ONF Tucson 2"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "production-ace-princeton1-1"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Princeton 1"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "production-ace-princeton1-2"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Princeton 2"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "production-ace-stanford1-1"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Stanford 1"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "production-ace-stanford1-2"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Stanford 2"
+              }
+            ]
           }
         ]
       },
@@ -246,6 +294,7 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "VPN connections from Google Cloud",
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -263,8 +312,8 @@
       "scopedVars": {
         "edge": {
           "selected": false,
-          "text": "ace-menlo",
-          "value": "ace-menlo"
+          "text": "ace-intel",
+          "value": "ace-intel"
         }
       },
       "title": "Edge: $edge",
@@ -361,7 +410,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 6,
+        "w": 5,
         "x": 0,
         "y": 6
       },
@@ -387,8 +436,8 @@
       "scopedVars": {
         "edge": {
           "selected": false,
-          "text": "ace-menlo",
-          "value": "ace-menlo"
+          "text": "ace-intel",
+          "value": "ace-intel"
         }
       },
       "targets": [
@@ -439,8 +488,8 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 5,
-        "x": 6,
+        "w": 4,
+        "x": 5,
         "y": 6
       },
       "id": 5,
@@ -465,8 +514,8 @@
       "scopedVars": {
         "edge": {
           "selected": false,
-          "text": "ace-menlo",
-          "value": "ace-menlo"
+          "text": "ace-intel",
+          "value": "ace-intel"
         }
       },
       "targets": [
@@ -486,6 +535,80 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Uptime",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 9,
+        "y": 6
+      },
+      "id": 90,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeatDirection": "h",
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-intel",
+          "value": "ace-intel"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}), 0)) * 100",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Unscheduled Downtime",
       "transformations": [],
       "type": "stat"
     },
@@ -540,8 +663,8 @@
       "scopedVars": {
         "edge": {
           "selected": false,
-          "text": "ace-menlo",
-          "value": "ace-menlo"
+          "text": "ace-intel",
+          "value": "ace-intel"
         }
       },
       "seriesOverrides": [],
@@ -653,8 +776,2060 @@
       "scopedVars": {
         "edge": {
           "selected": false,
-          "text": "ace-menlo",
-          "value": "ace-menlo"
+          "text": "ace-intel",
+          "value": "ace-intel"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(time() - aetheredge_last_update{endpoint=\"metrics80\",name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Seconds since last update",
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 91,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 35,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-pixel",
+          "value": "ace-menlo-pixel"
+        }
+      },
+      "title": "Edge: $edge",
+      "type": "row"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "error",
+              "to": "",
+              "type": 1,
+              "value": "-1"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "operator": "",
+              "text": "disconnected",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 3,
+              "operator": "",
+              "text": "connecting",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            },
+            {
+              "from": "",
+              "id": 4,
+              "operator": "",
+              "text": "connected",
+              "to": "",
+              "type": 1,
+              "value": "2"
+            },
+            {
+              "from": "",
+              "id": 5,
+              "operator": "",
+              "text": "no result",
+              "to": "",
+              "type": 1,
+              "value": "-2"
+            },
+            {
+              "from": "-100",
+              "id": 6,
+              "operator": "",
+              "text": "scheduled downtime",
+              "to": "-3",
+              "type": 2
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": -100
+              },
+              {
+                "color": "red",
+                "value": -2
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 0,
+        "y": 11
+      },
+      "id": 92,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 4,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-pixel",
+          "value": "ace-menlo-pixel"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}))",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}))",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current",
+      "type": "stat"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 5,
+        "y": 11
+      },
+      "id": 93,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 5,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-pixel",
+          "value": "ace-menlo-pixel"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Uptime",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 9,
+        "y": 11
+      },
+      "id": 94,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 90,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-pixel",
+          "value": "ace-menlo-pixel"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}), 0)) * 100",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Unscheduled Downtime",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "aliasColors": {
+        "Scheduled": "blue",
+        "Scheduled downtime": "blue",
+        "Unscheduled": "red",
+        "Unscheduled downtime": "red"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 10,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 10,
+        "x": 11,
+        "y": 11
+      },
+      "hiddenSeries": false,
+      "id": 95,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "maxPerRow": 6,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 23,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-pixel",
+          "value": "ace-menlo-pixel"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "expr": "sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}), 0))",
+          "interval": "",
+          "legendFormat": "Unscheduled",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "Scheduled",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Downtime",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "1",
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 1000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 750
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 11
+      },
+      "id": 96,
+      "maxPerRow": 6,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 13,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-pixel",
+          "value": "ace-menlo-pixel"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(time() - aetheredge_last_update{endpoint=\"metrics80\",name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Seconds since last update",
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 97,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 35,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-rasp-pi",
+          "value": "ace-menlo-rasp-pi"
+        }
+      },
+      "title": "Edge: $edge",
+      "type": "row"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "error",
+              "to": "",
+              "type": 1,
+              "value": "-1"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "operator": "",
+              "text": "disconnected",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 3,
+              "operator": "",
+              "text": "connecting",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            },
+            {
+              "from": "",
+              "id": 4,
+              "operator": "",
+              "text": "connected",
+              "to": "",
+              "type": 1,
+              "value": "2"
+            },
+            {
+              "from": "",
+              "id": 5,
+              "operator": "",
+              "text": "no result",
+              "to": "",
+              "type": 1,
+              "value": "-2"
+            },
+            {
+              "from": "-100",
+              "id": 6,
+              "operator": "",
+              "text": "scheduled downtime",
+              "to": "-3",
+              "type": 2
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": -100
+              },
+              {
+                "color": "red",
+                "value": -2
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 0,
+        "y": 16
+      },
+      "id": 98,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 4,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-rasp-pi",
+          "value": "ace-menlo-rasp-pi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}))",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}))",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current",
+      "type": "stat"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 5,
+        "y": 16
+      },
+      "id": 99,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 5,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-rasp-pi",
+          "value": "ace-menlo-rasp-pi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Uptime",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 9,
+        "y": 16
+      },
+      "id": 100,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 90,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-rasp-pi",
+          "value": "ace-menlo-rasp-pi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}), 0)) * 100",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Unscheduled Downtime",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "aliasColors": {
+        "Scheduled": "blue",
+        "Scheduled downtime": "blue",
+        "Unscheduled": "red",
+        "Unscheduled downtime": "red"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 10,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 10,
+        "x": 11,
+        "y": 16
+      },
+      "hiddenSeries": false,
+      "id": 101,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "maxPerRow": 6,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 23,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-rasp-pi",
+          "value": "ace-menlo-rasp-pi"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "expr": "sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}), 0))",
+          "interval": "",
+          "legendFormat": "Unscheduled",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "Scheduled",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Downtime",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "1",
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 1000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 750
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 16
+      },
+      "id": 102,
+      "maxPerRow": 6,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 13,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-menlo-rasp-pi",
+          "value": "ace-menlo-rasp-pi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(time() - aetheredge_last_update{endpoint=\"metrics80\",name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Seconds since last update",
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "id": 103,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 35,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-stanford1-prd",
+          "value": "ace-stanford1-prd"
+        }
+      },
+      "title": "Edge: $edge",
+      "type": "row"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "error",
+              "to": "",
+              "type": 1,
+              "value": "-1"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "operator": "",
+              "text": "disconnected",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 3,
+              "operator": "",
+              "text": "connecting",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            },
+            {
+              "from": "",
+              "id": 4,
+              "operator": "",
+              "text": "connected",
+              "to": "",
+              "type": 1,
+              "value": "2"
+            },
+            {
+              "from": "",
+              "id": 5,
+              "operator": "",
+              "text": "no result",
+              "to": "",
+              "type": 1,
+              "value": "-2"
+            },
+            {
+              "from": "-100",
+              "id": 6,
+              "operator": "",
+              "text": "scheduled downtime",
+              "to": "-3",
+              "type": 2
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": -100
+              },
+              {
+                "color": "red",
+                "value": -2
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 0,
+        "y": 21
+      },
+      "id": 104,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 4,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-stanford1-prd",
+          "value": "ace-stanford1-prd"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}))",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}))",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current",
+      "type": "stat"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 5,
+        "y": 21
+      },
+      "id": 105,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 5,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-stanford1-prd",
+          "value": "ace-stanford1-prd"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Uptime",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 9,
+        "y": 21
+      },
+      "id": 106,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 90,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-stanford1-prd",
+          "value": "ace-stanford1-prd"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}), 0)) * 100",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Unscheduled Downtime",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "aliasColors": {
+        "Scheduled": "blue",
+        "Scheduled downtime": "blue",
+        "Unscheduled": "red",
+        "Unscheduled downtime": "red"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 10,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 10,
+        "x": 11,
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 107,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "maxPerRow": 6,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 23,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-stanford1-prd",
+          "value": "ace-stanford1-prd"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "expr": "sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}), 0))",
+          "interval": "",
+          "legendFormat": "Unscheduled",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "Scheduled",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Downtime",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "1",
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 1000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 750
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 21
+      },
+      "id": 108,
+      "maxPerRow": 6,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 13,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-stanford1-prd",
+          "value": "ace-stanford1-prd"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(time() - aetheredge_last_update{endpoint=\"metrics80\",name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Seconds since last update",
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 109,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 35,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-tucson",
+          "value": "ace-tucson"
+        }
+      },
+      "title": "Edge: $edge",
+      "type": "row"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "error",
+              "to": "",
+              "type": 1,
+              "value": "-1"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "operator": "",
+              "text": "disconnected",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 3,
+              "operator": "",
+              "text": "connecting",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            },
+            {
+              "from": "",
+              "id": 4,
+              "operator": "",
+              "text": "connected",
+              "to": "",
+              "type": 1,
+              "value": "2"
+            },
+            {
+              "from": "",
+              "id": 5,
+              "operator": "",
+              "text": "no result",
+              "to": "",
+              "type": 1,
+              "value": "-2"
+            },
+            {
+              "from": "-100",
+              "id": 6,
+              "operator": "",
+              "text": "scheduled downtime",
+              "to": "-3",
+              "type": 2
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": -100
+              },
+              {
+                "color": "red",
+                "value": -2
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 0,
+        "y": 26
+      },
+      "id": 110,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 4,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-tucson",
+          "value": "ace-tucson"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}))",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}))",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current",
+      "type": "stat"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 5,
+        "y": 26
+      },
+      "id": 111,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 5,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-tucson",
+          "value": "ace-tucson"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "Control Plane",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 1, 0) * 100)",
+          "interval": "",
+          "legendFormat": "User Plane",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Uptime",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 9,
+        "y": 26
+      },
+      "id": 112,
+      "maxPerRow": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 90,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-tucson",
+          "value": "ace-tucson"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}), 0)) * 100",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Unscheduled Downtime",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "aliasColors": {
+        "Scheduled": "blue",
+        "Scheduled downtime": "blue",
+        "Unscheduled": "red",
+        "Unscheduled downtime": "red"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 10,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 4,
+        "w": 10,
+        "x": 11,
+        "y": 26
+      },
+      "hiddenSeries": false,
+      "id": 113,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "maxPerRow": 6,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 23,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-tucson",
+          "value": "ace-tucson"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "expr": "sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"$edge\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"$edge\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}), 0))",
+          "interval": "",
+          "legendFormat": "Unscheduled",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"})",
+          "interval": "",
+          "legendFormat": "Scheduled",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Downtime",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": "1",
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "RANCHER_MONITORING_GLOBAL",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 1000,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 750
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 26
+      },
+      "id": 114,
+      "maxPerRow": 6,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1607545836934,
+      "repeatPanelId": 13,
+      "repeatedByRow": true,
+      "scopedVars": {
+        "edge": {
+          "selected": false,
+          "text": "ace-tucson",
+          "value": "ace-tucson"
         }
       },
       "targets": [
@@ -677,7 +2852,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 30
       },
       "id": 69,
       "panels": [
@@ -700,7 +2875,7 @@
             "h": 5,
             "w": 24,
             "x": 0,
-            "y": 11
+            "y": 14
           },
           "hiddenSeries": false,
           "id": 21,
@@ -782,7 +2957,7 @@
       "type": "row"
     }
   ],
-  "refresh": "30s",
+  "refresh": "15m",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -792,6 +2967,7 @@
         "allValue": null,
         "current": {
           "selected": true,
+          "tags": [],
           "text": [
             "All"
           ],
@@ -821,7 +2997,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-2d",
     "to": "now"
   },
   "timepicker": {
