@@ -194,6 +194,11 @@ config:
       nodePort:
         enabled: false
         port: 33868
+    configPort:
+      port: 8080
+      nodePort:
+        enabled: false
+        port: 30081
     prometheus:
       port: 9089
       nodePort:
@@ -241,7 +246,8 @@ config:
         hss:
           gtwhost: "*"
           gtwport: 9080
-          restport: 9081
+          #restport will be set by configmap
+          #restport: ""
           ossport: 9082
           # casssrv will be set to cassandra in the same cluster if unset
           #casssrv: ""

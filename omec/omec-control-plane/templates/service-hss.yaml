@@ -19,6 +19,9 @@ spec:
   - name: s6a
     port: 3868
     protocol: TCP
+  - name: config-port
+    port: {{ .Values.config.hss.configPort.port }}
+    protocol: TCP
   - name: prometheus-exporter
     port: {{ .Values.config.hss.prometheus.port }}
     protocol: TCP
@@ -37,7 +40,10 @@ spec:
   - name: s6a
     port: 3868
     protocol: TCP
-{{- if .Values.config.hss.s6a.nodePort.enabled }}
+  - name: config-port
+    port: {{ .Values.config.hss.configPort.port }}
+    protocol: TCP
+{{- if or .Values.config.hss.s6a.nodePort.enabled .Values.config.hss.configPort.nodePort.enabled}}
 ---
 apiVersion: v1
 kind: Service
@@ -56,9 +62,16 @@ spec:
       protocol: TCP
       nodePort: {{ .Values.config.hss.prometheus.nodePort.port }}
   {{- end }}
-  - name: s6a
-    port: 3868
-    protocol: TCP
-    nodePort: {{ .Values.config.hss.s6a.nodePort.port }}
+    - name: s6a
+      port: 3868
+      protocol: TCP
+      nodePort: {{ .Values.config.hss.s6a.nodePort.port }}
+  {{- if .Values.config.hss.configPort.nodePort.enabled }}
+    - name: config-port
+      port: {{ .Values.config.hss.configPort.port }}
+      protocol: TCP
+      nodePort: {{ .Values.config.hss.configPort.nodePort.port }}
+  {{- end }}
+
 {{- end }}
 {{- end }}
