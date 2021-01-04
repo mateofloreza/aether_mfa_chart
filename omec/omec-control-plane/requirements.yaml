@@ -5,5 +5,5 @@
 dependencies:
   - name: cassandra
     version: 0.13.1
-    repository: https://kubernetes-charts-incubator.storage.googleapis.com/
+    repository: https://charts.helm.sh/incubator
     condition: cassandra.deploy
