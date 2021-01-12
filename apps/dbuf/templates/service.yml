@@ -1,0 +1,38 @@
+{{/*
+# Copyright 2021-present Open Networking Foundation
+
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+*/}}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "dbuf.fullname" . }}
+  labels:
+    {{- include "dbuf.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "dbuf.selectorLabels" . | nindent 4 }}
+  ports:
+  - name: grpc
+    protocol: TCP
+    # TODO: define in values
+    port: 10000
+    targetPort: grpc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "dbuf.fullname" . }}-stats
+  labels:
+    {{- include "dbuf.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "dbuf.selectorLabels" . | nindent 4 }}
+  ports:
+  - name: stats
+    protocol: TCP
+    # TODO: define in values
+    port: 8080
+    targetPort: stats
