@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1610554540644,
+  "iteration": 1610667296785,
   "links": [],
   "panels": [
     {
@@ -455,17 +455,17 @@
         {
           "targetBlank": true,
           "title": "Drill down: cluster compute",
-          "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}"
+          "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: cluster networking",
-          "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}"
+          "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: nodes",
-          "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}"
+          "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}&${__url_time_range}"
         }
       ],
       "maxPerRow": 6,
@@ -858,7 +858,7 @@
       "id": 91,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -970,17 +970,17 @@
         {
           "targetBlank": true,
           "title": "Drill down: cluster compute",
-          "url": "https://monitoring.aetherproject.org/grafana/d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}"
+          "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: cluster networking",
-          "url": "https://monitoring.aetherproject.org/grafana/d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}"
+          "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: nodes",
-          "url": "https://monitoring.aetherproject.org/grafana/d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}"
+          "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}&${__url_time_range}"
         }
       ],
       "maxPerRow": 6,
@@ -1001,7 +1001,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1082,7 +1082,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1165,7 +1165,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1237,7 +1237,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1353,7 +1353,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1388,7 +1388,7 @@
       "id": 97,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -1500,17 +1500,17 @@
         {
           "targetBlank": true,
           "title": "Drill down: cluster compute",
-          "url": "https://monitoring.aetherproject.org/grafana/d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}"
+          "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: cluster networking",
-          "url": "https://monitoring.aetherproject.org/grafana/d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}"
+          "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: nodes",
-          "url": "https://monitoring.aetherproject.org/grafana/d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}"
+          "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}&${__url_time_range}"
         }
       ],
       "maxPerRow": 6,
@@ -1531,7 +1531,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1612,7 +1612,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1695,7 +1695,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1767,7 +1767,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1883,7 +1883,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1918,7 +1918,7 @@
       "id": 103,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -2030,17 +2030,17 @@
         {
           "targetBlank": true,
           "title": "Drill down: cluster compute",
-          "url": "https://monitoring.aetherproject.org/grafana/d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}"
+          "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: cluster networking",
-          "url": "https://monitoring.aetherproject.org/grafana/d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}"
+          "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: nodes",
-          "url": "https://monitoring.aetherproject.org/grafana/d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}"
+          "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}&${__url_time_range}"
         }
       ],
       "maxPerRow": 6,
@@ -2061,7 +2061,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2142,7 +2142,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2225,7 +2225,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2297,7 +2297,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2413,7 +2413,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2448,7 +2448,7 @@
       "id": 109,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -2560,17 +2560,17 @@
         {
           "targetBlank": true,
           "title": "Drill down: cluster compute",
-          "url": "https://monitoring.aetherproject.org/grafana/d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}"
+          "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: cluster networking",
-          "url": "https://monitoring.aetherproject.org/grafana/d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}"
+          "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: nodes",
-          "url": "https://monitoring.aetherproject.org/grafana/d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}"
+          "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}&${__url_time_range}"
         }
       ],
       "maxPerRow": 6,
@@ -2591,7 +2591,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2672,7 +2672,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2755,7 +2755,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2827,7 +2827,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2943,7 +2943,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2978,7 +2978,7 @@
       "id": 115,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -3090,17 +3090,17 @@
         {
           "targetBlank": true,
           "title": "Drill down: cluster compute",
-          "url": "https://monitoring.aetherproject.org/grafana/d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}"
+          "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: cluster networking",
-          "url": "https://monitoring.aetherproject.org/grafana/d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}"
+          "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: nodes",
-          "url": "https://monitoring.aetherproject.org/grafana/d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}"
+          "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}&${__url_time_range}"
         }
       ],
       "maxPerRow": 6,
@@ -3121,7 +3121,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3202,7 +3202,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3285,7 +3285,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3357,7 +3357,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3473,7 +3473,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3508,7 +3508,7 @@
       "id": 121,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -3620,17 +3620,17 @@
         {
           "targetBlank": true,
           "title": "Drill down: cluster compute",
-          "url": "https://monitoring.aetherproject.org/grafana/d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}"
+          "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: cluster networking",
-          "url": "https://monitoring.aetherproject.org/grafana/d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}"
+          "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: nodes",
-          "url": "https://monitoring.aetherproject.org/grafana/d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}"
+          "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}&${__url_time_range}"
         }
       ],
       "maxPerRow": 6,
@@ -3651,7 +3651,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3732,7 +3732,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3815,7 +3815,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3887,7 +3887,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4003,7 +4003,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4038,7 +4038,7 @@
       "id": 127,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -4150,17 +4150,17 @@
         {
           "targetBlank": true,
           "title": "Drill down: cluster compute",
-          "url": "https://monitoring.aetherproject.org/grafana/d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}"
+          "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: cluster networking",
-          "url": "https://monitoring.aetherproject.org/grafana/d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}"
+          "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=${edge}&${__url_time_range}"
         },
         {
           "targetBlank": true,
           "title": "Drill down: nodes",
-          "url": "https://monitoring.aetherproject.org/grafana/d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}"
+          "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=${edge}&${__url_time_range}"
         }
       ],
       "maxPerRow": 6,
@@ -4181,7 +4181,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4262,7 +4262,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4345,7 +4345,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4417,7 +4417,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4533,7 +4533,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610554540644,
+      "repeatIteration": 1610667296785,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4668,7 +4668,7 @@
       "type": "row"
     }
   ],
-  "refresh": "15m",
+  "refresh": false,
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -4727,5 +4727,5 @@
   "timezone": "",
   "title": "Aether Connected Edge",
   "uid": "Y2z8vDtGz",
-  "version": 1
+  "version": 2
 }
