@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1610667296785,
+  "iteration": 1610717182686,
   "links": [],
   "panels": [
     {
@@ -282,7 +282,7 @@
         ]
       },
       "gridPos": {
-        "h": 4,
+        "h": 7,
         "w": 24,
         "x": 0,
         "y": 1
@@ -340,7 +340,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 8
       },
       "id": 35,
       "panels": [],
@@ -448,7 +448,7 @@
         "h": 4,
         "w": 5,
         "x": 0,
-        "y": 6
+        "y": 9
       },
       "id": 4,
       "links": [
@@ -543,7 +543,7 @@
         "h": 4,
         "w": 4,
         "x": 5,
-        "y": 6
+        "y": 9
       },
       "id": 5,
       "maxPerRow": 6,
@@ -624,7 +624,7 @@
         "h": 4,
         "w": 2,
         "x": 9,
-        "y": 6
+        "y": 9
       },
       "id": 90,
       "maxPerRow": 6,
@@ -689,7 +689,7 @@
         "h": 4,
         "w": 10,
         "x": 11,
-        "y": 6
+        "y": 9
       },
       "hiddenSeries": false,
       "id": 23,
@@ -807,7 +807,7 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 6
+        "y": 9
       },
       "id": 13,
       "maxPerRow": 6,
@@ -853,12 +853,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 13
       },
       "id": 91,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -963,7 +963,7 @@
         "h": 4,
         "w": 5,
         "x": 0,
-        "y": 11
+        "y": 14
       },
       "id": 92,
       "links": [
@@ -1001,7 +1001,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1061,7 +1061,7 @@
         "h": 4,
         "w": 4,
         "x": 5,
-        "y": 11
+        "y": 14
       },
       "id": 93,
       "maxPerRow": 6,
@@ -1082,7 +1082,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1145,7 +1145,7 @@
         "h": 4,
         "w": 2,
         "x": 9,
-        "y": 11
+        "y": 14
       },
       "id": 94,
       "maxPerRow": 6,
@@ -1165,7 +1165,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1213,7 +1213,7 @@
         "h": 4,
         "w": 10,
         "x": 11,
-        "y": 11
+        "y": 14
       },
       "hiddenSeries": false,
       "id": 95,
@@ -1237,7 +1237,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1334,7 +1334,7 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 11
+        "y": 14
       },
       "id": 96,
       "maxPerRow": 6,
@@ -1353,7 +1353,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1383,12 +1383,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 18
       },
       "id": 97,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -1493,7 +1493,7 @@
         "h": 4,
         "w": 5,
         "x": 0,
-        "y": 16
+        "y": 19
       },
       "id": 98,
       "links": [
@@ -1531,7 +1531,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1591,7 +1591,7 @@
         "h": 4,
         "w": 4,
         "x": 5,
-        "y": 16
+        "y": 19
       },
       "id": 99,
       "maxPerRow": 6,
@@ -1612,7 +1612,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1675,7 +1675,7 @@
         "h": 4,
         "w": 2,
         "x": 9,
-        "y": 16
+        "y": 19
       },
       "id": 100,
       "maxPerRow": 6,
@@ -1695,7 +1695,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1743,7 +1743,7 @@
         "h": 4,
         "w": 10,
         "x": 11,
-        "y": 16
+        "y": 19
       },
       "hiddenSeries": false,
       "id": 101,
@@ -1767,7 +1767,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1864,7 +1864,7 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 16
+        "y": 19
       },
       "id": 102,
       "maxPerRow": 6,
@@ -1883,7 +1883,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1913,12 +1913,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 23
       },
       "id": 103,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -2023,7 +2023,7 @@
         "h": 4,
         "w": 5,
         "x": 0,
-        "y": 21
+        "y": 24
       },
       "id": 104,
       "links": [
@@ -2061,7 +2061,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2121,7 +2121,7 @@
         "h": 4,
         "w": 4,
         "x": 5,
-        "y": 21
+        "y": 24
       },
       "id": 105,
       "maxPerRow": 6,
@@ -2142,7 +2142,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2205,7 +2205,7 @@
         "h": 4,
         "w": 2,
         "x": 9,
-        "y": 21
+        "y": 24
       },
       "id": 106,
       "maxPerRow": 6,
@@ -2225,7 +2225,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2273,7 +2273,7 @@
         "h": 4,
         "w": 10,
         "x": 11,
-        "y": 21
+        "y": 24
       },
       "hiddenSeries": false,
       "id": 107,
@@ -2297,7 +2297,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2394,7 +2394,7 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 21
+        "y": 24
       },
       "id": 108,
       "maxPerRow": 6,
@@ -2413,7 +2413,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2443,12 +2443,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 28
       },
       "id": 109,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -2553,7 +2553,7 @@
         "h": 4,
         "w": 5,
         "x": 0,
-        "y": 26
+        "y": 29
       },
       "id": 110,
       "links": [
@@ -2591,7 +2591,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2651,7 +2651,7 @@
         "h": 4,
         "w": 4,
         "x": 5,
-        "y": 26
+        "y": 29
       },
       "id": 111,
       "maxPerRow": 6,
@@ -2672,7 +2672,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2735,7 +2735,7 @@
         "h": 4,
         "w": 2,
         "x": 9,
-        "y": 26
+        "y": 29
       },
       "id": 112,
       "maxPerRow": 6,
@@ -2755,7 +2755,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2803,7 +2803,7 @@
         "h": 4,
         "w": 10,
         "x": 11,
-        "y": 26
+        "y": 29
       },
       "hiddenSeries": false,
       "id": 113,
@@ -2827,7 +2827,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2924,7 +2924,7 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 26
+        "y": 29
       },
       "id": 114,
       "maxPerRow": 6,
@@ -2943,7 +2943,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -2973,12 +2973,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 33
       },
       "id": 115,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -3083,7 +3083,7 @@
         "h": 4,
         "w": 5,
         "x": 0,
-        "y": 31
+        "y": 34
       },
       "id": 116,
       "links": [
@@ -3121,7 +3121,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3181,7 +3181,7 @@
         "h": 4,
         "w": 4,
         "x": 5,
-        "y": 31
+        "y": 34
       },
       "id": 117,
       "maxPerRow": 6,
@@ -3202,7 +3202,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3265,7 +3265,7 @@
         "h": 4,
         "w": 2,
         "x": 9,
-        "y": 31
+        "y": 34
       },
       "id": 118,
       "maxPerRow": 6,
@@ -3285,7 +3285,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3333,7 +3333,7 @@
         "h": 4,
         "w": 10,
         "x": 11,
-        "y": 31
+        "y": 34
       },
       "hiddenSeries": false,
       "id": 119,
@@ -3357,7 +3357,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3454,7 +3454,7 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 31
+        "y": 34
       },
       "id": 120,
       "maxPerRow": 6,
@@ -3473,7 +3473,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3503,12 +3503,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 38
       },
       "id": 121,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -3613,7 +3613,7 @@
         "h": 4,
         "w": 5,
         "x": 0,
-        "y": 36
+        "y": 39
       },
       "id": 122,
       "links": [
@@ -3651,7 +3651,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3711,7 +3711,7 @@
         "h": 4,
         "w": 4,
         "x": 5,
-        "y": 36
+        "y": 39
       },
       "id": 123,
       "maxPerRow": 6,
@@ -3732,7 +3732,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3795,7 +3795,7 @@
         "h": 4,
         "w": 2,
         "x": 9,
-        "y": 36
+        "y": 39
       },
       "id": 124,
       "maxPerRow": 6,
@@ -3815,7 +3815,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3863,7 +3863,7 @@
         "h": 4,
         "w": 10,
         "x": 11,
-        "y": 36
+        "y": 39
       },
       "hiddenSeries": false,
       "id": 125,
@@ -3887,7 +3887,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -3984,7 +3984,7 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 36
+        "y": 39
       },
       "id": 126,
       "maxPerRow": 6,
@@ -4003,7 +4003,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4033,12 +4033,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 43
       },
       "id": 127,
       "panels": [],
       "repeat": null,
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 35,
       "scopedVars": {
         "edge": {
@@ -4143,7 +4143,7 @@
         "h": 4,
         "w": 5,
         "x": 0,
-        "y": 41
+        "y": 44
       },
       "id": 128,
       "links": [
@@ -4181,7 +4181,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 4,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4241,7 +4241,7 @@
         "h": 4,
         "w": 4,
         "x": 5,
-        "y": 41
+        "y": 44
       },
       "id": 129,
       "maxPerRow": 6,
@@ -4262,7 +4262,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 5,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4325,7 +4325,7 @@
         "h": 4,
         "w": 2,
         "x": 9,
-        "y": 41
+        "y": 44
       },
       "id": 130,
       "maxPerRow": 6,
@@ -4345,7 +4345,7 @@
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 90,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4393,7 +4393,7 @@
         "h": 4,
         "w": 10,
         "x": 11,
-        "y": 41
+        "y": 44
       },
       "hiddenSeries": false,
       "id": 131,
@@ -4417,7 +4417,7 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 23,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4514,7 +4514,7 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 41
+        "y": 44
       },
       "id": 132,
       "maxPerRow": 6,
@@ -4533,7 +4533,7 @@
       "pluginVersion": "7.1.5",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1610667296785,
+      "repeatIteration": 1610717182686,
       "repeatPanelId": 13,
       "repeatedByRow": true,
       "scopedVars": {
@@ -4563,7 +4563,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 48
       },
       "id": 69,
       "panels": [
@@ -4668,7 +4668,7 @@
       "type": "row"
     }
   ],
-  "refresh": false,
+  "refresh": "5m",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -4678,7 +4678,6 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
           "text": [
             "All"
           ],
@@ -4727,5 +4726,5 @@
   "timezone": "",
   "title": "Aether Connected Edge",
   "uid": "Y2z8vDtGz",
-  "version": 2
+  "version": 3
 }
