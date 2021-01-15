@@ -20,7 +20,11 @@ spec:
       labels:
 {{ tuple "ros-core" . | include "ros-core.metadata_labels" | indent 8 }}
     spec:
-      hostNetwork: true
+  {{- if .Values.nodeSelector.enabled }}
+      nodeSelector:
+        {{ .Values.nodeSelector.rosCore.label }}: {{ .Values.nodeSelector.rosCore.value }}
+  {{- end }}
+      hostNetwork: {{ .Values.networks.hostNetwork }}
       containers:
       - name: ros-core
         image: {{ .Values.images.tags.rosCore }}
