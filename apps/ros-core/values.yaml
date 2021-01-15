@@ -1,0 +1,32 @@
+# Copyright 2021-present Open Networking Foundation
+#
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+
+images:
+  tags:
+    rosCore:  registry.central.aetherproject.net/drone-ros:v0.1.0
+  pullPolicy: IfNotPresent
+
+nodeSelector:
+  enabled: true
+  rosCore:
+    label: drone-ros-core
+    value: enabled
+
+resources:
+  enabled: false
+
+config:
+  rosCore:
+    debug: false
+    droneList:
+    - name: drone1
+      domain: "drone1"
+      ipAddr: 10.250.255.251
+    - name: drone2
+      domain: "drone2"
+      ipAddr: 10.250.255.250
+
+networks:
+  hostNetwork: true
+

@@ -1,0 +1,40 @@
+# Copyright 2021-present Open Networking Foundation
+#
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ros-core
+  labels:
+{{ tuple "ros-core" . | include "ros-core.metadata_labels" | indent 4 }}
+spec:
+  replicas: 1
+  serviceName: ros-core
+  selector:
+    matchLabels:
+{{ tuple "ros-core" . | include "ros-core.metadata_labels" | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{ tuple "ros-core" . | include "ros-core.metadata_labels" | indent 8 }}
+    spec:
+      hostNetwork: true
+      containers:
+      - name: ros-core
+        image: {{ .Values.images.tags.rosCore }}
+        imagePullPolicy: {{ .Values.images.pullPolicy }}
+        securityContext:
+          privileged: true
+        command:
+        - /root/run_roscore.sh
+        volumeMounts:
+        - name: ros-core
+          mountPath: /root/run_roscore.sh
+          subPath: run_roscore.sh
+      volumes:
+        - name: ros-core
+          configMap:
+            name: ros-core
+            defaultMode: 493
