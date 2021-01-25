@@ -24,19 +24,39 @@ spec:
       nodeSelector:
         {{ .Values.nodeSelector.rosCore.label }}: {{ .Values.nodeSelector.rosCore.value }}
   {{- end }}
-      hostNetwork: {{ .Values.networks.hostNetwork }}
+  {{- if .Values.networks.hostNetwork }}
+      hostNetwork: true
+      dnsPolicy: None
+      dnsConfig:
+        nameservers:
+          - {{ .Values.coredns.service.clusterIP }}
+  {{- end }}
       containers:
       - name: ros-core
         image: {{ .Values.images.tags.rosCore }}
         imagePullPolicy: {{ .Values.images.pullPolicy }}
         securityContext:
           privileged: true
+        stdin: true
+        tty: true
         command:
         - /root/run_roscore.sh
         volumeMounts:
         - name: ros-core
           mountPath: /root/run_roscore.sh
           subPath: run_roscore.sh
+      - name: drone-net-listener
+        image: {{ .Values.images.tags.droneNetListener }}
+        imagePullPolicy: {{ .Values.images.pullPolicy }}
+        stdin: true
+        tty: true
+        command: ["bash", "-xc"]
+        args:
+        - python /opt/net_listener.py
+        volumeMounts:
+        - name: ros-core
+          mountPath: /opt/net_listener.py
+          subPath: net_listener.py
       volumes:
         - name: ros-core
           configMap:

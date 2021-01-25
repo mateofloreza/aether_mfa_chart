@@ -7,4 +7,4 @@ description: ROS-Core chart for Drone use-case
 name: ros-core
 icon: https://guide.opencord.org/logos/cord.svg
 
-version: 0.1.1
+version: 0.1.2

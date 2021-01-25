@@ -12,3 +12,5 @@ metadata:
 data:
   run_roscore.sh: |
 {{ tuple "bin/_run_roscore.sh.tpl" . | include "ros-core.template" | indent 4 }}
+  net_listener.py: |
+{{ tuple "bin/_net_listener.tpl" . | include "ros-core.template" | indent 4 }}

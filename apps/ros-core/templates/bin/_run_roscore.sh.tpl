@@ -5,10 +5,6 @@
 
 set -ex
 
-{{- range .Values.config.rosCore.droneList }}
-echo "{{ .ipAddr }} {{ .domain }}" >> /etc/hosts
-{{- end }}
-
 {{ if .Values.config.rosCore.debug }}
 while true; do sleep 3600; done;
 {{ else }}
