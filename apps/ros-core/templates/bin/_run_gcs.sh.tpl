@@ -9,5 +9,5 @@ set -ex
 while true; do sleep 3600; done;
 {{ else }}
 cd /root/TrajBridge-PX4;
-source devel/setup.bash; roslaunch bridge_px4 core.launch
+source devel/setup.bash; roslaunch bridge_px4 gcs.launch
 {{ end }}

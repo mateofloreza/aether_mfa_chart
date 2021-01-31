@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
+{{ tuple "ros-core" . | include "ros-core.service_account" }}
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -24,6 +25,7 @@ spec:
       nodeSelector:
         {{ .Values.nodeSelector.rosCore.label }}: {{ .Values.nodeSelector.rosCore.value }}
   {{- end }}
+      serviceAccountName: ros-core
   {{- if .Values.networks.hostNetwork }}
       hostNetwork: true
       dnsPolicy: None
@@ -45,6 +47,8 @@ spec:
         - name: ros-core
           mountPath: /root/run_roscore.sh
           subPath: run_roscore.sh
+        - name: ros-core-launch
+          mountPath: /root/TrajBridge-PX4/src/bridge_px4/launch
       - name: drone-net-listener
         image: {{ .Values.images.tags.droneNetListener }}
         imagePullPolicy: {{ .Values.images.pullPolicy }}
@@ -62,3 +66,7 @@ spec:
           configMap:
             name: ros-core
             defaultMode: 493
+        - name: ros-core-launch
+          configMap:
+            name: ros-core-launch
+            defaultMode: 420
