@@ -15,11 +15,16 @@ spec:
   "type": "sriov",
   "name": "sriov-network",
   "ipam": {
+    {{- if eq .Values.network.ipam "host-local" }}
     "type": "host-local",
-    "subnet": "10.56.217.0/24",
+    "subnet": "{{ .Values.network.static.subnets }}",
     "routes": [{
       "dst": "0.0.0.0/0"
     }],
-    "gateway": "10.56.217.1"
+    "gateway": "{{ .Values.network.static.gateway }}"
+    {{- else if eq .Values.network.ipam "dhcp" }}
+    "type": "dhcp"
+
+    {{- end }}
   }
 }'

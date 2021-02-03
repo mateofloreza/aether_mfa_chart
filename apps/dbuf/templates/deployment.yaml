@@ -24,7 +24,7 @@ spec:
     spec:
       {{- if .Values.image.credentials }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        - name: {{ .Release.Name }}.registry
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
@@ -43,10 +43,10 @@ spec:
           ports:
           - name: grpc
             containerPort: 10000
-            protocol: TCP
-          - name: stats
+            protocol:  {{ .Values.service.grpc.protocol }}
+          - name: exporter
             containerPort: 8080
-            protocol: TCP
+            protocol: {{ .Values.service.stats.protocol }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

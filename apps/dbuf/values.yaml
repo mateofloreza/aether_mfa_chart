@@ -3,17 +3,15 @@
 
 image:
   repository: registry.aetherproject.org/tost/dbuf
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"
-  credentials: {}
-  # If specified, use this credential to access the image
-  #   registry:
-  #   username:
-  #   password:
+  credentials:
+    registry: "registry.aetherproject.org"
+    username: "aether_jenkins"
+    password: "9zySeOpTL"
 
 extraParams:
   - '"-max_queues=1024"'
-
 
 replicaCount: 1
 sriovNICSize: 1
@@ -22,18 +20,34 @@ sriovResourceName: intel_sriov_netdevice
 # Change both in the same time
 multusNetworkName: dbuf-sriov
 podAnnotations:
-    k8s.v1.cni.cncf.io/networks: dbuf-sriov
+  k8s.v1.cni.cncf.io/networks: dbuf-sriov
 
-imagePullSecrets: []
 podSecurityContext: {}
 resources:
   requests:
-    intel.com/intel_sriov_netdevice: '1'
+    intel.com/intel_sriov_netdevice: "1"
   limits:
-    intel.com/intel_sriov_netdevice: '1'
+    intel.com/intel_sriov_netdevice: "1"
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+service:
+  stats:
+    port: 8080
+    protocol: TCP
+  grpc:
+    port: 10000
+    protocol: TCP
+
+# two options for ipam, dhcp or host-local
+# static is for host-local ipam
+network:
+  #  ipam: dhcp
+  ipam: host-local
+  static:
+    subnets: "10.56.217.0/24"
+    gateway: "10.56.217.1"

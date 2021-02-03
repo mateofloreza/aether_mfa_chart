@@ -15,9 +15,8 @@ spec:
     {{- include "dbuf.selectorLabels" . | nindent 4 }}
   ports:
   - name: grpc
-    protocol: TCP
-    # TODO: define in values
-    port: 10000
+    protocol: {{ .Values.service.grpc.protocol }}
+    port: {{ .Values.service.grpc.port }}
     targetPort: grpc
 
 ---
@@ -31,8 +30,7 @@ spec:
   selector:
     {{- include "dbuf.selectorLabels" . | nindent 4 }}
   ports:
-  - name: stats
-    protocol: TCP
-    # TODO: define in values
-    port: 8080
-    targetPort: stats
+  - name: exporter
+    protocol: {{ .Values.service.stats.protocol }}
+    port: {{ .Values.service.stats.port }}
+    targetPort: exporter
