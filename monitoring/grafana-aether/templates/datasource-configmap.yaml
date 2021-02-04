@@ -12,32 +12,14 @@ data:
     apiVersion: 1
 
     datasources:
-{{- if .Values.edgeServerDatasourceURL }}
-    - name: RANCHER_MONITORING_GLOBAL
+{{- range .Values.prometheusDatasources }}
+    - name: {{ .name }}
       type: prometheus
       access: proxy
       basicAuth: false
       editable: false
       isDefault: false
-      url: {{ .Values.edgeServerDatasourceURL }}
-{{- end }}
-{{- range .Values.clusterDatasources }}
-    - name: {{ .cluster }}
-      type: prometheus
-      access: proxy
-      basicAuth: false
-      editable: false
-      isDefault: false
-      url: {{ .prometheusURL }}
-{{- end }}
-{{- if .Values.sdCoreDatasourceURL }}
-    - name: RANCHER_MONITORING_SDCORE
-      type: prometheus
-      access: proxy
-      basicAuth: false
-      editable: false
-      isDefault: false
-      url: {{ .Values.sdCoreDatasourceURL }}
+      url: {{ .endpoint }}
 {{- end }}
 {{- if .Values.googleCloudMonitoring }}
     - name: Google Cloud Monitoring

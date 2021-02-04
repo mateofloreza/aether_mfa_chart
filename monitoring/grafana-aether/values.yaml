@@ -8,26 +8,18 @@
 nameOverride: ""
 fullnameOverride: ""
 
-globalDashboard: true
-multiSiteDashboard: false
-sdCoreDashboard: false
+# Names of dashbaords in the dashboards/ directory to deploy
+dashboards: []
+  # - global-edge-status-production.json
+  # - sdcore-metrics.json
 
-# Specify an enterprise to deploy its dashboard, i.e., "telefonica"
-enterpriseDashboard: ""
-
-# URL of Prometheus that collects E2E test results from edge monitoring server
-edgeServerDatasourceURL: ""
-
-# URL of Prometheus that collects metrics from SD-CORE services
-sdCoreDatasourceURL: ""
-
-# URL of Prometheus that collects SD-CORE metrics
-sdCoreDatasourceURL: ""
-
-# List of cluster Prometheus datasources.
-clusterDatasources: []
-# - cluster: production-edge-onf-menlo
-#   prometheusURL: http://10.53.154.24
+# Datasources used by the dashboards
+# Names in datasources must match names referenced in dashboards
+prometheusDatasources: []
+  # - name: RANCHER_MONITORING_GLOBAL
+  #   endpoint: http://rancher-monitoring-prometheus:9090
+  # - name: RANCHER_MONITORING_SDCORE
+  #   endpoint: http://rancher-monitoring-prometheus.cattle-monitoring-system.svc.prd.acc.gcp.aetherproject.net:9090
 
 # Configure Google Cloud Monitoring datasource
 googleCloudMonitoring: {}
