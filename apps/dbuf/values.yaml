@@ -5,10 +5,11 @@ image:
   repository: registry.aetherproject.org/tost/dbuf
   pullPolicy: Always
   tag: "latest"
-  credentials:
-    registry: "registry.aetherproject.org"
-    username: "aether_jenkins"
-    password: "9zySeOpTL"
+  credentials: {}
+  # If specified, use this credential to access the image
+  #   registry:
+  #   username:
+  #   password:
 
 extraParams:
   - '"-max_queues=1024"'
