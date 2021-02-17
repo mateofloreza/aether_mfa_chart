@@ -47,6 +47,36 @@ spec:
           - name: exporter
             containerPort: 8080
             protocol: {{ .Values.service.stats.protocol }}
+        # Push data plane address to ONOS via netcfgc
+        - name: push-onos
+          image: curlimages/curl:7.75.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: ONOS_SERVER
+              value: "{{ .Values.onos.server }}"
+            - name: ONOS_PORT
+              value: "{{ .Values.onos.port }}"
+            - name: ONOS_USERNAME
+              value: "{{ .Values.onos.username }}"
+            - name: ONOS_PASSWORD
+              value: "{{ .Values.onos.password }}"
+            - name: GRPC_SERVICE_NAME
+              value: {{ include "dbuf.fullname" . }}
+            - name: GRPC_PORT
+              value: "{{ .Values.service.grpc.port }}"
+            - name: DP_INTERFACE
+              value: "{{ .Values.dataplane.interface }}"
+            - name: DP_PORT
+              value: "{{ .Values.dataplane.port }}"
+          volumeMounts:
+            - name: onos-push-script
+              mountPath: /tmp/push-onos
+              subPath: push-onos
+          command: ["sh", "-c", "/tmp/push-onos"]
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -59,3 +89,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: onos-push-script
+          configMap:
+            name: {{ include "dbuf.fullname" . }}
+            defaultMode: 0755

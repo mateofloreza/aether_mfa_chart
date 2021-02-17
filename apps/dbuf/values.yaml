@@ -21,7 +21,7 @@ sriovResourceName: intel_sriov_netdevice
 # Change both in the same time
 multusNetworkName: dbuf-sriov
 podAnnotations:
-  k8s.v1.cni.cncf.io/networks: dbuf-sriov
+  k8s.v1.cni.cncf.io/networks: dbuf-sriov@net0
 
 podSecurityContext: {}
 resources:
@@ -35,6 +35,17 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# onos inforamtion
+onos:
+  server: onos-tost-onos-classic-hs.tost
+  port: 8181
+  username: onos
+  password: rocks
+
+dataplane:
+  port: 2152
+  interface: "net0"
 
 service:
   stats:
