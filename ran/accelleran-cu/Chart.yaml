@@ -11,4 +11,4 @@ name: accelleran-cu
 description: A Helm chart to install Accelleran CU
 icon: https://guide.opencord.org/logos/cord.svg
 
-version: 0.1.2
+version: 0.1.3

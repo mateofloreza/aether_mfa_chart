@@ -43,7 +43,7 @@ metadata:
   labels:
 {{ tuple $saName $context | include "phylo.metadata_labels" | indent 4 }}
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: {{ $saName }}
@@ -59,7 +59,7 @@ subjects:
     name: {{ $saName }}
     namespace: {{ $saNamespace }}
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: {{ $saName }}
