@@ -60,6 +60,10 @@ data:
     [IP_POOL_CONFIG]
     IP_POOL_IP= {{.Values.config.spgwc.ueIpPool.ip }}
     IP_POOL_MASK= {{ .Values.config.spgwc.ueIpPool.mask }}
+    [STATIC_IP_POOL_CONFIG]
+    IP_POOL_IP= {{.Values.config.spgwc.staticUeIpPool.ip }}
+    IP_POOL_MASK= {{ .Values.config.spgwc.staticUeIpPool.mask }}
+
   gx.conf: |
     Identity = {{ tuple "spgwc" "identity" . | include "omec-control-plane.diameter_endpoint" | quote }};
     Realm = {{ tuple "spgwc" "realm" . | include "omec-control-plane.diameter_endpoint" | quote }};

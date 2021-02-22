@@ -101,8 +101,8 @@ provision_users \
     {{ .opc }} \
     {{ .sqn }} \
     {{ $.Values.config.hss.hssdb }} \
-    $mme_identity \
-    $mme_realm
+    {{ .mme_identity }} \
+    {{ .mme_realm }}
 {{- end }}
 
 {{- range .Values.config.hss.bootstrap.staticusers }}
@@ -114,8 +114,8 @@ provision_staticusers \
     {{ .opc }} \
     {{ .sqn }} \
     {{ $.Values.config.hss.hssdb }} \
-    $mme_identity \
-    $mme_realm \
+    {{ .mme_identity }} \
+    {{ .mme_realm }} \
     {{ .staticAddr }}
 {{- end }}
 

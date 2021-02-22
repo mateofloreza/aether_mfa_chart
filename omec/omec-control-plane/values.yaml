@@ -220,6 +220,8 @@ config:
           sqn: 96
           imsiStart: "208014567891200"
           msisdnStart: "1122334455"
+          mme_identity: mme.omec.svc.cluster.local
+          mme_realm: omec.svc.cluster.local
           count: 10
       staticusers:
         - apn: internet
@@ -229,6 +231,8 @@ config:
           imsi: "208014567891200"
           msisdn: "1122334455"
           staticAddr: 0.0.0.0
+          mme_identity: mme.omec.svc.cluster.local
+          mme_realm: omec.svc.cluster.local
       mmes:
         - id: 1
           mme_identity: mme.omec.svc.cluster.local
@@ -391,6 +395,9 @@ config:
     ueIpPool:
       ip: "10.250.0.0"
       mask: "255.255.0.0"
+    staticUeIpPool:
+      ip: "10.249.1.0"
+      mask: "255.255.255.0"
     s11:
       port: 2123
       nodePort:
@@ -412,6 +419,39 @@ config:
         enabled: false
         port: 30080
     jsonCfgFiles:
+      cp.json:
+        global:
+          transmitTimerSec: 2
+          periodicTimerSec: 10
+          transmitCount: 5
+          requestTimeoutMilliSec: 5000
+          requestTries: 3
+          gxConfig: 0
+          urrConfig: 0
+          loggingLevel: "LOG_DEBUG"
+        #DNS Server - 3gpp compliant DNS server
+        dns:
+          cache:
+            concurrent: 25
+            percentage: 80
+            intervalSec: 60
+            queryTimeoutMilliSec: 1000
+            queryTries: 1
+          app:
+            frequencySec: 3
+            filename: "appqueries.json"
+            nameserver: "127.0.0.1"
+          ops:
+            frequencySec: 3
+            filename: "opsqueries.json"
+            nameserver: "127.0.0.1"
+        ip_pool_config:
+          ueIpPool:
+            ip: "10.250.0.0"
+            mask: "255.255.0.0"
+          staticUeIpPool:
+            ip: "10.249.1.0"
+            mask: "255.255.255.0"
       config.json:
         gx:
           host_type: freediameter
@@ -454,6 +494,7 @@ config:
         user-plane-profiles:
           user-plane1:
             user-plane: upf
+            global-address: true
             qos-tags:
               tag1: BW
             access-tags:
