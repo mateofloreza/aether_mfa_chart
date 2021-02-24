@@ -22,6 +22,12 @@ spec:
       labels:
         {{- include "dbuf.selectorLabels" . | nindent 8 }}
     spec:
+      securityContext:
+        sysctls:
+        - name: ipv4.conf.all.rp_filter
+          value: "2"
+        - name: ipv4.conf.net0.rp_filter
+          value: "2"
       {{- if .Values.image.credentials }}
       imagePullSecrets:
         - name: {{ .Release.Name }}.registry
