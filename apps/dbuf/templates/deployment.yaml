@@ -22,12 +22,6 @@ spec:
       labels:
         {{- include "dbuf.selectorLabels" . | nindent 8 }}
     spec:
-      securityContext:
-        sysctls:
-        - name: ipv4.conf.all.rp_filter
-          value: "2"
-        - name: ipv4.conf.net0.rp_filter
-          value: "2"
       {{- if .Values.image.credentials }}
       imagePullSecrets:
         - name: {{ .Release.Name }}.registry
@@ -54,7 +48,8 @@ spec:
             containerPort: 8080
             protocol: {{ .Values.service.stats.protocol }}
         # Push data plane address to ONOS via netcfgc
-        - name: push-onos
+        # Add the static route for sr-iov interface
+        - name: config
           image: curlimages/curl:7.75.0
           imagePullPolicy: IfNotPresent
           env:
@@ -78,11 +73,17 @@ spec:
               value: "{{ .Values.dataplane.interface }}"
             - name: DP_PORT
               value: "{{ .Values.dataplane.port }}"
+            - name: STATIC_ROUTES
+              value: "{{ .Values.network.route }}"
           volumeMounts:
-            - name: onos-push-script
-              mountPath: /tmp/push-onos
-              subPath: push-onos
-          command: ["sh", "-c", "/tmp/push-onos"]
+            - name: config-script
+              mountPath: /tmp/config
+              subPath: config
+          command: ["sh", "-c", "/tmp/config"]
+          securityContext:
+            runAsUser: 0
+            capabilities:
+              add: ["NET_ADMIN"]
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -96,7 +97,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: onos-push-script
+        - name: config-script
           configMap:
             name: {{ include "dbuf.fullname" . }}
             defaultMode: 0755

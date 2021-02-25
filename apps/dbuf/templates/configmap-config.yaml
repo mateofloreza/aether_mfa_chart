@@ -11,10 +11,15 @@ metadata:
   labels:
     {{- include "dbuf.labels" . | nindent 4 }}
 data:
-  push-onos: |
+  config: |
     #!/bin/sh
-    set -e -x
+    set -x
     env
+    export IFS=','
+    for r in $STATIC_ROUTES; do
+      ip route add $r dev $DP_INTERFACE
+    done
+    unset IFS
     ifconfig
     while true
     do
