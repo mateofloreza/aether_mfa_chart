@@ -20,17 +20,6 @@ spec:
   - name: sbi
     port: {{ .Values.config.nrf.sbi.port }}
     protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nrf-headless
-  labels:
-{{ tuple "nrf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-spec:
-  clusterIP: None
-  selector:
-{{ tuple "nrf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
 {{- if or .Values.config.nrf.sbi.nodePort.enabled }}
 ---
 apiVersion: v1

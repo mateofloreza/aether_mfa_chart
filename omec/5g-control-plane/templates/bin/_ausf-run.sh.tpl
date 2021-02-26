@@ -10,13 +10,11 @@ set -xe
 cp /free5gc/ausf/ausf /tmp/coredump/
 {{- end }}
 
-
 cd /free5gc
-#print config files
-cat ./config/free5GC.conf
-cat ./config/ausfcfg.conf
-cp /free5gc/config/ausfcfg.conf /tmp/ausfcfg.conf
-sed -i "s/POD_IP/${POD_IP}/g" /tmp/ausfcfg.conf
-NRF_ADDR=$(dig +short nrf.omec.svc.cluster.local)
-sed -i "s/nrf.free5gc.org/${NRF_ADDR}/g" /tmp/ausfcfg.conf
-./ausf/ausf -ausfcfg /tmp/ausfcfg.conf
+cp /tmp/config/* config/
+sed -i "s/POD_IP/${POD_IP}/g" config/ausfcfg.conf
+
+cat config/free5GC.conf
+cat config/ausfcfg.conf
+
+./ausf/ausf -ausfcfg config/ausfcfg.conf

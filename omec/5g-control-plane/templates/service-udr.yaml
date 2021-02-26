@@ -23,17 +23,6 @@ spec:
   - name: sbi
     port: {{ .Values.config.udr.sbi.port }}
     protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: udr-headless
-  labels:
-{{ tuple "udr" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-spec:
-  clusterIP: None
-  selector:
-{{ tuple "udr" . | include "5g-control-plane.metadata_labels" | indent 4 }}
 {{- if or .Values.config.udr.prometheus.nodePort.enabled .Values.config.udr.sbi.nodePort.enabled }}
 ---
 apiVersion: v1

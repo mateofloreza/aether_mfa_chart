@@ -8,14 +8,14 @@
 {{ tuple "nrf" . | include "5g-control-plane.service_account" }}
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: nrf
   labels:
 {{ tuple "nrf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
 spec:
   replicas: 1
-  serviceName: nrf-headless
+  #serviceName: nrf-headless
   selector:
     matchLabels:
 {{ tuple "nrf" . | include "5g-control-plane.metadata_labels" | indent 6 }}
@@ -30,14 +30,10 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
     spec:
-    {{- if .Values.nodeSelectors.enabled }}
-      nodeSelector:
-        {{ .Values.nodeSelectors.nrf.label }}: {{ .Values.nodeSelectors.nrf.value }}
-    {{- end }}
       serviceAccountName: nrf
-    {{- if .Values.images.credentials }}
+    {{- if hasKey .Values.images "pullSecrets" }}
       imagePullSecrets:
-        - name: {{ .Release.Name }}.registry
+{{ toYaml .Values.images.pullSecrets | indent 8 }}
     {{- end }}
     {{- if .Values.config.coreDump.enabled }}
       initContainers:
@@ -53,7 +49,7 @@ spec:
       {{- end }}
         stdin: true
         tty: true
-        command: ["/opt/cp/scripts/nrf-run.sh"]
+        command: ["/free5gc/script/nrf-run.sh"]
         env:
         - name: POD_IP
           valueFrom:
@@ -64,24 +60,36 @@ spec:
 {{ toYaml .Values.resources.nrf | indent 10 }}
       {{- end }}
         volumeMounts:
-        - name: cp-script
-          mountPath: /opt/cp/scripts/nrf-run.sh
+        - name: run-script
+          mountPath: /free5gc/script/nrf-run.sh
           subPath: nrf-run.sh
-        - name: cp-config
+        - name: config-dir
           mountPath: /free5gc/config
+        - name: common-config
+          mountPath: /tmp/config/free5GC.conf
+          subPath: free5GC.conf
+        - name: nf-config
+          mountPath: /tmp/config/nrfcfg.conf
+          subPath: nrfcfg.conf
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump
       {{- end }}
       volumes:
-      - name: cp-script
+      - name: run-script
         configMap:
           name: nrf
           defaultMode: 493
-      - name: cp-config
+      - name: common-config
+        configMap:
+          name: common
+          defaultMode: 493 
+      - name: nf-config
         configMap:
           name: nrf
           defaultMode: 493
+      - name: config-dir
+        emptyDir: {}
     {{- if .Values.config.coreDump.enabled }}
       - name: host-rootfs
         hostPath:

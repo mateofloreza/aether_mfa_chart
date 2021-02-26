@@ -8,14 +8,14 @@
 {{ tuple "ausf" . | include "5g-control-plane.service_account" }}
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: ausf
   labels:
 {{ tuple "ausf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
 spec:
   replicas: 1
-  serviceName: ausf-headless
+  #serviceName: ausf-headless
   selector:
     matchLabels:
 {{ tuple "ausf" . | include "5g-control-plane.metadata_labels" | indent 6 }}
@@ -30,20 +30,16 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
     spec:
-    {{- if .Values.nodeSelectors.enabled }}
-      nodeSelector:
-        {{ .Values.nodeSelectors.ausf.label }}: {{ .Values.nodeSelectors.ausf.value }}
-    {{- end }}
       serviceAccountName: ausf
-    {{- if .Values.images.credentials }}
+    {{- if hasKey .Values.images "pullSecrets" }}
       imagePullSecrets:
-        - name: {{ .Release.Name }}.registry
+{{ toYaml .Values.images.pullSecrets | indent 8 }}
     {{- end }}
       initContainers:
-      - name: wait-nrf-module2
+      - name: wait-ausf-module2
         image: {{ .Values.images.tags.init | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy }}
-        command: ['sh', '-c', 'until nslookup nrf; do echo waiting for nrf; sleep 4; done;']
+        command: ['sh', '-c', 'until nslookup ausf; do echo waiting for ausf; sleep 4; done;']
     {{- if .Values.config.coreDump.enabled }}
 {{ tuple "ausf" . | include "5g-control-plane.coredump_init" | indent 6 }}
     {{- end }}
@@ -57,7 +53,7 @@ spec:
       {{- end }}
         stdin: true
         tty: true
-        command: ["/opt/cp/scripts/ausf-run.sh"]
+        command: ["/free5gc/script/ausf-run.sh"]
         env:
         - name: POD_IP
           valueFrom:
@@ -68,24 +64,36 @@ spec:
 {{ toYaml .Values.resources.ausf | indent 10 }}
       {{- end }}
         volumeMounts:
-        - name: cp-script
-          mountPath: /opt/cp/scripts/ausf-run.sh
+        - name: run-script
+          mountPath: /free5gc/script/ausf-run.sh
           subPath: ausf-run.sh
-        - name: cp-config
+        - name: config-dir
           mountPath: /free5gc/config
+        - name: common-config
+          mountPath: /tmp/config/free5GC.conf
+          subPath: free5GC.conf
+        - name: nf-config
+          mountPath: /tmp/config/ausfcfg.conf
+          subPath: ausfcfg.conf
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump
       {{- end }}
       volumes:
-      - name: cp-script
+      - name: run-script
         configMap:
           name: ausf
           defaultMode: 493
-      - name: cp-config
+      - name: common-config
+        configMap:
+          name: common
+          defaultMode: 493 
+      - name: nf-config
         configMap:
           name: ausf
-          defaultMode: 420
+          defaultMode: 493
+      - name: config-dir
+        emptyDir: {}
     {{- if .Values.config.coreDump.enabled }}
       - name: host-rootfs
         hostPath:

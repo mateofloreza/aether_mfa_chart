@@ -1,0 +1,23 @@
+{{/*
+# Copyright 2020-present Open Networking Foundation
+
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+*/}}
+
+{{- $config := index .Values.config.commonCfgFiles "free5GC.conf" }}
+{{- if not (hasKey $config "db_uri") -}}
+{{- $_ := printf "%s/%s" .Values.config.mongodb.url .Values.config.mongodb.name | set $config "db_uri" -}}
+{{- end }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common
+  labels:
+{{ tuple "common" . | include "5g-control-plane.metadata_labels" | indent 4 }}
+data:
+{{- range $key, $value := .Values.config.commonCfgFiles }}
+  {{ $key }}: |-
+{{ toYaml $value | indent 4 }}
+{{- end }}

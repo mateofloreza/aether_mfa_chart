@@ -5,6 +5,23 @@
 */}}
 
 {{- if .Values.config.smf.deploy }}
+
+{{- $smfcfg := index .Values.config.smf.cfgFiles "smfcfg.conf" }}
+{{- $sbi := index $smfcfg.configuration "sbi" }}
+
+{{- if not (hasKey $smfcfg.configuration "pfcp") -}}
+{{- $_ := dict "addr" "POD_IP" | set $smfcfg.configuration "pfcp" -}}
+{{- end }}
+{{- if not (hasKey $sbi "registerIPv4") -}}
+{{- $_ := "POD_IP" | set $sbi "registerIPv4" -}}
+{{- end }}
+{{- if not (hasKey $sbi "bindingIPv4") -}}
+{{- $_ := "POD_IP" | set $sbi "bindingIPv4" -}}
+{{- end }}
+{{- if not (hasKey $sbi "port") -}}
+{{- $_ := .Values.config.smf.sbi.port | set $sbi "port" -}}
+{{- end }}
+
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -15,7 +32,7 @@ metadata:
 data:
   smf-run.sh: |
 {{ tuple "bin/_smf-run.sh.tpl" . | include "5g-control-plane.template" | indent 4 }}
-{{- range $key, $value := .Values.config.smf.yamlCfgFiles }}
+{{- range $key, $value := .Values.config.smf.cfgFiles }}
   {{ $key }}: |-
 {{ toYaml $value | indent 4 }}
 {{- end }}

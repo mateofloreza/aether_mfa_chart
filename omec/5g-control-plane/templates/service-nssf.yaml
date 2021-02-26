@@ -23,17 +23,6 @@ spec:
   - name: sbi
     port: {{ .Values.config.nssf.sbi.port }}
     protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nssf-headless
-  labels:
-{{ tuple "nssf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-spec:
-  clusterIP: None
-  selector:
-{{ tuple "nssf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
 {{- if or .Values.config.nssf.prometheus.nodePort.enabled .Values.config.nssf.sbi.nodePort.enabled }}
 ---
 apiVersion: v1

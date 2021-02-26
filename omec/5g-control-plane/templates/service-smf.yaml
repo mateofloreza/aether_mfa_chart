@@ -26,17 +26,6 @@ spec:
   - name: sbi
     port: {{ .Values.config.smf.sbi.port }}
     protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: smf-headless
-  labels:
-{{ tuple "smf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-spec:
-  clusterIP: None
-  selector:
-{{ tuple "smf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
 {{- if or .Values.config.smf.n4.nodePort.enabled .Values.config.smf.prometheus.nodePort.enabled .Values.config.smf.sbi.nodePort.enabled }}
 ---
 apiVersion: v1

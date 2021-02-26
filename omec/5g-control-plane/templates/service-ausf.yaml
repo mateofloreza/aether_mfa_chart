@@ -23,17 +23,6 @@ spec:
   - name: sbi
     port: {{ .Values.config.ausf.sbi.port }}
     protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ausf-headless
-  labels:
-{{ tuple "ausf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-spec:
-  clusterIP: None
-  selector:
-{{ tuple "ausf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
 {{- if or .Values.config.ausf.prometheus.nodePort.enabled .Values.config.ausf.sbi.nodePort.enabled }}
 ---
 apiVersion: v1

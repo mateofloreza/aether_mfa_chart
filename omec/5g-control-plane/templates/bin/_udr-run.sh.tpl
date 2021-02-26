@@ -10,14 +10,11 @@ set -xe
 cp /free5gc/udr/udr /tmp/coredump/
 {{- end }}
 
-#cat config files
-
 cd /free5gc
-cat ./config/free5GC.conf
-cat ./config/udrcfg.conf
-cat /etc/hosts
-cp /free5gc/config/udrcfg.conf /tmp/udrcfg.conf
-sed -i "s/POD_IP/${POD_IP}/g" /tmp/udrcfg.conf
-NRF_ADDR=$(dig +short nrf.omec.svc.cluster.local)
-sed -i "s/nrf.free5gc.org/${NRF_ADDR}/g" /tmp/udrcfg.conf
-./udr/udr -udrcfg /tmp/udrcfg.conf 
+cp /tmp/config/* config/
+sed -i "s/POD_IP/${POD_IP}/g" config/udrcfg.conf
+
+cat config/free5GC.conf
+cat config/udrcfg.conf
+
+./udr/udr -udrcfg config/udrcfg.conf

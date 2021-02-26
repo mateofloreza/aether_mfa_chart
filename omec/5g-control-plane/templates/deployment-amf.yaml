@@ -4,38 +4,34 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
-{{- if .Values.config.nssf.deploy }}
-{{ tuple "nssf" . | include "5g-control-plane.service_account" }}
+{{- if .Values.config.amf.deploy }}
+{{ tuple "amf" . | include "5g-control-plane.service_account" }}
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: nssf
+  name: amf
   labels:
-{{ tuple "nssf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
+{{ tuple "amf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
 spec:
   replicas: 1
-  serviceName: nssf-headless
+  #serviceName: amf-headless
   selector:
     matchLabels:
-{{ tuple "nssf" . | include "5g-control-plane.metadata_labels" | indent 6 }}
+{{ tuple "amf" . | include "5g-control-plane.metadata_labels" | indent 6 }}
   template:
     metadata:
       labels:
-{{ tuple "nssf" . | include "5g-control-plane.metadata_labels" | indent 8 }}
-    {{- with .Values.config.nssf.podAnnotations }}
+{{ tuple "amf" . | include "5g-control-plane.metadata_labels" | indent 8 }}
+    {{- with .Values.config.amf.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
     spec:
-    {{- if .Values.nodeSelectors.enabled }}
-      nodeSelector:
-        {{ .Values.nodeSelectors.nssf.label }}: {{ .Values.nodeSelectors.nssf.value }}
-    {{- end }}
-      serviceAccountName: nssf
-    {{- if .Values.images.credentials }}
+      serviceAccountName: amf
+    {{- if hasKey .Values.images "pullSecrets" }}
       imagePullSecrets:
-        - name: {{ .Release.Name }}.registry
+{{ toYaml .Values.images.pullSecrets | indent 8 }}
     {{- end }}
       initContainers:
       - name: wait-nrf-module
@@ -43,11 +39,11 @@ spec:
         imagePullPolicy: {{ .Values.images.pullPolicy }}
         command: ['sh', '-c', 'until nslookup nrf; do echo waiting for nrf; sleep 4; done;']
     {{- if .Values.config.coreDump.enabled }}
-{{ tuple "nssf" . | include "5g-control-plane.coredump_init" | indent 6 }}
+{{ tuple "amf" . | include "5g-control-plane.coredump_init" | indent 6 }}
     {{- end }}
       containers:
-      - name: nssf
-        image: {{ .Values.images.tags.nssf }}
+      - name: amf
+        image: {{ .Values.images.tags.amf }}
         imagePullPolicy: {{ .Values.images.pullPolicy }}
       {{- if .Values.config.coreDump.enabled }}
         securityContext:
@@ -55,7 +51,7 @@ spec:
       {{- end }}
         stdin: true
         tty: true
-        command: ["/opt/cp/scripts/nssf-run.sh"]
+        command: ["/free5gc/script/amf-run.sh"]
         env:
         - name: POD_IP
           valueFrom:
@@ -63,27 +59,39 @@ spec:
               fieldPath: status.podIP
       {{- if .Values.resources.enabled }}
         resources:
-{{ toYaml .Values.resources.nssf | indent 10 }}
+{{ toYaml .Values.resources.amf | indent 10 }}
       {{- end }}
         volumeMounts:
-        - name: cp-script
-          mountPath: /opt/cp/scripts/nssf-run.sh
-          subPath: nssf-run.sh
-        - name: cp-config
+        - name: run-script
+          mountPath: /free5gc/script/amf-run.sh
+          subPath: amf-run.sh
+        - name: config-dir
           mountPath: /free5gc/config
+        - name: common-config
+          mountPath: /tmp/config/free5GC.conf
+          subPath: free5GC.conf
+        - name: nf-config
+          mountPath: /tmp/config/amfcfg.conf
+          subPath: amfcfg.conf
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump
       {{- end }}
       volumes:
-      - name: cp-script
+      - name: run-script
         configMap:
-          name: nssf
+          name: amf
           defaultMode: 493
-      - name: cp-config
+      - name: common-config
         configMap:
-          name: nssf
-          defaultMode: 420
+          name: common
+          defaultMode: 493 
+      - name: nf-config
+        configMap:
+          name: amf
+          defaultMode: 493
+      - name: config-dir
+        emptyDir: {}
     {{- if .Values.config.coreDump.enabled }}
       - name: host-rootfs
         hostPath:

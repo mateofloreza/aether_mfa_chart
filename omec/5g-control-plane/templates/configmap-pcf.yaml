@@ -5,6 +5,20 @@
 */}}
 
 {{- if .Values.config.pcf.deploy }}
+
+{{- $pcfcfg := index .Values.config.pcf.cfgFiles "pcfcfg.conf" }}
+{{- $sbi := index $pcfcfg.configuration "sbi" }}
+
+{{- if not (hasKey $sbi "registerIPv4") -}}
+{{- $_ := "POD_IP" | set $sbi "registerIPv4" -}}
+{{- end }}
+{{- if not (hasKey $sbi "bindingIPv4") -}}
+{{- $_ := "POD_IP" | set $sbi "bindingIPv4" -}}
+{{- end }}
+{{- if not (hasKey $sbi "port") -}}
+{{- $_ := .Values.config.pcf.sbi.port | set $sbi "port" -}}
+{{- end }}
+
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -15,7 +29,7 @@ metadata:
 data:
   pcf-run.sh: |
 {{ tuple "bin/_pcf-run.sh.tpl" . | include "5g-control-plane.template" | indent 4 }}
-{{- range $key, $value := .Values.config.pcf.yamlCfgFiles }}
+{{- range $key, $value := .Values.config.pcf.cfgFiles }}
   {{ $key }}: |-
 {{ toYaml $value | indent 4 }}
 {{- end }}

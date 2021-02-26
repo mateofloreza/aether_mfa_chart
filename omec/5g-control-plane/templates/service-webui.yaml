@@ -20,19 +20,10 @@ spec:
   - name: prometheus-exporter
     port: {{ .Values.config.webui.prometheus.port }}
     protocol: TCP
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: webui-headless
-  labels:
-{{ tuple "webui" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-spec:
-  clusterIP: None
-  selector:
-{{ tuple "webui" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-{{- if or .Values.config.webui.prometheus.nodePort.enabled }}
+  - name: urlport-http
+    port: {{ .Values.config.webui.urlport.port }}
+    protocol: TCP
+{{- if or .Values.config.webui.urlport.nodePort.enabled .Values.config.webui.prometheus.nodePort.enabled }}
 ---
 apiVersion: v1
 kind: Service
