@@ -48,6 +48,7 @@ dataplane:
   port: 2152
   interface: "net0"
 
+prometheus_enable: true
 service:
   stats:
     port: 8080
