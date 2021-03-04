@@ -361,7 +361,7 @@ config:
     ngapp:
       port: 38412
       nodePort:
-        enabled: false
+        enabled: true
         port: 30071
     cfgFiles:
       # https://github.com/free5gc/free5gc/blob/main/config/amfcfg.yaml
