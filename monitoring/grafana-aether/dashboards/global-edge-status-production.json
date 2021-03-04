@@ -58,6 +58,11 @@
               "targetBlank": true,
               "title": "Drill down: nodes",
               "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=ace-cornell1-prd&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=ace-cornell1-prd-es&var-es_namespace=omec&${__url_time_range}"
             }
           ],
           "options": {
@@ -628,6 +633,11 @@
               "targetBlank": true,
               "title": "Drill down: nodes",
               "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=ace-menlo-rasp-pi&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=ace-menlo-es&var-es_namespace=omec&${__url_time_range}"
             }
           ],
           "options": {
@@ -1198,6 +1208,11 @@
               "targetBlank": true,
               "title": "Drill down: nodes",
               "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=ace-tucson&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=ace-tucson-es&var-es_namespace=omec&${__url_time_range}"
             }
           ],
           "options": {
@@ -1768,6 +1783,11 @@
               "targetBlank": true,
               "title": "Drill down: nodes",
               "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=ace-princeton1-prd&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=ace-princeton1-prd-es&var-es_namespace=omec&${__url_time_range}"
             }
           ],
           "options": {
@@ -2338,6 +2358,11 @@
               "targetBlank": true,
               "title": "Drill down: nodes",
               "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=ace-stanford1-prd&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=ace-stanford1-prd-es&var-es_namespace=omec&${__url_time_range}"
             }
           ],
           "options": {
@@ -2908,6 +2933,11 @@
               "targetBlank": true,
               "title": "Drill down: nodes",
               "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=ace-stanford2-prd&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=ace-stanford2-prd-es&var-es_namespace=omec&${__url_time_range}"
             }
           ],
           "options": {
@@ -3476,7 +3506,7 @@
             "h": 3,
             "w": 3,
             "x": 0,
-            "y": 23
+            "y": 2
           },
           "id": 251,
           "links": [
@@ -3494,6 +3524,11 @@
               "targetBlank": true,
               "title": "Drill down: nodes",
               "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=ace-intel&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=ace-intel-es&var-es_namespace=omec&${__url_time_range}"
             }
           ],
           "options": {
@@ -3599,7 +3634,7 @@
             "h": 3,
             "w": 3,
             "x": 3,
-            "y": 23
+            "y": 2
           },
           "id": 241,
           "links": [],
@@ -3671,7 +3706,7 @@
             "h": 3,
             "w": 3,
             "x": 6,
-            "y": 23
+            "y": 2
           },
           "id": 242,
           "maxPerRow": 6,
@@ -3744,7 +3779,7 @@
             "h": 3,
             "w": 3,
             "x": 9,
-            "y": 23
+            "y": 2
           },
           "id": 243,
           "maxPerRow": 6,
@@ -3811,7 +3846,7 @@
             "h": 3,
             "w": 10,
             "x": 12,
-            "y": 23
+            "y": 2
           },
           "hiddenSeries": false,
           "id": 230,
@@ -3986,7 +4021,7 @@
             "h": 2,
             "w": 2,
             "x": 22,
-            "y": 23
+            "y": 2
           },
           "id": 298,
           "links": [],
@@ -4076,9 +4111,31 @@
             "h": 7,
             "w": 4,
             "x": 0,
-            "y": 24
+            "y": 6
           },
           "id": 281,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster compute",
+              "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=acc-gcp1&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster networking",
+              "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=acc-gcp1&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: nodes",
+              "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=acc-gcp1&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=acc-gcp1-es&var-es_namespace=omec&${__url_time_range}"
+            }
+          ],
           "options": {
             "colorMode": "value",
             "graphMode": "area",
@@ -4132,7 +4189,7 @@
             "h": 5,
             "w": 10,
             "x": 4,
-            "y": 24
+            "y": 6
           },
           "hiddenSeries": false,
           "id": 283,
@@ -4149,6 +4206,7 @@
           },
           "lines": true,
           "linewidth": 1,
+          "links": [],
           "nullPointMode": "null",
           "percentage": false,
           "pluginVersion": "7.1.5",
@@ -4235,7 +4293,7 @@
             "h": 5,
             "w": 10,
             "x": 14,
-            "y": 24
+            "y": 6
           },
           "hiddenSeries": false,
           "id": 284,
@@ -4252,6 +4310,7 @@
           },
           "lines": true,
           "linewidth": 1,
+          "links": [],
           "nullPointMode": "null",
           "percentage": false,
           "pluginVersion": "7.1.5",
@@ -4338,7 +4397,7 @@
             "h": 5,
             "w": 10,
             "x": 4,
-            "y": 29
+            "y": 11
           },
           "hiddenSeries": false,
           "id": 286,
@@ -4355,6 +4414,7 @@
           },
           "lines": true,
           "linewidth": 1,
+          "links": [],
           "nullPointMode": "null",
           "percentage": false,
           "pluginVersion": "7.1.5",
@@ -4435,7 +4495,7 @@
             "h": 5,
             "w": 10,
             "x": 14,
-            "y": 29
+            "y": 11
           },
           "hiddenSeries": false,
           "id": 287,
@@ -4453,6 +4513,7 @@
           },
           "lines": true,
           "linewidth": 1,
+          "links": [],
           "nullPointMode": "null",
           "percentage": false,
           "pluginVersion": "7.1.5",
@@ -4540,7 +4601,7 @@
             "h": 8,
             "w": 4,
             "x": 0,
-            "y": 31
+            "y": 13
           },
           "id": 279,
           "options": {
@@ -4591,7 +4652,7 @@
             "h": 5,
             "w": 20,
             "x": 4,
-            "y": 34
+            "y": 16
           },
           "hiddenSeries": false,
           "id": 285,
@@ -4608,6 +4669,7 @@
           },
           "lines": true,
           "linewidth": 1,
+          "links": [],
           "nullPointMode": "null",
           "percentage": false,
           "pluginVersion": "7.1.5",
@@ -4707,5 +4769,5 @@
   "timezone": "",
   "title": "Aether Connected Edge",
   "uid": "Y2z8vDtGz",
-  "version": 1
+  "version": 2
 }
