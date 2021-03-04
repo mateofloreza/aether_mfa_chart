@@ -13,13 +13,20 @@ dashboards: []
   # - global-edge-status-production.json
   # - sdcore-metrics.json
 
-# Datasources used by the dashboards
+# Prometheus datasources used by the dashboards
 # Names in datasources must match names referenced in dashboards
 prometheusDatasources: []
   # - name: RANCHER_MONITORING_GLOBAL
   #   endpoint: http://rancher-monitoring-prometheus:9090
   # - name: RANCHER_MONITORING_SDCORE
   #   endpoint: http://rancher-monitoring-prometheus.cattle-monitoring-system.svc.prd.acc.gcp.aetherproject.net:9090
+
+# Elasticsearch datasources used by the logging dashboard
+elasticsearchDatasources: []
+  # - name: acc-gcp1-es
+  #   endpoint: http://opendistro-es-client-service.logging.svc.prd.acc.gcp.aetherproject.net:9200
+  # - name: ace-menlo-es
+  #   endpoint: http://opendistro-es-client-service.logging.svc.prd.menlo.aetherproject.net:9200
 
 # Configure Google Cloud Monitoring datasource
 googleCloudMonitoring: {}

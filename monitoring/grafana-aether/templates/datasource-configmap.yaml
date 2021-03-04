@@ -21,6 +21,19 @@ data:
       isDefault: false
       url: {{ .endpoint }}
 {{- end }}
+{{- range .Values.elasticsearchDatasources }}
+    - name: {{ .name }}
+      url: {{ .endpoint }}
+      type: elasticsearch
+      access: proxy
+      database: "[fluentbit-]YYYY.MM.DD"
+      jsonData:
+        interval: Daily
+        timeField: "@timestamp"
+        esVersion: 70
+        logMessageField: log
+        logLevelField: logLevel
+{{- end }}
 {{- if .Values.googleCloudMonitoring }}
     - name: Google Cloud Monitoring
       type: stackdriver
