@@ -214,6 +214,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -263,15 +264,23 @@
           "targets": [
             {
               "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-cornell1-prd\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "Control Plane",
               "refId": "A"
             },
             {
               "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-cornell1-prd\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "User Plane",
               "refId": "B"
+            },
+            {
+              "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-cornell1-prd\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-cornell1-prd\"} - 3, 0) * 100)",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -286,7 +295,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
-              "decimals": 0,
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -789,6 +798,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -838,15 +848,23 @@
           "targets": [
             {
               "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo-rasp-pi\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "Control Plane",
               "refId": "A"
             },
             {
               "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-menlo-rasp-pi\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "User Plane",
               "refId": "B"
+            },
+            {
+              "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo-rasp-pi\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-menlo-rasp-pi\"} - 3, 0) * 100)",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -861,7 +879,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
-              "decimals": 0,
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -1364,6 +1382,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -1413,15 +1432,23 @@
           "targets": [
             {
               "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-tucson\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "Control Plane",
               "refId": "A"
             },
             {
               "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-tucson\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "User Plane",
               "refId": "B"
+            },
+            {
+              "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-tucson\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-tucson\"} - 3, 0) * 100)",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -1436,7 +1463,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
-              "decimals": 0,
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -1939,6 +1966,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -1988,15 +2016,23 @@
           "targets": [
             {
               "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-princeton1-prd\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "Control Plane",
               "refId": "A"
             },
             {
               "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-princeton1-prd\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "User Plane",
               "refId": "B"
+            },
+            {
+              "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-princeton1-prd\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-princeton1-prd\"} - 3, 0) * 100)",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -2011,7 +2047,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
-              "decimals": 0,
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -2514,6 +2550,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -2563,15 +2600,23 @@
           "targets": [
             {
               "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-stanford1-prd\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "Control Plane",
               "refId": "A"
             },
             {
               "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-stanford1-prd\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "User Plane",
               "refId": "B"
+            },
+            {
+              "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-stanford1-prd\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-stanford1-prd\"} - 3, 0) * 100)",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -2586,7 +2631,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
-              "decimals": 0,
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -3089,6 +3134,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -3138,15 +3184,23 @@
           "targets": [
             {
               "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-stanford2-prd\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "Control Plane",
               "refId": "A"
             },
             {
               "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-stanford2-prd\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "User Plane",
               "refId": "B"
+            },
+            {
+              "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-stanford2-prd\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-stanford2-prd\"} - 3, 0) * 100)",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -3161,7 +3215,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
-              "decimals": 0,
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -3506,7 +3560,7 @@
             "h": 3,
             "w": 3,
             "x": 0,
-            "y": 2
+            "y": 20
           },
           "id": 251,
           "links": [
@@ -3634,7 +3688,7 @@
             "h": 3,
             "w": 3,
             "x": 3,
-            "y": 2
+            "y": 20
           },
           "id": 241,
           "links": [],
@@ -3680,6 +3734,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -3706,7 +3761,7 @@
             "h": 3,
             "w": 3,
             "x": 6,
-            "y": 2
+            "y": 20
           },
           "id": 242,
           "maxPerRow": 6,
@@ -3729,15 +3784,23 @@
           "targets": [
             {
               "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-intel\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "Control Plane",
               "refId": "A"
             },
             {
               "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-intel\"} - 1, 0) * 100)",
+              "hide": true,
               "interval": "",
               "legendFormat": "User Plane",
               "refId": "B"
+            },
+            {
+              "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-intel\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-intel\"} - 3, 0) * 100)",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
             }
           ],
           "timeFrom": null,
@@ -3752,7 +3815,7 @@
           "fieldConfig": {
             "defaults": {
               "custom": {},
-              "decimals": 0,
+              "decimals": 3,
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
@@ -3779,7 +3842,7 @@
             "h": 3,
             "w": 3,
             "x": 9,
-            "y": 2
+            "y": 20
           },
           "id": 243,
           "maxPerRow": 6,
@@ -3846,7 +3909,7 @@
             "h": 3,
             "w": 10,
             "x": 12,
-            "y": 2
+            "y": 20
           },
           "hiddenSeries": false,
           "id": 230,
@@ -4021,7 +4084,7 @@
             "h": 2,
             "w": 2,
             "x": 22,
-            "y": 2
+            "y": 20
           },
           "id": 298,
           "links": [],
@@ -4111,7 +4174,7 @@
             "h": 7,
             "w": 4,
             "x": 0,
-            "y": 6
+            "y": 24
           },
           "id": 281,
           "links": [
@@ -4189,7 +4252,7 @@
             "h": 5,
             "w": 10,
             "x": 4,
-            "y": 6
+            "y": 24
           },
           "hiddenSeries": false,
           "id": 283,
@@ -4220,12 +4283,14 @@
           "targets": [
             {
               "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc\",result=\"success\",mme_addr=\"\",proc_type=\"\"}[5m])) by (procedure)",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{procedure}}",
               "refId": "A"
             },
             {
               "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc\",result=\"success\",mme_addr=\"\",proc_type=\"INITIAL_ATTACH\"}[5m])) by (proc_type)",
+              "hide": false,
               "interval": "",
               "legendFormat": "{{proc_type}}",
               "refId": "B"
@@ -4293,7 +4358,7 @@
             "h": 5,
             "w": 10,
             "x": 14,
-            "y": 6
+            "y": 24
           },
           "hiddenSeries": false,
           "id": 284,
@@ -4397,7 +4462,7 @@
             "h": 5,
             "w": 10,
             "x": 4,
-            "y": 11
+            "y": 29
           },
           "hiddenSeries": false,
           "id": 286,
@@ -4495,7 +4560,7 @@
             "h": 5,
             "w": 10,
             "x": 14,
-            "y": 11
+            "y": 29
           },
           "hiddenSeries": false,
           "id": 287,
@@ -4601,7 +4666,7 @@
             "h": 8,
             "w": 4,
             "x": 0,
-            "y": 13
+            "y": 31
           },
           "id": 279,
           "options": {
@@ -4652,7 +4717,7 @@
             "h": 5,
             "w": 20,
             "x": 4,
-            "y": 16
+            "y": 34
           },
           "hiddenSeries": false,
           "id": 285,
@@ -4769,5 +4834,5 @@
   "timezone": "",
   "title": "Aether Connected Edge",
   "uid": "Y2z8vDtGz",
-  "version": 2
+  "version": 3
 }
