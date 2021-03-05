@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1614977037647,
+  "iteration": 1614980425943,
   "links": [],
   "panels": [
     {
@@ -412,7 +412,7 @@
               "type": "logs"
             }
           ],
-          "query": "kubernetes.container_name.keyword:$es_container AND kubernetes.pod_name.keyword:$es_pod AND kubernetes.namespace_name.keyword:$es_namespace AND (logLevel.keyword:$es_loglevel) AND log:$search_string",
+          "query": "kubernetes.container_name.keyword:$es_container AND kubernetes.pod_name.keyword:$es_pod AND kubernetes.namespace_name.keyword:$es_namespace AND (logLevel.keyword:$es_loglevel) AND log:\"$search_string\"",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -564,8 +564,8 @@
       {
         "current": {
           "selected": false,
-          "text": "*",
-          "value": "*"
+          "text": "",
+          "value": ""
         },
         "hide": 0,
         "label": "String",
@@ -573,11 +573,11 @@
         "options": [
           {
             "selected": true,
-            "text": "*",
-            "value": "*"
+            "text": "",
+            "value": ""
           }
         ],
-        "query": "*",
+        "query": "",
         "skipUrlSync": false,
         "type": "textbox"
       }
@@ -615,5 +615,5 @@
   "timezone": "UTC",
   "title": "Kubernetes / Logs / Pod",
   "uid": "e2QUYvPMk",
-  "version": 1
+  "version": 2
 }
