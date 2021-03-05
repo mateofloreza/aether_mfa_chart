@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1614790452365,
+  "iteration": 1614977037647,
   "links": [],
   "panels": [
     {
@@ -412,7 +412,7 @@
               "type": "logs"
             }
           ],
-          "query": "kubernetes.container_name.keyword:$es_container AND kubernetes.pod_name.keyword:$es_pod AND kubernetes.namespace_name.keyword:$es_namespace AND (logLevel.keyword:$es_loglevel)",
+          "query": "kubernetes.container_name.keyword:$es_container AND kubernetes.pod_name.keyword:$es_pod AND kubernetes.namespace_name.keyword:$es_namespace AND (logLevel.keyword:$es_loglevel) AND log:$search_string",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -432,9 +432,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "ace-cornell1-prd-es",
-          "value": "ace-cornell1-prd-es"
+          "selected": false,
+          "text": "acc-gcp1-es",
+          "value": "acc-gcp1-es"
         },
         "hide": 0,
         "includeAll": false,
@@ -479,8 +479,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "pfcp-0",
-          "value": "pfcp-0"
+          "text": "spgwc-0",
+          "value": "spgwc-0"
         },
         "datasource": "$es_datasource",
         "definition": "{\"find\": \"terms\", \"field\": \"kubernetes.pod_name.keyword\",\"query\":\"kubernetes.namespace_name.keyword:$es_namespace\"}\t",
@@ -560,6 +560,26 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "*",
+          "value": "*"
+        },
+        "hide": 0,
+        "label": "String",
+        "name": "search_string",
+        "options": [
+          {
+            "selected": true,
+            "text": "*",
+            "value": "*"
+          }
+        ],
+        "query": "*",
+        "skipUrlSync": false,
+        "type": "textbox"
       }
     ]
   },
