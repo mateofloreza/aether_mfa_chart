@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 26,
-  "iteration": 1614896738539,
+  "iteration": 1615242482672,
   "links": [],
   "panels": [
     {
@@ -66,19 +65,19 @@
         {
           "expr": "sum(ping_average_response_ms{namespace=\"tost\"}) by (url)",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ url }} ",
           "refId": "A"
         },
         {
           "expr": "sum(ping_maximum_response_ms{namespace=\"tost\"}) by (url)",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ url }} ",
           "refId": "B"
         },
         {
           "expr": "sum(ping_minimum_response_ms{namespace=\"tost\"}) by (url)",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ url }} ",
           "refId": "C"
         }
       ],
@@ -172,7 +171,7 @@
         {
           "expr": "sum(ping_percent_packet_loss{namespace=\"tost\"}) by (url)",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ url }} ",
           "refId": "A"
         }
       ],
@@ -650,7 +649,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "tost",
           "value": "tost"
         },
@@ -671,13 +670,9 @@
       {
         "allValue": "stratum*",
         "current": {
-          "selected": true,
-          "text": [
-            "config"
-          ],
-          "value": [
-            "config"
-          ]
+          "selected": false,
+          "text": "onos-tost-onos-classic-1",
+          "value": "onos-tost-onos-classic-1"
         },
         "datasource": "$es_datasource",
         "definition": "{\"find\": \"terms\", \"field\": \"kubernetes.pod_name.keyword\",\"query\":\"kubernetes.namespace_name.keyword:$es_namespace\"}",
@@ -701,12 +696,12 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
-            "config-getter"
+            "onos-classic"
           ],
           "value": [
-            "config-getter"
+            "onos-classic"
           ]
         },
         "datasource": "$es_datasource",
@@ -732,8 +727,12 @@
         "allValue": "null OR *",
         "current": {
           "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "text": [
+            "ERROR"
+          ],
+          "value": [
+            "ERROR"
+          ]
         },
         "datasource": "$es_datasource",
         "definition": "{\"find\": \"terms\", \"field\": \"logLevel.keyword\",\"query\":\"kubernetes.namespace_name.keyword:$es_namespace AND kubernetes.pod_name.keyword:$es_pod AND kubernetes.container_name.keyword:$es_container\"}\t",
@@ -757,7 +756,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -777,5 +776,5 @@
   "timezone": "",
   "title": "TOST Metrics",
   "uid": "fVcZZm8Gk",
-  "version": 10
+  "version": 13
 }
