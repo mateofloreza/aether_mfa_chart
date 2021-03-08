@@ -5,6 +5,8 @@
 */}}
 
 {{- if .Values.config.spgwc.deploy }}
+{{- $cpJson := index .Values.config.spgwc.jsonCfgFiles "cp.json" }}
+{{- $global := index $cpJson "global" }}
 {{- $configJson := index .Values.config.spgwc.jsonCfgFiles "config.json" }}
 {{- $configJsonSpgwc := index $configJson "spgwc" }}
 {{- $configJsonGx := index $configJson "gx" }}
@@ -15,7 +17,18 @@
 {{- if not (hasKey $configJsonGx "realm") -}}
 {{- $_ := tuple "pcrf" "realm" . | include "omec-control-plane.diameter_endpoint" | set $configJsonGx "realm" -}}
 {{- end }}
-
+{{- if not (hasKey $global "httpPort") -}}
+{{- $_ := .Values.config.spgwc.rest.port | set $global "httpPort" -}}
+{{- end }}
+{{- if not (hasKey $global "pfcpPort") -}}
+{{- $_ := .Values.config.spgwc.n4.port | set $global "pfcpPort" -}}
+{{- end }}
+{{- if not (hasKey $global "s11Port") -}}
+{{- $_ := .Values.config.spgwc.s11.port | set $global "s11Port" -}}
+{{- end }}
+{{- if not (hasKey $global "prometheusPort") -}}
+{{- $_ := .Values.config.spgwc.prometheus.port | set $global "prometheusPort" -}}
+{{- end }}
 ---
 apiVersion: v1
 kind: ConfigMap
