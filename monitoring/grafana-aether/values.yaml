@@ -37,6 +37,13 @@ googleCloudMonitoring: {}
 #   ...
 #   -----END PRIVATE KEY-----
 
+# For customizing the enterprise dashboard
+enterpriseDashboard:
+  enabled: false
+  # name: Intel
+  # datasource: ace-intel
+  # tunnelName: production-ace-intel
+
 grafana:
   enabled: true
   grafana.ini:

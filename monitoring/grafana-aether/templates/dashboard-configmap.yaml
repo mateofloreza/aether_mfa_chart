@@ -12,3 +12,6 @@ data:
 {{- $dashboard := printf "dashboards/%s" . }}
 {{ ($.Files.Glob $dashboard).AsConfig | indent 2 }}
 {{- end}}
+{{- if .Values.enterpriseDashboard.enabled }}
+{{ (tpl ($.Files.Glob "dashboards/enterprise-system.json").AsConfig . ) | indent 2 }}
+{{- end}}

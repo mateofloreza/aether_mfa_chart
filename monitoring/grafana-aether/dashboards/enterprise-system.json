@@ -17,8 +17,7 @@
   "editable": true,
   "gnetId": 1860,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1614634998322,
+  "iteration": 1615232513084,
   "links": [],
   "panels": [
     {
@@ -487,24 +486,12 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "production-ace-intel"
+              "options": "{{ .Values.enterpriseDashboard.tunnelName }}"
             },
             "properties": [
               {
                 "id": "displayName",
                 "value": "Link 1"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "production-ace-stanford2-2"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Link 2"
               }
             ]
           }
@@ -536,13 +523,13 @@
       "targets": [
         {
           "metricQuery": {
-            "aliasBy": "{{ metric.label.tunnel_name }}",
+            "aliasBy": "{{`{{ metric.label.tunnel_name }}`}}",
             "alignmentPeriod": "stackdriver-auto",
             "crossSeriesReducer": "REDUCE_NONE",
             "filters": [
               "metric.label.tunnel_name",
               "=",
-              "production-ace-intel"
+              "{{ .Values.enterpriseDashboard.tunnelName }}"
             ],
             "groupBys": [],
             "metricKind": "GAUGE",
@@ -564,7 +551,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -579,7 +566,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "description": "Busy state of all CPU cores together",
       "fieldConfig": {
         "defaults": {
@@ -656,7 +643,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "description": "Busy state of all CPU cores together (5 min average)",
       "fieldConfig": {
         "defaults": {
@@ -733,7 +720,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "description": "Busy state of all CPU cores together (15 min average)",
       "fieldConfig": {
         "defaults": {
@@ -809,7 +796,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "description": "Non available RAM memory",
       "fieldConfig": {
         "defaults": {
@@ -867,18 +854,22 @@
       "pluginVersion": "7.0.5",
       "targets": [
         {
-          "expr": "((node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"}) / (node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"} )) * 100",
+          "expr": "sum(((node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"}) / (node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"} ))) * 100",
           "format": "time_series",
           "hide": true,
+          "interval": "",
           "intervalFactor": 1,
+          "legendFormat": "",
           "refId": "A",
           "step": 900
         },
         {
-          "expr": "100 - ((node_memory_MemAvailable_bytes{instance=\"$node\",job=\"$job\"} * 100) / node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"})",
+          "expr": "100 - sum(((node_memory_MemAvailable_bytes{instance=\"$node\",job=\"$job\"} * 100) / node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"}))",
           "format": "time_series",
           "hide": false,
+          "interval": "",
           "intervalFactor": 1,
+          "legendFormat": "",
           "refId": "B",
           "step": 900
         }
@@ -888,7 +879,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "description": "Used Swap",
       "fieldConfig": {
         "defaults": {
@@ -952,8 +943,10 @@
       "pluginVersion": "7.0.5",
       "targets": [
         {
-          "expr": "((node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{instance=\"$node\",job=\"$job\"}) / (node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} )) * 100",
+          "expr": "sum(((node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{instance=\"$node\",job=\"$job\"}) / (node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} ))) * 100",
+          "interval": "",
           "intervalFactor": 1,
+          "legendFormat": "",
           "refId": "A",
           "step": 900
         }
@@ -963,7 +956,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "description": "Used Root FS",
       "fieldConfig": {
         "defaults": {
@@ -1027,9 +1020,11 @@
       "pluginVersion": "7.0.5",
       "targets": [
         {
-          "expr": "100 - ((node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"})",
+          "expr": "100 - sum(((node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"}))",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
+          "legendFormat": "",
           "refId": "A",
           "step": 900
         }
@@ -1046,7 +1041,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "description": "Total number of CPU cores",
       "fieldConfig": {
         "defaults": {
@@ -1136,7 +1131,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "decimals": 1,
       "description": "System uptime",
       "fieldConfig": {
@@ -1196,11 +1191,13 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{endpoint=\"metrics\", instance=\"192.168.49.216:9796\", job=\"node-exporter\", namespace=\"cattle-monitoring-system\", pod=\"rancher-monitoring-prometheus-node-exporter-6rqqr\", service=\"rancher-monitoring-prometheus-node-exporter\"}",
+      "tableColumn": "",
       "targets": [
         {
-          "expr": "node_time_seconds{instance=\"$node\",job=\"$job\"} - node_boot_time_seconds{instance=\"$node\",job=\"$job\"}",
+          "expr": "sum(node_time_seconds{instance=\"$node\",job=\"$job\"} - node_boot_time_seconds{instance=\"$node\",job=\"$job\"})",
+          "interval": "",
           "intervalFactor": 2,
+          "legendFormat": "",
           "refId": "A",
           "step": 1800
         }
@@ -1228,7 +1225,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(245, 54, 54, 0.9)"
       ],
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "decimals": 0,
       "description": "Total RootFS",
       "fieldConfig": {
@@ -1286,13 +1283,15 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "node_filesystem_size_bytes{device=\"/dev/mapper/ubuntu--vg-ubuntu--lv\", endpoint=\"metrics\", fstype=\"ext4\", instance=\"192.168.49.216:9796\", job=\"node-exporter\", mountpoint=\"/\", namespace=\"cattle-monitoring-system\", pod=\"rancher-monitoring-prometheus-node-exporter-6rqqr\", service=\"rancher-monitoring-prometheus-node-exporter\"}",
+      "tableColumn": "",
       "targets": [
         {
-          "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"}",
+          "expr": "sum(node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"})",
           "format": "time_series",
           "hide": false,
+          "interval": "",
           "intervalFactor": 1,
+          "legendFormat": "",
           "refId": "A",
           "step": 900
         }
@@ -1319,7 +1318,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "decimals": 0,
       "description": "Total RAM",
       "fieldConfig": {
@@ -1377,11 +1376,13 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "node_memory_MemTotal_bytes{endpoint=\"metrics\", instance=\"192.168.49.216:9796\", job=\"node-exporter\", namespace=\"cattle-monitoring-system\", pod=\"rancher-monitoring-prometheus-node-exporter-6rqqr\", service=\"rancher-monitoring-prometheus-node-exporter\"}",
+      "tableColumn": "",
       "targets": [
         {
-          "expr": "node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "sum(node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"})",
+          "interval": "",
           "intervalFactor": 1,
+          "legendFormat": "",
           "refId": "A",
           "step": 900
         }
@@ -1408,7 +1409,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "decimals": 0,
       "description": "Total SWAP",
       "fieldConfig": {
@@ -1466,11 +1467,13 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "node_memory_SwapTotal_bytes{endpoint=\"metrics\", instance=\"192.168.49.216:9796\", job=\"node-exporter\", namespace=\"cattle-monitoring-system\", pod=\"rancher-monitoring-prometheus-node-exporter-6rqqr\", service=\"rancher-monitoring-prometheus-node-exporter\"}",
+      "tableColumn": "",
       "targets": [
         {
-          "expr": "node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "sum(node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"})",
+          "interval": "",
           "intervalFactor": 1,
+          "legendFormat": "",
           "refId": "A",
           "step": 900
         }
@@ -1490,7 +1493,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1523,7 +1526,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "decimals": 2,
       "description": "Basic CPU info",
       "fieldConfig": {
@@ -1711,7 +1714,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "decimals": 2,
       "description": "Basic memory usage",
       "fieldConfig": {
@@ -1781,42 +1784,47 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "sum(node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"})",
           "format": "time_series",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Total",
           "refId": "A",
           "step": 240
         },
         {
-          "expr": "node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"} - (node_memory_Cached_bytes{instance=\"$node\",job=\"$job\"} + node_memory_Buffers_bytes{instance=\"$node\",job=\"$job\"})",
+          "expr": "sum(node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"} - (node_memory_Cached_bytes{instance=\"$node\",job=\"$job\"} + node_memory_Buffers_bytes{instance=\"$node\",job=\"$job\"}))",
           "format": "time_series",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Used",
           "refId": "B",
           "step": 240
         },
         {
-          "expr": "node_memory_Cached_bytes{instance=\"$node\",job=\"$job\"} + node_memory_Buffers_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "sum(node_memory_Cached_bytes{instance=\"$node\",job=\"$job\"} + node_memory_Buffers_bytes{instance=\"$node\",job=\"$job\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Cache + Buffer",
           "refId": "C",
           "step": 240
         },
         {
-          "expr": "node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "sum(node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Free",
           "refId": "D",
           "step": 240
         },
         {
-          "expr": "(node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{instance=\"$node\",job=\"$job\"})",
+          "expr": "sum(node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{instance=\"$node\",job=\"$job\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "SWAP Used",
           "refId": "E",
@@ -1843,6 +1851,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:422",
           "format": "bytes",
           "label": "",
           "logBase": 1,
@@ -1851,6 +1860,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:423",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1893,7 +1903,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "description": "Basic network info per interface",
       "fieldConfig": {
         "defaults": {
@@ -1951,7 +1961,7 @@
           "expr": "irate(node_network_receive_bytes_total{instance=\"$node\",job=\"$job\"}[5m])*8",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "recv {{device}}",
+          "legendFormat": "recv {{`{{device}}`}}",
           "refId": "A",
           "step": 240
         },
@@ -1959,7 +1969,7 @@
           "expr": "irate(node_network_transmit_bytes_total{instance=\"$node\",job=\"$job\"}[5m])*8",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "trans {{device}} ",
+          "legendFormat": "trans {{`{{device}}`}} ",
           "refId": "B",
           "step": 240
         }
@@ -2010,7 +2020,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "decimals": 3,
       "description": "Disk space used of all filesystems mounted",
       "fieldConfig": {
@@ -2061,10 +2071,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 - ((node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'} * 100) / node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'})",
+          "expr": "100 - sum(((node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'} * 100) / node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'})) by (mountpoint)",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{mountpoint}}",
+          "legendFormat": "{{`{{mountpoint}}`}}",
           "refId": "A",
           "step": 240
         }
@@ -2089,6 +2100,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:272",
           "format": "percent",
           "label": null,
           "logBase": 1,
@@ -2097,6 +2109,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:273",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2112,7 +2125,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2137,7 +2150,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "description": "",
           "fieldConfig": {
@@ -2328,7 +2341,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "description": "",
           "fieldConfig": {
@@ -2515,7 +2528,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2569,7 +2582,7 @@
               "expr": "irate(node_network_receive_bytes_total{instance=\"$node\",job=\"$job\"}[5m])*8",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Receive",
+              "legendFormat": "{{`{{device}}`}} - Receive",
               "refId": "A",
               "step": 240
             },
@@ -2577,7 +2590,7 @@
               "expr": "irate(node_network_transmit_bytes_total{instance=\"$node\",job=\"$job\"}[5m])*8",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Transmit",
+              "legendFormat": "{{`{{device}}`}} - Transmit",
               "refId": "B",
               "step": 240
             }
@@ -2630,7 +2643,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 3,
           "description": "",
           "fieldConfig": {
@@ -2684,7 +2697,7 @@
               "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'} - node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{mountpoint}}",
+              "legendFormat": "{{`{{mountpoint}}`}}",
               "refId": "A",
               "step": 240
             }
@@ -2735,7 +2748,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2874,14 +2887,14 @@
             {
               "expr": "irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[5m])",
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - Reads completed",
+              "legendFormat": "{{`{{device}}`}} - Reads completed",
               "refId": "A",
               "step": 480
             },
             {
               "expr": "irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[5m])",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Writes completed",
+              "legendFormat": "{{`{{device}}`}} - Writes completed",
               "refId": "B",
               "step": 240
             }
@@ -2934,7 +2947,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 3,
           "description": "",
           "fieldConfig": {
@@ -3013,7 +3026,7 @@
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Successfully read bytes",
+              "legendFormat": "{{`{{device}}`}} - Successfully read bytes",
               "refId": "A",
               "step": 240
             },
@@ -3022,7 +3035,7 @@
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Successfully written bytes",
+              "legendFormat": "{{`{{device}}`}} - Successfully written bytes",
               "refId": "B",
               "step": 240
             }
@@ -3075,7 +3088,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 3,
           "description": "",
           "fieldConfig": {
@@ -3129,7 +3142,7 @@
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Time spent doing I/Os",
+              "legendFormat": "{{`{{device}}`}} - Time spent doing I/Os",
               "refId": "A",
               "step": 240
             }
@@ -3182,7 +3195,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3214,7 +3227,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -3336,7 +3349,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -3467,7 +3480,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -3611,7 +3624,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -3741,7 +3754,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -3896,7 +3909,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -4019,7 +4032,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -4152,7 +4165,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -4267,7 +4280,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -4394,7 +4407,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -4518,7 +4531,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -4649,7 +4662,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -4772,7 +4785,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -4906,7 +4919,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -5030,7 +5043,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -5128,7 +5141,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -5142,7 +5155,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -5249,7 +5262,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -5374,7 +5387,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -5515,7 +5528,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 2,
           "fill": 2,
           "fillGradient": 0,
@@ -5616,7 +5629,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -5630,7 +5643,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -5750,7 +5763,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -5844,7 +5857,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -5952,7 +5965,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -6056,7 +6069,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -6070,7 +6083,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -6173,7 +6186,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -6216,7 +6229,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{ state }}",
+              "legendFormat": "{{`{{ state }}`}}",
               "refId": "A",
               "step": 240
             }
@@ -6269,7 +6282,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -6365,7 +6378,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -6490,7 +6503,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -6602,7 +6615,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -6651,7 +6664,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "CPU {{ cpu }} - seconds spent running a process",
+              "legendFormat": "CPU {{`{{ cpu }}`}} - seconds spent running a process",
               "refId": "A",
               "step": 240
             },
@@ -6660,7 +6673,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "CPU {{ cpu }} - seconds spent by processing waiting for this CPU",
+              "legendFormat": "CPU {{`{{ cpu }}`}} - seconds spent by processing waiting for this CPU",
               "refId": "B",
               "step": 240
             }
@@ -6713,7 +6726,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -6826,7 +6839,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -6840,7 +6853,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -6943,7 +6956,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -7055,7 +7068,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -7108,7 +7121,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{ type }} - {{ info }}",
+              "legendFormat": "{{`{{ type }}`}} - {{`{{ info }}`}}",
               "refId": "A",
               "step": 240
             }
@@ -7159,7 +7172,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -7202,7 +7215,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "CPU {{ cpu }}",
+              "legendFormat": "CPU {{`{{ cpu }}`}}",
               "refId": "A",
               "step": 240
             }
@@ -7255,7 +7268,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -7350,7 +7363,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -7446,7 +7459,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -7557,7 +7570,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -7571,7 +7584,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -7626,7 +7639,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{ chip }} {{ sensor }} temp",
+              "legendFormat": "{{`{{ chip }}`}} {{`{{ sensor }}`}} temp",
               "refId": "A",
               "step": 240
             },
@@ -7636,7 +7649,7 @@
               "hide": true,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{ chip }} {{ sensor }} Critical Alarm",
+              "legendFormat": "{{`{{ chip }}`}} {{`{{ sensor }}`}} Critical Alarm",
               "refId": "B",
               "step": 240
             },
@@ -7645,7 +7658,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{ chip }} {{ sensor }} Critical",
+              "legendFormat": "{{`{{ chip }}`}} {{`{{ sensor }}`}} Critical",
               "refId": "C",
               "step": 240
             },
@@ -7655,7 +7668,7 @@
               "hide": true,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{ chip }} {{ sensor }} Critical Historical",
+              "legendFormat": "{{`{{ chip }}`}} {{`{{ sensor }}`}} Critical Historical",
               "refId": "D",
               "step": 240
             },
@@ -7665,7 +7678,7 @@
               "hide": true,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{ chip }} {{ sensor }} Max",
+              "legendFormat": "{{`{{ chip }}`}} {{`{{ sensor }}`}} Max",
               "refId": "E",
               "step": 240
             }
@@ -7718,7 +7731,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -7768,7 +7781,7 @@
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "Current {{ name }} in {{ type }}",
+              "legendFormat": "Current {{`{{ name }}`}} in {{`{{ type }}`}}",
               "refId": "A",
               "step": 240
             },
@@ -7777,7 +7790,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "Max {{ name }} in {{ type }}",
+              "legendFormat": "Max {{`{{ name }}`}} in {{`{{ type }}`}}",
               "refId": "B",
               "step": 240
             }
@@ -7830,7 +7843,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -7873,7 +7886,7 @@
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{ power_supply }} online",
+              "legendFormat": "{{`{{ power_supply }}`}} online",
               "refId": "A",
               "step": 240
             }
@@ -7927,7 +7940,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -7941,7 +7954,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -7983,7 +7996,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{ name }} Connections",
+              "legendFormat": "{{`{{ name }}`}} Connections",
               "refId": "A",
               "step": 240
             }
@@ -8034,7 +8047,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -8185,7 +8198,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -8199,7 +8212,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -8350,14 +8363,14 @@
             {
               "expr": "irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\"}[5m])",
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - Reads completed",
+              "legendFormat": "{{`{{device}}`}} - Reads completed",
               "refId": "A",
               "step": 8
             },
             {
               "expr": "irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\"}[5m])",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Writes completed",
+              "legendFormat": "{{`{{device}}`}} - Writes completed",
               "refId": "B",
               "step": 4
             }
@@ -8410,7 +8423,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -8540,7 +8553,7 @@
               "expr": "irate(node_disk_read_bytes_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - Read bytes",
+              "legendFormat": "{{`{{device}}`}} - Read bytes",
               "refId": "A",
               "step": 8
             },
@@ -8548,7 +8561,7 @@
               "expr": "irate(node_disk_written_bytes_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Written bytes",
+              "legendFormat": "{{`{{device}}`}} - Written bytes",
               "refId": "B",
               "step": 4
             }
@@ -8599,7 +8612,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 3,
           "fillGradient": 0,
@@ -8731,7 +8744,7 @@
               "expr": "irate(node_disk_read_time_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
               "hide": false,
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - Read time",
+              "legendFormat": "{{`{{device}}`}} - Read time",
               "refId": "A",
               "step": 8
             },
@@ -8739,7 +8752,7 @@
               "expr": "irate(node_disk_write_time_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Write time",
+              "legendFormat": "{{`{{device}}`}} - Write time",
               "refId": "B",
               "step": 4
             }
@@ -8790,7 +8803,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -8917,7 +8930,7 @@
             {
               "expr": "irate(node_disk_io_time_weighted_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - IO time weighted",
+              "legendFormat": "{{`{{device}}`}} - IO time weighted",
               "refId": "A",
               "step": 8
             }
@@ -8968,7 +8981,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -9099,14 +9112,14 @@
             {
               "expr": "irate(node_disk_reads_merged_total{instance=\"$node\",job=\"$job\"}[5m])",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Read merged",
+              "legendFormat": "{{`{{device}}`}} - Read merged",
               "refId": "A",
               "step": 4
             },
             {
               "expr": "irate(node_disk_writes_merged_total{instance=\"$node\",job=\"$job\"}[5m])",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Write merged",
+              "legendFormat": "{{`{{device}}`}} - Write merged",
               "refId": "B",
               "step": 4
             }
@@ -9157,7 +9170,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 3,
           "fillGradient": 0,
@@ -9284,7 +9297,7 @@
             {
               "expr": "irate(node_disk_io_time_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - IO time",
+              "legendFormat": "{{`{{device}}`}} - IO time",
               "refId": "A",
               "step": 8
             },
@@ -9292,7 +9305,7 @@
               "expr": "irate(node_disk_discard_time_seconds_total{instance=\"$node\",job=\"$job\"}[5m])",
               "interval": "",
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - discard time",
+              "legendFormat": "{{`{{device}}`}} - discard time",
               "refId": "B",
               "step": 8
             }
@@ -9343,7 +9356,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -9470,7 +9483,7 @@
             {
               "expr": "irate(node_disk_io_now{instance=\"$node\",job=\"$job\"}[5m])",
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - IO now",
+              "legendFormat": "{{`{{device}}`}} - IO now",
               "refId": "A",
               "step": 8
             }
@@ -9521,7 +9534,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -9667,7 +9680,7 @@
               "expr": "irate(node_disk_discards_completed_total{instance=\"$node\",job=\"$job\"}[5m])",
               "interval": "",
               "intervalFactor": 4,
-              "legendFormat": "{{device}} - Discards completed",
+              "legendFormat": "{{`{{device}}`}} - Discards completed",
               "refId": "A",
               "step": 8
             },
@@ -9675,7 +9688,7 @@
               "expr": "irate(node_disk_discards_merged_total{instance=\"$node\",job=\"$job\"}[5m])",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Discards merged",
+              "legendFormat": "{{`{{device}}`}} - Discards merged",
               "refId": "B",
               "step": 4
             }
@@ -9730,7 +9743,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -9744,7 +9757,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": 3,
           "description": "",
           "fill": 2,
@@ -9790,7 +9803,7 @@
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{mountpoint}} - Available",
+              "legendFormat": "{{`{{mountpoint}}`}} - Available",
               "metric": "",
               "refId": "A",
               "step": 4
@@ -9800,7 +9813,7 @@
               "format": "time_series",
               "hide": true,
               "intervalFactor": 2,
-              "legendFormat": "{{mountpoint}} - Free",
+              "legendFormat": "{{`{{mountpoint}}`}} - Free",
               "refId": "B",
               "step": 2
             },
@@ -9809,7 +9822,7 @@
               "format": "time_series",
               "hide": true,
               "intervalFactor": 2,
-              "legendFormat": "{{mountpoint}} - Size",
+              "legendFormat": "{{`{{mountpoint}}`}} - Size",
               "refId": "C",
               "step": 2
             }
@@ -9862,7 +9875,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -9907,7 +9920,7 @@
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{mountpoint}} - Free file nodes",
+              "legendFormat": "{{`{{mountpoint}}`}} - Free file nodes",
               "refId": "A",
               "step": 4
             }
@@ -9960,7 +9973,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -10062,7 +10075,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -10107,7 +10120,7 @@
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{mountpoint}} - File nodes total",
+              "legendFormat": "{{`{{mountpoint}}`}} - File nodes total",
               "refId": "A",
               "step": 4
             }
@@ -10160,7 +10173,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": null,
           "description": "",
           "fill": 2,
@@ -10207,7 +10220,7 @@
               "expr": "node_filesystem_readonly{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{mountpoint}} - ReadOnly",
+              "legendFormat": "{{`{{mountpoint}}`}} - ReadOnly",
               "refId": "A",
               "step": 4
             },
@@ -10216,7 +10229,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{mountpoint}} - Device error",
+              "legendFormat": "{{`{{mountpoint}}`}} - Device error",
               "refId": "B",
               "step": 4
             }
@@ -10271,7 +10284,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -10290,7 +10303,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -10339,7 +10352,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Receive",
+              "legendFormat": "{{`{{device}}`}} - Receive",
               "refId": "A",
               "step": 4
             },
@@ -10348,7 +10361,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Transmit",
+              "legendFormat": "{{`{{device}}`}} - Transmit",
               "refId": "B",
               "step": 4
             }
@@ -10399,7 +10412,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -10451,7 +10464,7 @@
               "expr": "irate(node_network_receive_errs_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Receive errors",
+              "legendFormat": "{{`{{device}}`}} - Receive errors",
               "refId": "A",
               "step": 4
             },
@@ -10459,7 +10472,7 @@
               "expr": "irate(node_network_transmit_errs_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Rransmit errors",
+              "legendFormat": "{{`{{device}}`}} - Rransmit errors",
               "refId": "B",
               "step": 4
             }
@@ -10510,7 +10523,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -10562,7 +10575,7 @@
               "expr": "irate(node_network_receive_drop_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Receive drop",
+              "legendFormat": "{{`{{device}}`}} - Receive drop",
               "refId": "A",
               "step": 4
             },
@@ -10570,7 +10583,7 @@
               "expr": "irate(node_network_transmit_drop_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Transmit drop",
+              "legendFormat": "{{`{{device}}`}} - Transmit drop",
               "refId": "B",
               "step": 4
             }
@@ -10621,7 +10634,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -10673,7 +10686,7 @@
               "expr": "irate(node_network_receive_compressed_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Receive compressed",
+              "legendFormat": "{{`{{device}}`}} - Receive compressed",
               "refId": "A",
               "step": 4
             },
@@ -10681,7 +10694,7 @@
               "expr": "irate(node_network_transmit_compressed_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Transmit compressed",
+              "legendFormat": "{{`{{device}}`}} - Transmit compressed",
               "refId": "B",
               "step": 4
             }
@@ -10732,7 +10745,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -10784,7 +10797,7 @@
               "expr": "irate(node_network_receive_multicast_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Receive multicast",
+              "legendFormat": "{{`{{device}}`}} - Receive multicast",
               "refId": "A",
               "step": 4
             }
@@ -10835,7 +10848,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -10887,7 +10900,7 @@
               "expr": "irate(node_network_receive_fifo_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Receive fifo",
+              "legendFormat": "{{`{{device}}`}} - Receive fifo",
               "refId": "A",
               "step": 4
             },
@@ -10895,7 +10908,7 @@
               "expr": "irate(node_network_transmit_fifo_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Transmit fifo",
+              "legendFormat": "{{`{{device}}`}} - Transmit fifo",
               "refId": "B",
               "step": 4
             }
@@ -10946,7 +10959,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -11000,7 +11013,7 @@
               "format": "time_series",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Receive frame",
+              "legendFormat": "{{`{{device}}`}} - Receive frame",
               "refId": "A",
               "step": 4
             }
@@ -11053,7 +11066,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -11100,7 +11113,7 @@
               "expr": "irate(node_network_transmit_carrier_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Statistic transmit_carrier",
+              "legendFormat": "{{`{{device}}`}} - Statistic transmit_carrier",
               "refId": "A",
               "step": 4
             }
@@ -11151,7 +11164,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -11203,7 +11216,7 @@
               "expr": "irate(node_network_transmit_colls_total{instance=\"$node\",job=\"$job\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{device}} - Transmit colls",
+              "legendFormat": "{{`{{device}}`}} - Transmit colls",
               "refId": "A",
               "step": 4
             }
@@ -11254,7 +11267,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -11364,7 +11377,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -11406,7 +11419,7 @@
               "expr": "node_arp_entries{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{ device }} - ARP entries",
+              "legendFormat": "{{`{{ device }}`}} - ARP entries",
               "refId": "A",
               "step": 4
             }
@@ -11457,7 +11470,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -11499,7 +11512,7 @@
               "expr": "node_network_mtu_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{ device }} - Bytes",
+              "legendFormat": "{{`{{ device }}`}} - Bytes",
               "refId": "A",
               "step": 4
             }
@@ -11551,7 +11564,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -11593,7 +11606,7 @@
               "expr": "node_network_speed_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{ device }} - Speed",
+              "legendFormat": "{{`{{ device }}`}} - Speed",
               "refId": "A",
               "step": 4
             }
@@ -11645,7 +11658,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -11687,7 +11700,7 @@
               "expr": "node_network_transmit_queue_length{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{ device }} -   Interface transmit queue length",
+              "legendFormat": "{{`{{ device }}`}} -   Interface transmit queue length",
               "refId": "A",
               "step": 4
             }
@@ -11739,7 +11752,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -11793,7 +11806,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "CPU {{cpu}} - Processed",
+              "legendFormat": "CPU {{`{{cpu}}`}} - Processed",
               "refId": "A",
               "step": 4
             },
@@ -11802,7 +11815,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "CPU {{cpu}} - Dropped",
+              "legendFormat": "CPU {{`{{cpu}}`}} - Dropped",
               "refId": "B",
               "step": 4
             }
@@ -11855,7 +11868,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -11903,7 +11916,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "CPU {{cpu}} - Squeezed",
+              "legendFormat": "CPU {{`{{cpu}}`}} - Squeezed",
               "refId": "A",
               "step": 4
             }
@@ -11956,7 +11969,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -12003,7 +12016,7 @@
               "expr": "node_network_up{operstate=\"up\",instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "legendFormat": "{{interface}} - Operational state UP",
+              "legendFormat": "{{`{{interface}}`}} - Operational state UP",
               "refId": "A",
               "step": 4
             },
@@ -12011,7 +12024,7 @@
               "expr": "node_network_carrier{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "instant": false,
-              "legendFormat": "{{device}} - Physical link state",
+              "legendFormat": "{{`{{device}}`}} - Physical link state",
               "refId": "B"
             }
           ],
@@ -12063,7 +12076,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -12077,7 +12090,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -12211,7 +12224,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -12326,7 +12339,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -12423,7 +12436,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -12529,7 +12542,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -12648,7 +12661,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -12662,7 +12675,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -12779,7 +12792,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -12881,7 +12894,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": null,
           "fill": 2,
           "fillGradient": 0,
@@ -12995,7 +13008,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": null,
           "fill": 2,
           "fillGradient": 0,
@@ -13100,7 +13113,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": null,
           "fill": 2,
           "fillGradient": 0,
@@ -13218,7 +13231,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -13352,7 +13365,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "decimals": null,
           "fill": 2,
           "fillGradient": 0,
@@ -13471,7 +13484,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -13604,7 +13617,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -13722,7 +13735,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
           "fill": 2,
           "fillGradient": 0,
@@ -13849,7 +13862,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
@@ -13958,7 +13971,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "ace-intel",
+      "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -13972,15 +13985,21 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 54
+            "y": 38
           },
           "hiddenSeries": false,
           "id": 40,
@@ -14018,7 +14037,7 @@
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{collector}} - Scrape duration",
+              "legendFormat": "{{`{{collector}}`}} - Scrape duration",
               "refId": "A",
               "step": 4
             }
@@ -14069,15 +14088,21 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "ace-intel",
+          "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
           "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "gridPos": {
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 54
+            "y": 38
           },
           "hiddenSeries": false,
           "id": 157,
@@ -14120,7 +14145,7 @@
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{collector}} - Scrape success",
+              "legendFormat": "{{`{{collector}}`}} - Scrape success",
               "refId": "A",
               "step": 4
             },
@@ -14130,7 +14155,7 @@
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "{{collector}} - Scrape textfile error (1 = true)",
+              "legendFormat": "{{`{{collector}}`}} - Scrape textfile error (1 = true)",
               "refId": "B",
               "step": 4
             }
@@ -14195,8 +14220,8 @@
       {
         "current": {
           "selected": false,
-          "text": "ace-intel",
-          "value": "ace-intel"
+          "text": "{{ .Values.enterpriseDashboard.datasource }}",
+          "value": "{{ .Values.enterpriseDashboard.datasource }}"
         },
         "hide": 2,
         "includeAll": false,
@@ -14206,7 +14231,7 @@
         "options": [],
         "query": "prometheus",
         "refresh": 1,
-        "regex": "ace-intel",
+        "regex": "{{ .Values.enterpriseDashboard.datasource }}",
         "skipUrlSync": false,
         "type": "datasource"
       },
@@ -14217,7 +14242,7 @@
           "text": "node-exporter",
           "value": "node-exporter"
         },
-        "datasource": "ace-intel",
+        "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
         "definition": "",
         "hide": 2,
         "includeAll": false,
@@ -14239,11 +14264,11 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "text": "192.168.49.216:9796",
-          "value": "192.168.49.216:9796"
+          "selected": false,
+          "text": "10.212.74.51:9796",
+          "value": "10.212.74.51:9796"
         },
-        "datasource": "ace-intel",
+        "datasource": "{{ .Values.enterpriseDashboard.datasource }}",
         "definition": "label_values(node_uname_info{job=\"$job\"}, instance)",
         "hide": 0,
         "includeAll": false,
@@ -14288,7 +14313,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -14316,7 +14341,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Intel Aether Connected Edge",
+  "title": "{{ .Values.enterpriseDashboard.name }} Aether Connected Edge",
   "uid": "rYdddlPWk",
-  "version": 1
+  "version": 2
 }
