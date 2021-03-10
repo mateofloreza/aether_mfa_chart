@@ -23,6 +23,8 @@ data:
     ifconfig
     while true
     do
+        echo "Up SR-IOV intercae"
+        ip link set $DP_INTERFACE up
         echo "Get the IP Address from interface $DP_INTERFACE"
         ifconfig $DP_INTERFACE
         #IP Address from ifconfig is addr:10.71.126.127, have to cut it off
