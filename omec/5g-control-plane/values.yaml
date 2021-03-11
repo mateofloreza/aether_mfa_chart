@@ -229,6 +229,8 @@ config:
             - nudm-pp
           sbi:
             scheme: http
+            bindingIPv4: "0.0.0.0"
+            registerIPv4: udm
             tls:
               log: free5gc/udmsslkey.log
               pem: free5gc/support/TLS/udm.pem
@@ -265,6 +267,8 @@ config:
           nrfUri: http://nrf:29510
           sbi:
             scheme: http
+            bindingIPv4: "0.0.0.0"
+            registerIPv4: udr
   pcf:
     deploy: true
     podAnnotations:
@@ -290,6 +294,8 @@ config:
           nrfUri: http://nrf:29510
           sbi:
             scheme: http
+            bindingIPv4: "0.0.0.0"
+            registerIPv4: pcf
           defaultBdtRefId: BdtPolicyId-
           serviceList:
             - serviceName: npcf-am-policy-control
@@ -325,6 +331,8 @@ config:
           nrfUri: http://nrf:29510
           sbi:
             scheme: http
+            bindingIPv4: "0.0.0.0"
+            registerIPv4: nssf
           serviceNameList:
             - nnssf-nsselection
             - nnssf-nssaiavailability
@@ -364,6 +372,8 @@ config:
       nodePort:
         enabled: true
         port: 30071
+        ngapIpList:
+            - "0.0.0.0"
     cfgFiles:
       # https://github.com/free5gc/free5gc/blob/main/config/amfcfg.yaml
       amfcfg.conf:
@@ -375,6 +385,8 @@ config:
           nrfUri: http://nrf:29510
           sbi:
             scheme: http
+            bindingIPv4: "0.0.0.0"
+            registerIPv4: amf
           serviceNameList:
             - namf-comm
             - namf-evts
@@ -429,6 +441,8 @@ config:
         configuration:
           sbi:
             scheme: http
+            bindingIPv4: "0.0.0.0"
+            registerIPv4: nrf
           DefaultPlmnId:
             mcc: 208
             mnc: 93
@@ -469,6 +483,8 @@ config:
           nrfUri: http://nrf:29510
           sbi:
             scheme: http
+            bindingIPv4: "0.0.0.0"
+            registerIPv4: smf
             tls:
               key: gofree5gc/support/TLS/smf.key
               pem: gofree5gc/support/TLS/smf.pem
@@ -521,6 +537,8 @@ config:
           nrfUri: http://nrf:29510
           sbi:
             scheme: http
+            bindingIPv4: "0.0.0.0"
+            registerIPv4: ausf
           serviceNameList:
             - nausf-auth
           plmnSupportList:

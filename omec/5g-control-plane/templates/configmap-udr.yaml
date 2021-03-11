@@ -15,12 +15,6 @@
 {{- $_ := dict "name" .Values.config.mongodb.name "url" .Values.config.mongodb.url | set $config "mongodb" -}}
 {{- end }}
 
-{{- if not (hasKey $sbi "registerIPv4") -}}
-{{- $_ := "POD_IP" | set $sbi "registerIPv4" -}}
-{{- end }}
-{{- if not (hasKey $sbi "bindingIPv4") -}}
-{{- $_ := "POD_IP" | set $sbi "bindingIPv4" -}}
-{{- end }}
 {{- if not (hasKey $sbi "port") -}}
 {{- $_ := .Values.config.udr.sbi.port | set $sbi "port" -}}
 {{- end }}

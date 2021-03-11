@@ -13,12 +13,6 @@
 {{- if not (hasKey $smfcfg.configuration "pfcp") -}}
 {{- $_ := dict "addr" "POD_IP" | set $smfcfg.configuration "pfcp" -}}
 {{- end }}
-{{- if not (hasKey $sbi "registerIPv4") -}}
-{{- $_ := "POD_IP" | set $sbi "registerIPv4" -}}
-{{- end }}
-{{- if not (hasKey $sbi "bindingIPv4") -}}
-{{- $_ := "POD_IP" | set $sbi "bindingIPv4" -}}
-{{- end }}
 {{- if not (hasKey $sbi "port") -}}
 {{- $_ := .Values.config.smf.sbi.port | set $sbi "port" -}}
 {{- end }}

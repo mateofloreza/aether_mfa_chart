@@ -10,20 +10,12 @@
 {{- $amfcfg := index .Values.config.amf.cfgFiles "amfcfg.conf" }}
 {{- $sbi := index $amfcfg.configuration "sbi" }}
 
-{{- if not (hasKey $sbi "registerIPv4") -}}
-{{- $_ := "POD_IP" | set $sbi "registerIPv4" -}}
-{{- end }}
-{{- if not (hasKey $sbi "bindingIPv4") -}}
-{{- $_ := "POD_IP" | set $sbi "bindingIPv4" -}}
-{{- end }}
 {{- if not (hasKey $sbi "port") -}}
 {{- $_ := .Values.config.amf.sbi.port | set $sbi "port" -}}
 {{- end }}
 
-{{- if not (hasKey $amfcfg.configuration "ngapIpList") -}}
-{{- $_ := list "POD_IP" | set $amfcfg.configuration "ngapIpList" -}}
 {{- end }}
-{{- end }}
+
 
 ---
 apiVersion: v1

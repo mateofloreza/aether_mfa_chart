@@ -12,7 +12,6 @@ cp /free5gc/ausf/ausf /tmp/coredump/
 
 cd /free5gc
 cp /tmp/config/* config/
-sed -i "s/POD_IP/${POD_IP}/g" config/ausfcfg.conf
 
 cat config/free5GC.conf
 cat config/ausfcfg.conf
