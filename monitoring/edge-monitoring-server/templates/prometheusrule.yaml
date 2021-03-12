@@ -47,8 +47,8 @@ spec:
         annotations:
           message: |
             {{`{{ $value | humanizePercentage }}`}} of the clusters are reporting UE connect failures.
-        expr: sum(aetheredge_connect_test_ok{endpoint="metrics80"}) / count(aetheredge_connect_test_ok{endpoint="metrics80"}) < 0.5
-        for: 1m
+        expr: avg(aetheredge_connect_test_ok{endpoint="metrics80"}) < 0.5
+        for: 10m
         labels:
           severity: critical
 {{- end }}
