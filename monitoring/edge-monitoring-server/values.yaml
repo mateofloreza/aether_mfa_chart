@@ -19,6 +19,9 @@ iCalUrl: ""
 # Name of environment that server is monitoring (e.g., "staging")
 aetherEnv: "production"
 
+alerts:
+  enabled: false
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
