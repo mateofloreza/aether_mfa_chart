@@ -33,7 +33,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: spgwc
+  name: spgwc-configs
   labels:
 {{ tuple "spgwc" . | include "omec-control-plane.metadata_labels" | indent 4 }}
 data:
@@ -76,7 +76,6 @@ data:
     [STATIC_IP_POOL_CONFIG]
     IP_POOL_IP= {{.Values.config.spgwc.staticUeIpPool.ip }}
     IP_POOL_MASK= {{ .Values.config.spgwc.staticUeIpPool.mask }}
-
   gx.conf: |
     Identity = {{ tuple "spgwc" "identity" . | include "omec-control-plane.diameter_endpoint" | quote }};
     Realm = {{ tuple "spgwc" "realm" . | include "omec-control-plane.diameter_endpoint" | quote }};
@@ -131,10 +130,18 @@ data:
     LoadExtension = "/usr/local/lib/freeDiameter/dict_ts32299_avps.fdx";
     LoadExtension = "/usr/local/lib/freeDiameter/dict_CreditControl.fdx";
     LoadExtension = "/usr/local/lib/freeDiameter/dict_Gx.fdx";
-  spgwc-run.sh: |
-{{ tuple "bin/_spgwc-run.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- range $key, $value := .Values.config.spgwc.jsonCfgFiles }}
   {{ $key }}: |-
 {{ toPrettyJson $value | indent 4 }}
 {{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spgwc-scripts
+  labels:
+{{ tuple "spgwc" . | include "omec-control-plane.metadata_labels" | indent 4 }}
+data:
+  spgwc-run.sh: |
+{{ tuple "bin/_spgwc-run.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- end }}

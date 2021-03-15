@@ -96,8 +96,7 @@ spec:
               fieldPath: status.podIP
         volumeMounts:
         - name: scripts
-          mountPath: /opt/mme/scripts/mme-init.sh
-          subPath: mme-init.sh
+          mountPath: /opt/mme/scripts
         - name: configs
           mountPath: /opt/mme/config
         - name: shared-data
@@ -130,8 +129,7 @@ spec:
           value: "container"
         volumeMounts:
         - name: scripts
-          mountPath: /opt/mme/scripts/mme-run.sh
-          subPath: mme-run.sh
+          mountPath: /opt/mme/scripts
         - name: shared-data
           mountPath: /opt/mme/config/shared
         - name: shared-app
@@ -162,8 +160,7 @@ spec:
           value: "container"
         volumeMounts:
         - name: scripts
-          mountPath: /opt/mme/scripts/mme-run.sh
-          subPath: mme-run.sh
+          mountPath: /opt/mme/scripts
         - name: shared-data
           mountPath: /opt/mme/config/shared
         - name: shared-app
@@ -194,8 +191,7 @@ spec:
           value: "container"
         volumeMounts:
         - name: scripts
-          mountPath: /opt/mme/scripts/mme-run.sh
-          subPath: mme-run.sh
+          mountPath: /opt/mme/scripts
         - name: shared-data
           mountPath: /opt/mme/config/shared
         - name: shared-app
@@ -224,8 +220,7 @@ spec:
           value: "container"
         volumeMounts:
         - name: scripts
-          mountPath: /opt/mme/scripts/mme-run.sh
-          subPath: mme-run.sh
+          mountPath: /opt/mme/scripts
         - name: shared-data
           mountPath: /opt/mme/config/shared
         - name: shared-app
@@ -237,11 +232,11 @@ spec:
       volumes:
       - name: scripts
         configMap:
-          name: mme
+          name: mme-scripts
           defaultMode: 493
       - name: configs
         configMap:
-          name: mme
+          name: mme-configs
           defaultMode: 420
       - name: shared-data
         emptyDir: {}

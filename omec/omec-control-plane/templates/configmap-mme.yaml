@@ -20,7 +20,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mme
+  name: mme-configs
   labels:
 {{ tuple "mme" . | include "omec-control-plane.metadata_labels" | indent 4 }}
 data:
@@ -81,12 +81,20 @@ data:
     LoadExtension = "/usr/local/lib/freeDiameter/dict_S6t.fdx";
     LoadExtension = "/usr/local/lib/freeDiameter/dict_SGd.fdx";
     LoadExtension = "/usr/local/lib/freeDiameter/dict_T6aT6bT7.fdx";
-  mme-init.sh: |
-{{ tuple "bin/_mme-init.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
-  mme-run.sh: |
-{{ tuple "bin/_mme-run.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- range $key, $value := .Values.config.mme.cfgFiles }}
   {{ $key }}: |-
 {{ toPrettyJson $value | indent 4 }}
 {{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mme-scripts
+  labels:
+{{ tuple "mme" . | include "omec-control-plane.metadata_labels" | indent 4 }}
+data:
+  mme-init.sh: |
+{{ tuple "bin/_mme-init.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
+  mme-run.sh: |
+{{ tuple "bin/_mme-run.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- end }}

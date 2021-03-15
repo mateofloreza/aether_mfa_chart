@@ -43,9 +43,8 @@ spec:
         imagePullPolicy: {{ .Values.images.pullPolicy }}
         command: ["/opt/c3po/pcrf/pcrf-bootstrap.sh"]
         volumeMounts:
-        - name: pcrf-script
-          mountPath: /opt/c3po/pcrf/pcrf-bootstrap.sh
-          subPath: pcrf-bootstrap.sh
+        - name: scripts
+          mountPath: /opt/c3po/pcrf
     {{- if .Values.config.coreDump.enabled }}
 {{ tuple "pcrf" . | include "omec-control-plane.coredump_init" | indent 6 }}
     {{- end }}
@@ -60,29 +59,28 @@ spec:
       {{- end }}
         stdin: true
         tty: true
-        command: ["bash", "-c", "/opt/c3po/pcrf/pcrf-run.sh"]
+        command: ["bash", "-c", "/opt/c3po/pcrf/scripts/pcrf-run.sh"]
       {{- if .Values.resources.enabled }}
         resources:
 {{ toYaml .Values.resources.pcrf | indent 10 }}
       {{- end }}
         volumeMounts:
-        - name: pcrf-script
-          mountPath: /opt/c3po/pcrf/pcrf-run.sh
-          subPath: pcrf-run.sh
-        - name: pcrf-config
+        - name: scripts
+          mountPath: /opt/c3po/pcrf/scripts
+        - name: configs
           mountPath: /etc/pcrf/conf
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump
       {{- end }}
       volumes:
-      - name: pcrf-script
+      - name: scripts
         configMap:
-          name: pcrf
+          name: pcrf-scripts
           defaultMode: 493
-      - name: pcrf-config
+      - name: configs
         configMap:
-          name: pcrf
+          name: pcrf-configs
           defaultMode: 420
     {{- if .Values.config.coreDump.enabled }}
       - name: host-rootfs

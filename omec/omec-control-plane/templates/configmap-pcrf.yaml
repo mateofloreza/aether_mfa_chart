@@ -27,7 +27,7 @@ Declare variables to be passed into your templates.
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: pcrf
+  name: pcrf-configs
   labels:
 {{ tuple "pcrf" . | include "omec-control-plane.metadata_labels" | indent 4 }}
 data:
@@ -96,12 +96,20 @@ data:
     LoadExtension = "/usr/local/lib/freeDiameter/dict_Rx.fdx";
     LoadExtension = "/usr/local/lib/freeDiameter/dict_Sd.fdx";
     LoadExtension = "/usr/local/lib/freeDiameter/dict_St.fdx";
-  pcrf-run.sh: |
-{{ tuple "bin/_pcrf-run.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
-  pcrf-bootstrap.sh: |
-{{ tuple "bin/_pcrf-bootstrap.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- range $key, $value := .Values.config.pcrf.cfgFiles }}
   {{ $key }}: |-
 {{ toPrettyJson $value | indent 4 }}
 {{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pcrf-scripts
+  labels:
+{{ tuple "pcrf" . | include "omec-control-plane.metadata_labels" | indent 4 }}
+data:
+  pcrf-run.sh: |
+{{ tuple "bin/_pcrf-run.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
+  pcrf-bootstrap.sh: |
+{{ tuple "bin/_pcrf-bootstrap.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- end }}

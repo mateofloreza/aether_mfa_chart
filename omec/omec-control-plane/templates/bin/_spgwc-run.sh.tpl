@@ -9,7 +9,7 @@ set -xe
 
 mkdir -p /opt/cp/config
 cd /opt/cp/config
-cp /etc/cp/config/{*.cfg,*.json,*.conf,*.sh} .
+cp /etc/cp/config/{*.cfg,*.json,*.conf} .
 
 case $APPLICATION in
     "ngic_controlplane")
@@ -46,6 +46,3 @@ case $APPLICATION in
       echo "invalid app $APPLICATION"
       ;;
 esac
-    
-
-
