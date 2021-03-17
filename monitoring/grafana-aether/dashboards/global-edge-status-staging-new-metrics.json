@@ -15,6 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
+  "id": 27,
   "links": [],
   "panels": [
     {
@@ -75,7 +76,7 @@
               "from": "",
               "id": 1,
               "operator": "",
-              "text": "err",
+              "text": "X",
               "to": "",
               "type": 1,
               "value": "-1"
@@ -91,37 +92,19 @@
             },
             {
               "from": "",
-              "id": 3,
-              "operator": "",
-              "text": "?",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
               "id": 4,
               "operator": "",
               "text": "ok",
               "to": "",
               "type": 1,
-              "value": "2"
-            },
-            {
-              "from": "",
-              "id": 5,
-              "operator": "",
-              "text": "X",
-              "to": "",
-              "type": 1,
-              "value": "-2"
+              "value": "1"
             },
             {
               "from": "-100",
               "id": 6,
               "operator": "",
               "text": "maint",
-              "to": "-3",
+              "to": "-2",
               "type": 2
             }
           ],
@@ -138,15 +121,11 @@
               },
               {
                 "color": "red",
-                "value": -2
-              },
-              {
-                "color": "#EAB839",
-                "value": 1
+                "value": 0
               },
               {
                 "color": "green",
-                "value": 2
+                "value": 1
               }
             ]
           }
@@ -180,13 +159,13 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "expr": "sum(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}))",
+          "expr": "sum(aetheredge_connect_test_ok{endpoint=\"metrics80\",name=\"ace-menlo\"} - aetheredge_e2e_tests_down{endpoint=\"metrics80\",name=\"ace-menlo\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}))",
           "interval": "",
           "legendFormat": "Connect:",
           "refId": "A"
         },
         {
-          "expr": "sum(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}))",
+          "expr": "sum(aetheredge_ping_test_ok{endpoint=\"metrics80\",name=\"ace-menlo\"} - aetheredge_e2e_tests_down{endpoint=\"metrics80\",name=\"ace-menlo\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}))",
           "interval": "",
           "legendFormat": "Ping:",
           "refId": "B"
@@ -203,6 +182,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
+          "decimals": 3,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -251,16 +231,31 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} - 1, 0) * 100)",
+          "expr": "sum(aetheredge_connect_test_ok{endpoint=\"metrics80\",name=\"ace-menlo\"} * 100)",
+          "hide": true,
           "interval": "",
           "legendFormat": "Control Plane",
           "refId": "A"
         },
         {
-          "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} - 1, 0) * 100)",
+          "expr": "sum(aetheredge_ping_test_ok{endpoint=\"metrics80\",name=\"ace-menlo\"} * 100)",
+          "hide": true,
           "interval": "",
           "legendFormat": "User Plane",
           "refId": "B"
+        },
+        {
+          "expr": "sum(aetheredge_e2e_tests_ok{endpoint=\"metrics80\",name=\"ace-menlo\"} * 100)",
+          "hide": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "C"
+        },
+        {
+          "expr": "avg_over_time(aetheredge_e2e_tests_ok{endpoint=\"metrics80\",name=\"ace-menlo\"}[$__interval]) * 100\n",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "D"
         }
       ],
       "timeFrom": null,
@@ -275,7 +270,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "decimals": 0,
+          "decimals": 3,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -324,7 +319,7 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "expr": "sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}), 0)) * 100",
+          "expr": "sum((1 - aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}) * (1 - aetheredge_e2e_tests_ok{endpoint=\"metrics80\",name=\"ace-menlo\"})) * 100",
           "interval": "",
           "legendFormat": "Unscheduled",
           "refId": "A"
@@ -403,13 +398,13 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} - 3, 0) - aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"})",
+          "expr": "sum(aetheredge_e2e_tests_ok{endpoint=\"metrics80\",name=\"ace-menlo\"} * (1 - aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}))",
           "interval": "",
           "legendFormat": "Up",
           "refId": "D"
         },
         {
-          "expr": "-1 * sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}), 0))",
+          "expr": "-1 * sum((1 - aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}) * (1 - aetheredge_e2e_tests_down{endpoint=\"metrics80\",name=\"ace-menlo\"}) * (1 - aetheredge_e2e_tests_ok{endpoint=\"metrics80\",name=\"ace-menlo\"}))",
           "interval": "",
           "legendFormat": "Down: unscheduled",
           "refId": "A"
@@ -421,7 +416,7 @@
           "refId": "B"
         },
         {
-          "expr": "-1 * sum(clamp_min((aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} * -1) - 1 - aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}, 0))",
+          "expr": "-1 * sum((1 - aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}) * aetheredge_e2e_tests_down{endpoint=\"metrics80\",name=\"ace-menlo\"})",
           "interval": "",
           "legendFormat": "Test down",
           "refId": "C"
@@ -554,12 +549,14 @@
       "targets": [
         {
           "expr": "sum(spgw_number_of_ue_attached{cp_mode=\"spgw\",state=\"active\",level=\"subscribers\",job=\"spgwc-metrics\"})",
+          "hide": false,
           "interval": "",
           "legendFormat": "SPGW",
           "refId": "A"
         },
         {
           "expr": "sum(mme_number_of_ue_attached{endpoint=\"metrics3081\",level=\"subscribers\",sub_state=\"Active\"})",
+          "hide": false,
           "interval": "",
           "legendFormat": "MME",
           "refId": "B"
@@ -620,6 +617,7 @@
       "targets": [
         {
           "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc-metrics\",result=\"success\",mme_addr=\"\",proc_type=\"\"}[5m])) by (procedure)",
+          "hide": false,
           "interval": "",
           "legendFormat": "{{procedure}}",
           "refId": "A"
@@ -1146,7 +1144,7 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -1163,7 +1161,7 @@
     ]
   },
   "timezone": "",
-  "title": "Aether Connected Edge",
-  "uid": "Y2z8vDtGz",
-  "version": 3
+  "title": "Aether Connected Edge (new metrics)",
+  "uid": "hV2VTo8Mk",
+  "version": 5
 }
