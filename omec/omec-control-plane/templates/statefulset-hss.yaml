@@ -37,9 +37,9 @@ spec:
         {{ .Values.nodeSelectors.hss.label }}: {{ .Values.nodeSelectors.hss.value }}
     {{- end }}
       serviceAccountName: hss
-    {{- if .Values.images.credentials }}
+    {{- if hasKey .Values.images "pullSecrets" }}
       imagePullSecrets:
-        - name: {{ .Release.Name }}.registry
+{{ toYaml .Values.images.pullSecrets | indent 8 }}
     {{- end }}
       initContainers:
       - name: hss-bootstrap

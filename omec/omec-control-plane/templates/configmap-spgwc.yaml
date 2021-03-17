@@ -5,6 +5,7 @@
 */}}
 
 {{- if .Values.config.spgwc.deploy }}
+{{- if not .Values.config.useExistingConfigMap }}
 {{- $cpJson := index .Values.config.spgwc.jsonCfgFiles "cp.json" }}
 {{- $global := index $cpJson "global" }}
 {{- $configJson := index .Values.config.spgwc.jsonCfgFiles "config.json" }}
@@ -89,7 +90,7 @@ data:
     #Port = 3868;
     #SecPort = 3869;
 
-    ConnectPeer = {{ index $configJsonGx "host" | quote }} { No_TLS; port = 3868; };
+    ConnectPeer = {{ tuple "pcrf" "identity" . | include "omec-control-plane.diameter_endpoint" | quote }} { No_TLS; port = 3868; };
 
     LoadExtension = "/usr/local/lib/freeDiameter/dict_3gpp2_avps.fdx";
     LoadExtension = "/usr/local/lib/freeDiameter/dict_draftload_avps.fdx";
@@ -133,6 +134,7 @@ data:
 {{- range $key, $value := .Values.config.spgwc.jsonCfgFiles }}
   {{ $key }}: |-
 {{ toPrettyJson $value | indent 4 }}
+{{- end }}
 {{- end }}
 ---
 apiVersion: v1

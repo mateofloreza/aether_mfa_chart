@@ -33,9 +33,9 @@ spec:
         {{ .Values.nodeSelectors.mme.label }}: {{ .Values.nodeSelectors.mme.value }}
     {{- end }}
       serviceAccountName: mme
-    {{- if .Values.images.credentials }}
+    {{- if hasKey .Values.images "pullSecrets" }}
       imagePullSecrets:
-        - name: {{ .Release.Name }}.registry
+{{ toYaml .Values.images.pullSecrets | indent 8 }}
     {{- end }}
       initContainers:
       - name: mme-load-sctp-module

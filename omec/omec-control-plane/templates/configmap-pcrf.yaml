@@ -9,6 +9,7 @@ Declare variables to be passed into your templates.
 */}}
 
 {{- if .Values.config.pcrf.deploy }}
+{{- if not .Values.config.useExistingConfigMap }}
 {{- $pcrfJson := index .Values.config.pcrf.cfgFiles "pcrf.json" }}
 {{- $pcrfJsonCommon := index $pcrfJson "common" }}
 {{- $pcrfJsonHss := index $pcrfJson "pcrf" }}
@@ -99,6 +100,7 @@ data:
 {{- range $key, $value := .Values.config.pcrf.cfgFiles }}
   {{ $key }}: |-
 {{ toPrettyJson $value | indent 4 }}
+{{- end }}
 {{- end }}
 ---
 apiVersion: v1

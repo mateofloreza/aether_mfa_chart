@@ -5,6 +5,7 @@
 */}}
 
 {{- if .Values.config.mme.deploy }}
+{{- if not .Values.config.useExistingConfigMap }}
 {{- $configJson := index .Values.config.mme.cfgFiles "config.json" }}
 {{- $configJsonMme := index $configJson "mme" }}
 {{- $configJsonS6a := index $configJson "s6a" }}
@@ -37,7 +38,7 @@ data:
     #Port = 3868;
     #SecPort = 3869;
 
-    ConnectPeer = {{ index $configJsonS6a "host" | quote }} { No_TLS; port = 3868; };
+    ConnectPeer = {{ tuple "hss" "identity" . | include "omec-control-plane.diameter_endpoint" | quote }} { No_TLS; port = 3868; };
 
     LoadExtension = "/usr/local/lib/freeDiameter/dict_3gpp2_avps.fdx";
     LoadExtension = "/usr/local/lib/freeDiameter/dict_draftload_avps.fdx";
@@ -84,6 +85,7 @@ data:
 {{- range $key, $value := .Values.config.mme.cfgFiles }}
   {{ $key }}: |-
 {{ toPrettyJson $value | indent 4 }}
+{{- end }}
 {{- end }}
 ---
 apiVersion: v1

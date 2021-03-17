@@ -15,11 +15,10 @@ images:
     pcrfdb: omecproject/c3po-pcrfdb:pcrf-latest
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
   pullPolicy: IfNotPresent
-  credentials: {}
-  # If specified, use this credential to access the image
-  #   registry:
-  #   username:
-  #   password:
+  # Optionally specify an array of imagePullSecrets.
+  # Secrets must be manually created in the namespace.
+  #pullSecrets:
+  #  - name: aether.registry
 
 nodeSelectors:
   enabled: false
@@ -98,8 +97,12 @@ config:
   coreDump:
     enabled: true
     path: /tmp/coredump
+  useExistingConfigMap: false
   pcrf:
     deploy: true
+    podAnnotations:
+      fluentbit.io/parser: pcrf
+      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
     pcrfdb: cassandra
     gx:
       nodePort:
@@ -183,11 +186,10 @@ config:
                 options:
                   - id: frequency
                     type: integer
-
-
   hss:
     deploy: true
     podAnnotations:
+      fluentbit.io/parser: hss
       field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
     hssdb: cassandra
     s6a:
@@ -302,10 +304,10 @@ config:
                 options:
                   - id: frequency
                     type: integer
-
   mme:
     deploy: true
     podAnnotations:
+      fluentbit.io/parser: mme
       field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":3081,"schema":"HTTP"}]'
     spgwAddr: spgwc
     s11:
@@ -365,6 +367,7 @@ config:
   spgwc:
     deploy: true
     podAnnotations:
+      fluentbit.io/parser: spgwc
       field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
     global:
       transmitTimerSec: 2

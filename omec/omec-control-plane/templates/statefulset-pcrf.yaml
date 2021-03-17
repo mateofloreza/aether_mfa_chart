@@ -32,9 +32,9 @@ spec:
       nodeSelector:
         {{ .Values.nodeSelectors.pcrf.label }}: {{ .Values.nodeSelectors.pcrf.value }}
     {{- end }}
-    {{- if .Values.images.credentials }}
+    {{- if hasKey .Values.images "pullSecrets" }}
       imagePullSecrets:
-        - name: {{ .Release.Name }}.registry
+{{ toYaml .Values.images.pullSecrets | indent 8 }}
     {{- end }}
       serviceAccountName: pcrf
       initContainers:
