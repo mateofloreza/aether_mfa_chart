@@ -21,6 +21,7 @@ aetherEnv: "production"
 
 alerts:
   enabled: false
+  manyEdgeConnectTestsFailing: false
 
 imagePullSecrets: []
 nameOverride: ""

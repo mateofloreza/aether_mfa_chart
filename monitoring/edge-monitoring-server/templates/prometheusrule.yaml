@@ -43,12 +43,14 @@ spec:
         for: 10m
         labels:
           severity: critical
+{{- if .Values.alerts.manyEdgeConnectTestsFailing }}
       - alert: ManyEdgeConnectTestsFailing
         annotations:
           message: |
-            {{`{{ $value | humanizePercentage }}`}} of the clusters are reporting UE connect failures.
+            Over half of the clusters are reporting UE connect failures.
         expr: avg(clamp_max(aetheredge_connect_test_ok{endpoint="metrics80"} + aetheredge_in_maintenance_window{endpoint="metrics80"}, 1)) < 0.5
         for: 10m
         labels:
           severity: critical
+{{- end }}
 {{- end }}
