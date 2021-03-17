@@ -33,6 +33,9 @@ config:
   coreDump:
     enabled: false
     path: /tmp/coredump
+  nodePort:
+    enabled: false
+    port: 30805
   pfcp:
     cfgFiles:
       upf.json:
