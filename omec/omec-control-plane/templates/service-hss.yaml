@@ -72,6 +72,5 @@ spec:
       protocol: TCP
       nodePort: {{ .Values.config.hss.configPort.nodePort.port }}
   {{- end }}
-
 {{- end }}
 {{- end }}

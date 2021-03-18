@@ -24,6 +24,9 @@ Declare variables to be passed into your templates.
 {{- if not (hasKey $pcrfJsonHss "casssrv") -}}
 {{- $_ := .Values.cassandra.fullnameOverride | set $pcrfJsonHss "casssrv" -}}
 {{- end }}
+{{- if not (hasKey $pcrfJsonHss "restport") -}}
+{{- $_ := .Values.config.pcrf.configPort.port | set $pcrfJsonHss "restport" -}}
+{{- end }}
 ---
 apiVersion: v1
 kind: ConfigMap

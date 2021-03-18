@@ -104,6 +104,11 @@ config:
       fluentbit.io/parser: pcrf
       field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
     pcrfdb: cassandra
+    configPort:
+      port: 8080
+      nodePort:
+        enabled: false
+        port: 30081
     gx:
       nodePort:
         enabled: false
@@ -124,6 +129,38 @@ config:
       enabled: false
     # See https://github.com/omec-project/c3po for details of config options
     cfgFiles:
+      subscriber_mapping.json:
+        Policies:
+          service-groups:
+            internet:
+              default-activate-service:
+              - be-internet-access
+          services:
+            be-internet-access:
+              qci: 9
+              arp: 1
+              AMBR_UL: 100000
+              AMBR_DL: 20000000
+              service-activation-rules:
+              - best-effort-internet-access
+          rules:
+            best-effort-internet-access:
+              definition:
+                Charging-Rule-Name: "best-effort-internet-access"
+                QoS-Information:
+                  QoS-Class-Identifier: 9
+                  Max-Requested-Bandwidth-UL: 512000
+                  Max-Requested-Bandwidth-DL: 5120000
+                  Guaranteed-Bitrate-UL: 0
+                  Guaranteed-Bitrate-DL: 0
+                  Allocation-Retention-Priority:
+                    Priority-Level: 1
+                    Pre-emption-Capability: 1
+                    Pre-emption-Vulnerability: 1
+                  APN-Aggregate-Max-Bitrate-UL: 1024000
+                  APN-Aggregate-Max-Bitrate-DL: 10240000
+                Flow-Information:
+                  Flow-Description: "permit out ip 0.0.0.0/0 to assigned"
       pcrf.json:
         common:
           fdcfg: conf/pcrf.conf
@@ -133,7 +170,8 @@ config:
         pcrf:
           gtwhost: "*"
           gtwport: 9080
-          restport: 9081
+          #restport will be set by configmap
+          #restport: ""
           ossport: 9082
           # casssrv will be set to cassandra in the same cluster if unset
           #casssrv: ""
@@ -504,6 +542,8 @@ config:
               tag1: ACC
         qos-profiles:
           mobile:
+            qci: 9
+            arp: 1
             apn-ambr:
               - 12345678
               - 12345678

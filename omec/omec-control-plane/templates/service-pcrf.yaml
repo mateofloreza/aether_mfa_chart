@@ -22,6 +22,9 @@ spec:
   - name: prometheus-exporter
     port: {{ .Values.config.pcrf.prometheus.port }}
     protocol: TCP
+  - name: config-port
+    port: {{ .Values.config.pcrf.configPort.port }}
+    protocol: TCP
 ---
 apiVersion: v1
 kind: Service
@@ -40,9 +43,11 @@ spec:
   - name: prometheus-exporter
     port: {{ .Values.config.pcrf.prometheus.port }}
     protocol: TCP
-
----
+  - name: config-port
+    port: {{ .Values.config.pcrf.configPort.port }}
+    protocol: TCP
 {{- if or (.Values.config.pcrf.prometheus.nodePort.enabled) (.Values.config.pcrf.gx.nodePort.enabled) }}
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -65,6 +70,12 @@ spec:
     port: 3868
     protocol: TCP
     nodePort: {{ .Values.config.pcrf.gx.nodePort.port }}
+  {{- end }}
+  {{- if .Values.config.pcrf.configPort.nodePort.enabled }}
+    - name: config-port
+      port: {{ .Values.config.pcrf.configPort.port }}
+      protocol: TCP
+      nodePort: {{ .Values.config.pcrf.configPort.nodePort.port }}
   {{- end }}
 {{- end }}
 {{- end }}
