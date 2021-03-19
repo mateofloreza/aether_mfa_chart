@@ -22,8 +22,8 @@ spec:
       - alert: SingleEdgeTestNotReporting
         annotations:
           message: |
-            The E2E test on cluster {{`{{ .Labels.name }}`}} has not reported results for at least 10 minutes.
-        expr: (time() - aetheredge_last_update{endpoint="metrics80"}) > 600
+            The E2E test on cluster {{`{{ .Labels.name }}`}} has not reported results for at least 5 minutes.
+        expr: (time() - aetheredge_last_update{endpoint="metrics80"}) > 300
         for: 1m
         labels:
           severity: critical
@@ -40,7 +40,7 @@ spec:
           message: |
             The E2E test on cluster {{`{{ .Labels.name }}`}} is reporting that UE cannot ping the Internet for at least 10 minutes.
         expr: aetheredge_ping_test_ok{endpoint="metrics80"} < 1
-        for: 10m
+        for: 11m
         labels:
           severity: critical
 {{- if .Values.alerts.manyEdgeConnectTestsFailing }}
@@ -49,7 +49,7 @@ spec:
           message: |
             Over half of the clusters are reporting UE connect failures.
         expr: avg(clamp_max(aetheredge_connect_test_ok{endpoint="metrics80"} + aetheredge_in_maintenance_window{endpoint="metrics80"}, 1)) < 0.5
-        for: 10m
+        for: 5m
         labels:
           severity: critical
 {{- end }}
