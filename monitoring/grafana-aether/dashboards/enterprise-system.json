@@ -498,7 +498,7 @@
         ]
       },
       "gridPos": {
-        "h": 2,
+        "h": 3,
         "w": 2,
         "x": 22,
         "y": 1
@@ -525,10 +525,10 @@
           "metricQuery": {
             "aliasBy": "{{`{{ metric.label.tunnel_name }}`}}",
             "alignmentPeriod": "stackdriver-auto",
-            "crossSeriesReducer": "REDUCE_NONE",
+            "crossSeriesReducer": "REDUCE_MAX",
             "filters": [
               "metric.label.tunnel_name",
-              "=",
+              "=~",
               "{{ .Values.enterpriseDashboard.tunnelName }}"
             ],
             "groupBys": [],
@@ -14343,5 +14343,5 @@
   "timezone": "browser",
   "title": "{{ .Values.enterpriseDashboard.name }} Aether Connected Edge",
   "uid": "rYdddlPWk",
-  "version": 2
+  "version": 3
 }
