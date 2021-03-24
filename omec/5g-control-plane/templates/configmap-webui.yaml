@@ -6,10 +6,12 @@
 
 {{- if .Values.config.webui.deploy }}
 
+{{- if not .Values.config.useExistingConfigMap -}}
 {{- $webuicfg := index .Values.config.webui.cfgFiles "webuicfg.conf" }}
 {{- $config := index $webuicfg "configuration" }}
 {{- if not (hasKey $config "mongodb") -}}
 {{- $_ := dict "name" .Values.config.mongodb.name "url" .Values.config.mongodb.url | set $config "mongodb" -}}
+{{- end }}
 {{- end }}
 
 ---
@@ -22,8 +24,10 @@ metadata:
 data:
   webui-run.sh: |
 {{ tuple "bin/_webui-run.sh.tpl" . | include "5g-control-plane.template" | indent 4 }}
+{{- if not .Values.config.useExistingConfigMap -}}
 {{- range $key, $value := .Values.config.webui.cfgFiles }}
   {{ $key }}: |-
 {{ toYaml $value | indent 4 }}
+{{- end }}
 {{- end }}
 {{- end }}

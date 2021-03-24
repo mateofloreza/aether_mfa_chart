@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 */}}
 
+{{- if not .Values.config.useExistingConfigMap -}}
 {{- $config := index .Values.config.commonCfgFiles "free5GC.conf" }}
 {{- if not (hasKey $config "db_uri") -}}
 {{- $_ := printf "%s/%s" .Values.config.mongodb.url .Values.config.mongodb.name | set $config "db_uri" -}}
@@ -20,4 +21,5 @@ data:
 {{- range $key, $value := .Values.config.commonCfgFiles }}
   {{ $key }}: |-
 {{ toYaml $value | indent 4 }}
+{{- end }}
 {{- end }}
