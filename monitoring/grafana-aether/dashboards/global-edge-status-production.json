@@ -3560,7 +3560,7 @@
             "h": 3,
             "w": 3,
             "x": 0,
-            "y": 20
+            "y": 2
           },
           "id": 251,
           "links": [
@@ -3688,7 +3688,7 @@
             "h": 3,
             "w": 3,
             "x": 3,
-            "y": 20
+            "y": 2
           },
           "id": 241,
           "links": [],
@@ -3761,7 +3761,7 @@
             "h": 3,
             "w": 3,
             "x": 6,
-            "y": 20
+            "y": 2
           },
           "id": 242,
           "maxPerRow": 6,
@@ -3842,7 +3842,7 @@
             "h": 3,
             "w": 3,
             "x": 9,
-            "y": 20
+            "y": 2
           },
           "id": 243,
           "maxPerRow": 6,
@@ -3909,7 +3909,7 @@
             "h": 3,
             "w": 10,
             "x": 12,
-            "y": 20
+            "y": 2
           },
           "hiddenSeries": false,
           "id": 230,
@@ -4081,10 +4081,10 @@
             ]
           },
           "gridPos": {
-            "h": 2,
+            "h": 3,
             "w": 2,
             "x": 22,
-            "y": 20
+            "y": 2
           },
           "id": 298,
           "links": [],
@@ -4113,6 +4113,590 @@
                   "metric.label.tunnel_name",
                   "=",
                   "production-ace-intel*"
+                ],
+                "groupBys": [],
+                "metricKind": "GAUGE",
+                "metricType": "vpn.googleapis.com/tunnel_established",
+                "perSeriesAligner": "ALIGN_INTERPOLATE",
+                "projectName": "onf-vpn",
+                "unit": "1",
+                "valueType": "DOUBLE"
+              },
+              "queryType": "metrics",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "VPN",
+          "transformations": [],
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 0,
+            "y": 5
+          },
+          "id": 299,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster compute",
+              "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=ace-nctu&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster networking",
+              "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=ace-nctu&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: nodes",
+              "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=ace-nctu&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=ace-nctu-es&var-es_namespace=omec&${__url_time_range}"
+            }
+          ],
+          "options": {
+            "content": "# NCTU",
+            "mode": "markdown"
+          },
+          "pluginVersion": "7.1.0",
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "type": "text"
+        },
+        {
+          "datasource": "RANCHER_MONITORING_GLOBAL",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 1,
+                  "operator": "",
+                  "text": "err",
+                  "to": "",
+                  "type": 1,
+                  "value": "-1"
+                },
+                {
+                  "from": "",
+                  "id": 2,
+                  "operator": "",
+                  "text": "fail",
+                  "to": "",
+                  "type": 1,
+                  "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 3,
+                  "operator": "",
+                  "text": "?",
+                  "to": "",
+                  "type": 1,
+                  "value": "1"
+                },
+                {
+                  "from": "",
+                  "id": 4,
+                  "operator": "",
+                  "text": "ok",
+                  "to": "",
+                  "type": 1,
+                  "value": "2"
+                },
+                {
+                  "from": "",
+                  "id": 5,
+                  "operator": "",
+                  "text": "X",
+                  "to": "",
+                  "type": 1,
+                  "value": "-2"
+                },
+                {
+                  "from": "-100",
+                  "id": 6,
+                  "operator": "",
+                  "text": "maint",
+                  "to": "-3",
+                  "type": 2
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "#6ED0E0",
+                    "value": -100
+                  },
+                  {
+                    "color": "red",
+                    "value": -2
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 1
+                  },
+                  {
+                    "color": "green",
+                    "value": 2
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 3,
+            "y": 5
+          },
+          "id": 300,
+          "links": [],
+          "maxPerRow": 6,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.5",
+          "repeatDirection": "h",
+          "targets": [
+            {
+              "expr": "sum(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-nctu\"}))",
+              "interval": "",
+              "legendFormat": "Connect:",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} - (10*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-nctu\"}))",
+              "interval": "",
+              "legendFormat": "Ping:",
+              "refId": "B"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Test results",
+          "type": "stat"
+        },
+        {
+          "datasource": "RANCHER_MONITORING_GLOBAL",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "decimals": 3,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 50
+                  },
+                  {
+                    "color": "green",
+                    "value": 95
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 6,
+            "y": 5
+          },
+          "id": 301,
+          "maxPerRow": 6,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.5",
+          "repeatDirection": "h",
+          "targets": [
+            {
+              "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} - 1, 0) * 100)",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "Control Plane",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} - 1, 0) * 100)",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "User Plane",
+              "refId": "B"
+            },
+            {
+              "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} - 3, 0) * 100)",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "C"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Uptime",
+          "transformations": [],
+          "type": "stat"
+        },
+        {
+          "datasource": "RANCHER_MONITORING_GLOBAL",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "decimals": 3,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 1
+                  },
+                  {
+                    "color": "red",
+                    "value": 10
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 3,
+            "x": 9,
+            "y": 5
+          },
+          "id": 302,
+          "maxPerRow": 6,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.5",
+          "repeatDirection": "h",
+          "targets": [
+            {
+              "expr": "sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-nctu\"}), 0)) * 100",
+              "interval": "",
+              "legendFormat": "Unscheduled",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-nctu\"}) * 100",
+              "interval": "",
+              "legendFormat": "Scheduled",
+              "refId": "B"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Downtime",
+          "transformations": [],
+          "type": "stat"
+        },
+        {
+          "aliasColors": {
+            "Down, unsched": "red",
+            "Down: unscheduled": "red",
+            "Scheduled": "blue",
+            "Scheduled downtime": "blue",
+            "Test down": "yellow",
+            "Unscheduled": "red",
+            "Unscheduled downtime": "red"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "RANCHER_MONITORING_GLOBAL",
+          "description": "Uptime and downtime over time",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 10,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 3,
+            "w": 10,
+            "x": 12,
+            "y": 5
+          },
+          "hiddenSeries": false,
+          "id": 303,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 0,
+          "maxPerRow": 6,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.1.5",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "repeatDirection": "h",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} - 3, 0) - aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-nctu\"})",
+              "interval": "",
+              "legendFormat": "Up",
+              "refId": "D"
+            },
+            {
+              "expr": "-1 * sum(clamp_min(1 - (clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} - 3, 0) + aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-nctu\"}), 0))",
+              "interval": "",
+              "legendFormat": "Down: unscheduled",
+              "refId": "A"
+            },
+            {
+              "expr": "-1 * sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-nctu\"})",
+              "interval": "",
+              "legendFormat": "Down: scheduled",
+              "refId": "B"
+            },
+            {
+              "expr": "-1 * sum(clamp_min((aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-nctu\"} * -1) - 1 - aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-nctu\"}, 0))",
+              "interval": "",
+              "legendFormat": "Test down",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:93",
+              "decimals": 0,
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "max": "1",
+              "min": "-1",
+              "show": true
+            },
+            {
+              "$$hashKey": "object:94",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "datasource": "Google Cloud Monitoring",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "operator": "",
+                  "text": "down",
+                  "to": "",
+                  "type": 1,
+                  "value": "0"
+                },
+                {
+                  "from": "",
+                  "id": 1,
+                  "operator": "",
+                  "text": "up",
+                  "to": "",
+                  "type": 1,
+                  "value": "1"
+                }
+              ],
+              "max": 1,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "production-ace-nctu-1"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Link 1"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "production-ace-nctu-2"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Link 2"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 22,
+            "y": 5
+          },
+          "id": 304,
+          "links": [],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "name"
+          },
+          "pluginVersion": "7.1.5",
+          "targets": [
+            {
+              "metricQuery": {
+                "aliasBy": "{{ metric.label.tunnel_name }}",
+                "alignmentPeriod": "stackdriver-auto",
+                "crossSeriesReducer": "REDUCE_NONE",
+                "filters": [
+                  "metric.label.tunnel_name",
+                  "=",
+                  "production-ace-nctu*"
                 ],
                 "groupBys": [],
                 "metricKind": "GAUGE",
@@ -4834,5 +5418,5 @@
   "timezone": "",
   "title": "Aether Connected Edge",
   "uid": "Y2z8vDtGz",
-  "version": 3
+  "version": 4
 }
