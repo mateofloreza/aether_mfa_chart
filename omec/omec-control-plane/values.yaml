@@ -202,6 +202,7 @@ config:
           concurrent: 10
           ossfile: conf/oss.json
           verifyroamingsubscribers: false
+          rulesfile: conf/subscriber_mapping.json
       oss.json:
         option:
           id: url
@@ -407,38 +408,6 @@ config:
     podAnnotations:
       fluentbit.io/parser: spgwc
       field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
-    global:
-      transmitTimerSec: 2
-      periodicTimerSec: 10
-      transmitCount: 5
-      requestTimeoutMilliSec: 5000
-      requestTries: 3
-      cpLogger: 0
-      gx_config: 0
-      urr_config: 0
-      logging_level: "LOG_DEBUG"
-    #DNS Server - 3gpp compliant DNS server
-    dns:
-      cache:
-        concurrent: 25
-        percentage: 80
-        intervalSec: 60
-        queryTimeoutMilliSec: 1000
-        queryTries: 1
-      app:
-        frequencySec: 3
-        filename: "appqueries.json"
-        nameserver: "127.0.0.1"
-      ops:
-        frequencySec: 3
-        filename: "opsqueries.json"
-        nameserver: "127.0.0.1"
-    ueIpPool:
-      ip: "10.250.0.0"
-      mask: "255.255.0.0"
-    staticUeIpPool:
-      ip: "10.249.1.0"
-      mask: "255.255.255.0"
     s11:
       port: 2123
       nodePort:
@@ -470,6 +439,7 @@ config:
           gxConfig: 0
           urrConfig: 0
           loggingLevel: "LOG_DEBUG"
+          heartbeatFailure: false
         #DNS Server - 3gpp compliant DNS server
         dns:
           cache:
@@ -565,46 +535,3 @@ config:
           excluding-app:
             type: excluding-this-app
             filter: exclude-app-name
-    cfgFiles:
-      adc_rules.cfg: |
-        [GLOBAL]
-        NUM_ADC_RULES = 0
-      meter_profile.cfg: |
-        [GLOBAL]
-        NUM_OF_IDX = 0
-      pcc_rules.cfg: |
-        [GLOBAL]
-        NUM_PCC_FILTERS = 1
-        UL_AMBR_MTR_PROFILE_IDX = 1
-        DL_AMBR_MTR_PROFILE_IDX = 2
-        [PCC_FILTER_1]
-        RULE_NAME = DefaultRule
-        RATING_GROUP = 9
-        SERVICE_ID = 0
-        RULE_STATUS = 0
-        GATE_STATUS = 1
-        SESSION_CONT = 0
-        REPORT_LEVEL = 1
-        CHARGING_MODE = 0
-        METERING_METHOD = 0
-        MUTE_NOTIFY = 0
-        MONITORING_KEY = 0
-        SPONSOR_ID = 0
-        REDIRECT_INFO = 0
-        PRECEDENCE = 254
-        DROP_PKT_COUNT = 0
-        UL_MBR_MTR_PROFILE_IDX = 3
-        DL_MBR_MTR_PROFILE_IDX = 3
-        SDF_FILTER_IDX = 99998
-      sdf_rules.cfg: |
-        [GLOBAL]
-        NUM_SDF_FILTERS = 1
-        [SDF_FILTER_1]
-        DIRECTION = downlink_only
-        IPV4_REMOTE = 13.2.1.113
-        IPV4_REMOTE_MASK = 255.255.255.0
-        PROTOCOL = 17
-        LOCAL_LOW_LIMIT_PORT = 0
-        LOCAL_HIGH_LIMIT_PORT = 65535
-        REMOTE_LOW_LIMIT_PORT = 0
-        REMOTE_HIGH_LIMIT_PORT = 65535

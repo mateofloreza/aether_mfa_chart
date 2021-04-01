@@ -38,45 +38,6 @@ metadata:
   labels:
 {{ tuple "spgwc" . | include "omec-control-plane.metadata_labels" | indent 4 }}
 data:
-  cp.cfg: |
-    [GLOBAL]
-    CP_TYPE = 03
-    GX_CONFIG = {{ .Values.config.spgwc.global.gx_config }}
-    URR_CONFIG = {{ .Values.config.spgwc.global.urr_config }}
-    LOGGING_LEVEL = {{ .Values.config.spgwc.global.logging_level}}
-    S5S8_PORT = 2123
-    UPF_PFCP_PORT = 8805
-    S11_PORT = {{ .Values.config.spgwc.s11.port }}
-    PFCP_PORT = {{ .Values.config.spgwc.n4.port }}
-    PROMETHEUS_PORT = {{ .Values.config.spgwc.prometheus.port }}
-    HTTP_PORT = {{ .Values.config.spgwc.rest.port }}
-    TRANSMIT_TIMER = {{ .Values.config.spgwc.global.transmitTimerSec }}
-    PERIODIC_TIMER = {{ .Values.config.spgwc.global.periodicTimerSec }}
-    TRANSMIT_COUNT = {{ .Values.config.spgwc.global.transmitCount }}
-    REQUEST_TIMEOUT = {{ .Values.config.spgwc.global.requestTimeoutMilliSec }}
-    REQUEST_TRIES = {{ .Values.config.spgwc.global.requestTries }}
-    CP_LOGGER = {{ .Values.config.spgwc.global.cpLogger }}
-    [NAMESERVER_CONFIG]
-    [CACHE]
-    concurrent = {{ .Values.config.spgwc.dns.cache.concurrent }}
-    percentage = {{ .Values.config.spgwc.dns.cache.percentage }}
-    interval_seconds = {{ .Values.config.spgwc.dns.cache.intervalSec }}
-    query_timeout_ms = {{ .Values.config.spgwc.dns.cache.queryTimeoutMilliSec }}
-    query_tries = {{ .Values.config.spgwc.dns.cache.queryTries }}
-    [APP]
-    frequency_seconds = {{ .Values.config.spgwc.dns.app.frequencySec }}
-    filename = {{ .Values.config.spgwc.dns.app.filename }}
-    nameserver = {{ .Values.config.spgwc.dns.app.nameserver }}
-    [OPS]
-    frequency_seconds = {{ .Values.config.spgwc.dns.ops.frequencySec }}
-    filename = {{ .Values.config.spgwc.dns.ops.filename }}
-    nameserver = {{ .Values.config.spgwc.dns.ops.nameserver }}
-    [IP_POOL_CONFIG]
-    IP_POOL_IP= {{.Values.config.spgwc.ueIpPool.ip }}
-    IP_POOL_MASK= {{ .Values.config.spgwc.ueIpPool.mask }}
-    [STATIC_IP_POOL_CONFIG]
-    IP_POOL_IP= {{.Values.config.spgwc.staticUeIpPool.ip }}
-    IP_POOL_MASK= {{ .Values.config.spgwc.staticUeIpPool.mask }}
   gx.conf: |
     Identity = {{ tuple "spgwc" "identity" . | include "omec-control-plane.diameter_endpoint" | quote }};
     Realm = {{ tuple "spgwc" "realm" . | include "omec-control-plane.diameter_endpoint" | quote }};

@@ -9,22 +9,18 @@ set -xe
 
 mkdir -p /opt/cp/config
 cd /opt/cp/config
-cp /etc/cp/config/{*.cfg,*.json,*.conf} .
+cp /etc/cp/config/{*.json,*.conf} .
 
 case $APPLICATION in
     "ngic_controlplane")
       echo "Starting ngic controlplane app"
-      if [ ! -d "/dev/hugepages" ]; then
-          MEMORY="--no-huge -m $((MEM_LIMIT-1024))"
-      fi
-      CORES="-c $(taskset -p $$ | awk '{print $NF}')"
-      EAL_ARGS="${CORES} ${MEMORY} --no-pci"
+      cat /opt/cp/config/cp.json
       cat /opt/cp/config/subscriber_mapping.json
       {{- if .Values.config.coreDump.enabled }}
       cp /bin/ngic_controlplane /tmp/coredump/
       {{- end }}
 
-      ngic_controlplane $EAL_ARGS -- -f /etc/cp/config/
+      ngic_controlplane -f /etc/cp/config/
       ;;
 
     "gx-app")
