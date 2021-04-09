@@ -92,3 +92,6 @@ config:
     cpiface:
       # pfcp or zmq
       mode: pfcp
+
+servicemonitor:
+  enabled: false

@@ -45,3 +45,17 @@ spec:
     protocol: TCP
     port: 8000
     nodePort: {{ .Values.config.upf.bess.web.nodePort }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: upf-metrics
+  labels:
+{{ tuple "upf" . | include "omec-user-plane.metadata_labels" | indent 4 }}
+spec:
+  selector:
+{{ tuple "upf" . | include "omec-user-plane.metadata_labels" | indent 4 }}
+  ports:
+  - name: prometheus-exporter
+    protocol: TCP
+    port: 8808
