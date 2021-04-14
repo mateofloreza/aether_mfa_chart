@@ -15,7 +15,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 27,
   "links": [],
   "panels": [
     {
@@ -252,7 +251,8 @@
           "refId": "C"
         },
         {
-          "expr": "avg_over_time(aetheredge_e2e_tests_ok{endpoint=\"metrics80\",name=\"ace-menlo\"}[$__interval]) * 100\n",
+          "expr": "sum(sum_over_time(aetheredge_e2e_tests_ok{endpoint=\"metrics80\",name=\"ace-menlo\"}[$__interval])) / sum(count_over_time(aetheredge_e2e_tests_ok{endpoint=\"metrics80\",name=\"ace-menlo\"}[$__interval])) * 100\n",
+          "instant": false,
           "interval": "",
           "legendFormat": "",
           "refId": "D"
@@ -1163,5 +1163,5 @@
   "timezone": "",
   "title": "Aether Connected Edge (new metrics)",
   "uid": "hV2VTo8Mk",
-  "version": 5
+  "version": 6
 }

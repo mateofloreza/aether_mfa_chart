@@ -15,6 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
+  "id": 41,
   "links": [],
   "panels": [
     {
@@ -26,7 +27,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 291,
+      "id": 293,
       "panels": [],
       "title": "Edge Status",
       "type": "row"
@@ -266,15 +267,23 @@
       "targets": [
         {
           "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} - 1, 0) * 100)",
+          "hide": true,
           "interval": "",
           "legendFormat": "Control Plane",
           "refId": "A"
         },
         {
           "expr": "sum(clamp_min(aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} - 1, 0) * 100)",
+          "hide": true,
           "interval": "",
           "legendFormat": "User Plane",
           "refId": "B"
+        },
+        {
+          "expr": "sum(clamp_min(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} + aetheredge_status_user_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} - 3, 0) * 100)",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "C"
         }
       ],
       "timeFrom": null,
@@ -486,7 +495,7 @@
       }
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -494,854 +503,1574 @@
         "x": 0,
         "y": 4
       },
-      "id": 293,
-      "panels": [],
-      "title": "Ping Latency - Results Over Time",
+      "id": 303,
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 0,
+            "y": 5
+          },
+          "id": 315,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster compute",
+              "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=ace-menlo&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster networking",
+              "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=ace-menlo&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: nodes",
+              "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=ace-menlo&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=ace-menlo-es&var-es_namespace=omec&${__url_time_range}"
+            }
+          ],
+          "options": {
+            "content": "# ONF\n### Menlo Park\n##### Staging",
+            "mode": "markdown"
+          },
+          "pluginVersion": "7.1.0",
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "type": "text"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "text": "no signal",
+                  "to": "",
+                  "type": 1,
+                  "value": "-20"
+                },
+                {
+                  "from": "-120",
+                  "id": 1,
+                  "text": "maint",
+                  "to": "-100",
+                  "type": 2
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "#6ED0E0",
+                    "value": -120
+                  },
+                  {
+                    "color": "red",
+                    "value": -20
+                  },
+                  {
+                    "color": "yellow",
+                    "value": -15
+                  },
+                  {
+                    "color": "green",
+                    "value": -10
+                  }
+                ]
+              },
+              "unit": "dBm"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 2,
+            "x": 3,
+            "y": 5
+          },
+          "id": 307,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.5",
+          "scopedVars": {
+            "edge": {
+              "selected": true,
+              "text": "ace-menlo",
+              "value": "ace-menlo"
+            }
+          },
+          "targets": [
+            {
+              "expr": "aetheredge_signal_quality_rsrq{endpoint=\"metrics80\",name=\"ace-menlo\"} * 0.5 - 20 - (100 * aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"})",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "RSRQ",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "RSRQ",
+          "type": "stat"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "text": "",
+                  "to": "",
+                  "type": 1
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "dBm"
+            },
+            "overrides": []
+          },
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 4,
+            "w": 8,
+            "x": 5,
+            "y": 5
+          },
+          "hiddenSeries": false,
+          "id": 309,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.5",
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "scopedVars": {
+            "edge": {
+              "selected": true,
+              "text": "ace-menlo",
+              "value": "ace-menlo"
+            }
+          },
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:1158",
+              "alias": "maint",
+              "color": "rgb(138, 213, 255)",
+              "fill": 3,
+              "lines": true,
+              "linewidth": 0
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "aetheredge_signal_quality_rsrq{endpoint=\"metrics80\",name=\"$edge\"} * 0.5 - 20",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "rsrq",
+              "refId": "A"
+            },
+            {
+              "expr": "-100 * sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}) + 1",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "maint",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "RSRQ",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:291",
+              "format": "dBm",
+              "label": "",
+              "logBase": 1,
+              "max": "0",
+              "min": "-20",
+              "show": true
+            },
+            {
+              "$$hashKey": "object:292",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "text": "no signal",
+                  "to": "",
+                  "type": 1,
+                  "value": "-141"
+                },
+                {
+                  "from": "-320",
+                  "id": 1,
+                  "text": "maint",
+                  "to": "-200",
+                  "type": 2
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "#6ED0E0",
+                    "value": -320
+                  },
+                  {
+                    "color": "red",
+                    "value": -141
+                  },
+                  {
+                    "color": "orange",
+                    "value": -100
+                  },
+                  {
+                    "color": "yellow",
+                    "value": -90
+                  },
+                  {
+                    "color": "green",
+                    "value": -80
+                  }
+                ]
+              },
+              "unit": "dBm"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 2,
+            "x": 13,
+            "y": 5
+          },
+          "id": 311,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.5",
+          "scopedVars": {
+            "edge": {
+              "selected": true,
+              "text": "ace-menlo",
+              "value": "ace-menlo"
+            }
+          },
+          "targets": [
+            {
+              "expr": "aetheredge_signal_quality_rsrp{endpoint=\"metrics80\",name=\"ace-menlo\"} - 141 - (200 * aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"})",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "RSRP",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "RSRP",
+          "type": "stat"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "text": "",
+                  "to": "",
+                  "type": 1
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "dBm"
+            },
+            "overrides": []
+          },
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 4,
+            "w": 8,
+            "x": 15,
+            "y": 5
+          },
+          "hiddenSeries": false,
+          "id": 313,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.5",
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "scopedVars": {
+            "edge": {
+              "selected": true,
+              "text": "ace-menlo",
+              "value": "ace-menlo"
+            }
+          },
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:1158",
+              "alias": "maint",
+              "color": "rgb(138, 213, 255)",
+              "fill": 3,
+              "lines": true,
+              "linewidth": 0
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "aetheredge_signal_quality_rsrp{endpoint=\"metrics80\",name=\"ace-menlo\"} - 141",
+              "interval": "",
+              "legendFormat": "rsrp",
+              "refId": "B"
+            },
+            {
+              "expr": "-200 * sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"$edge\"}) + 1",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "maint",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "RSRP",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:291",
+              "format": "dBm",
+              "label": "",
+              "logBase": 1,
+              "max": "0",
+              "min": "-141",
+              "show": true
+            },
+            {
+              "$$hashKey": "object:292",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Signal Quality (Beta)",
       "type": "row"
     },
     {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 0,
-        "y": 5
-      },
-      "id": 295,
-      "links": [
-        {
-          "targetBlank": true,
-          "title": "Drill down: cluster compute",
-          "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=ace-menlo&${__url_time_range}"
-        },
-        {
-          "targetBlank": true,
-          "title": "Drill down: cluster networking",
-          "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=ace-menlo&${__url_time_range}"
-        },
-        {
-          "targetBlank": true,
-          "title": "Drill down: nodes",
-          "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=ace-menlo&${__url_time_range}"
-        },
-        {
-          "targetBlank": true,
-          "title": "Drill down: logs",
-          "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=ace-menlo-es&var-es_namespace=omec&${__url_time_range}"
-        }
-      ],
-      "options": {
-        "content": "# ONF\n### Menlo Park\n##### Staging",
-        "mode": "markdown"
-      },
-      "pluginVersion": "7.1.0",
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "",
-      "type": "text"
-    },
-    {
-      "aliasColors": {
-        "Ping DNS Avg": "green",
-        "Ping Device Avg": "yellow",
-        "Ping onlab.us Avg": "semi-dark-purple",
-        "edgeDown": "red"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 21,
-        "x": 3,
-        "y": 5
-      },
-      "hiddenSeries": false,
-      "id": 296,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "$$hashKey": "object:525",
-          "alias": "edgeDown",
-          "fill": 6,
-          "hideTooltip": true,
-          "legend": false,
-          "linewidth": 0,
-          "yaxis": 2
-        },
-        {
-          "$$hashKey": "object:542",
-          "alias": "edgeMainenance",
-          "fill": 2,
-          "hideTooltip": true,
-          "legend": false,
-          "linewidth": 0,
-          "yaxis": 2
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "aetheredge_ping_dns_test_avg{endpoint=\"metrics80\",name=\"ace-menlo\"} and (aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} * -1 + 1) - aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"} < 0",
-          "interval": "",
-          "legendFormat": "Ping DNS Avg",
-          "refId": "A"
-        },
-        {
-          "expr": "(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} * -1 + 1) - aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}",
-          "interval": "",
-          "legendFormat": "edgeDown",
-          "refId": "B"
-        },
-        {
-          "expr": "aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}",
-          "interval": "",
-          "legendFormat": "edgeMainenance",
-          "refId": "C"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:263",
-          "format": "ms",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:264",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": "0.011",
-          "min": "0.01",
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "collapsed": false,
+      "collapsed": true,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 5
       },
-      "id": 289,
-      "panels": [],
-      "title": "SD-CORE Activity",
+      "id": 295,
+      "panels": [
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 3,
+            "x": 0,
+            "y": 10
+          },
+          "id": 299,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster compute",
+              "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=ace-menlo&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster networking",
+              "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=ace-menlo&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: nodes",
+              "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=ace-menlo&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=ace-menlo-es&var-es_namespace=omec&${__url_time_range}"
+            }
+          ],
+          "options": {
+            "content": "# ONF\n### Menlo Park\n##### Staging",
+            "mode": "markdown"
+          },
+          "pluginVersion": "7.1.0",
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "type": "text"
+        },
+        {
+          "aliasColors": {
+            "Edge Down": "red",
+            "Edge Maintenance": "light-blue",
+            "Ping DNS Avg": "rgb(129, 238, 94)"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "description": "**Ping Latency Tests Over Time**\n- Ping DNS Avg: Pings to 8.8.8.8, average latency of 10 iterations\n- Ping Device Avg: Pings other device on network, average latency of 10 iterations *(coming soon)*",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 4,
+            "w": 21,
+            "x": 3,
+            "y": 10
+          },
+          "hiddenSeries": false,
+          "id": 297,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.5",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:537",
+              "alias": "Edge Down",
+              "fill": 5,
+              "hideTooltip": true,
+              "linewidth": 0,
+              "yaxis": 2
+            },
+            {
+              "$$hashKey": "object:564",
+              "alias": "Edge Maintenance",
+              "fill": 2,
+              "hideTooltip": true,
+              "linewidth": 0,
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum(aetheredge_ping_dns_test_avg{endpoint=\"metrics80\",name=\"ace-menlo\"}) and (sum(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} * -1 + 1)) - sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}) <= 0",
+              "interval": "",
+              "legendFormat": "Ping DNS Avg",
+              "refId": "A"
+            },
+            {
+              "expr": "(sum(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"}) * -1 + 1) - sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}) - (sum(5*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}))",
+              "interval": "",
+              "legendFormat": "Edge Down",
+              "refId": "B"
+            },
+            {
+              "expr": "sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"})",
+              "interval": "",
+              "legendFormat": "Edge Maintenance",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:188",
+              "decimals": 1,
+              "format": "ms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:189",
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": "0.011",
+              "min": "0.01",
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {
+            "Downlink Speed": "rgb(48, 196, 210)",
+            "Edge Down": "red",
+            "Edge Maintenance": "light-blue",
+            "MAX Downlink Speed": "rgba(233, 111, 0, 0.25)",
+            "MAX Downlink Speed (100 Mbps)": "rgba(48, 196, 210, 0.25)",
+            "MAX Uplink Speed": "rgba(169, 0, 255, 0.25)",
+            "MAX Uplink Speed (10 Mbps)": "rgba(197, 96, 251, 0.25)",
+            "Max DL (100 Mbps)": "rgba(48, 196, 210, 0.33)",
+            "Max DL (115 Mbps)": "rgba(255, 255, 255, 0.5)",
+            "Max UL (10 Mbps)": "rgba(255, 255, 255, 0.5)",
+            "Ping DNS Avg": "orange",
+            "Uplink Speed": "rgb(197, 96, 251)"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "description": "**Iperf Downlink and Uplink Tests Over Time**\n- Max Downlink Speed: 115 Mbps\n- Max Uplink Speed: 10 Mbps\n\nEach result is taken from the iperf json output, test runs for 10 seconds.",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 4,
+            "w": 21,
+            "x": 3,
+            "y": 14
+          },
+          "hiddenSeries": false,
+          "id": 301,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.5",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:537",
+              "alias": "Edge Down",
+              "fill": 5,
+              "hideTooltip": true,
+              "linewidth": 0,
+              "yaxis": 2
+            },
+            {
+              "$$hashKey": "object:564",
+              "alias": "Edge Maintenance",
+              "fill": 2,
+              "hideTooltip": true,
+              "linewidth": 0,
+              "yaxis": 2
+            },
+            {
+              "$$hashKey": "object:1399",
+              "alias": "/Max.*/",
+              "dashLength": 3,
+              "dashes": true,
+              "fill": 0,
+              "hideTooltip": true,
+              "legend": false
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum(aetheredge_iperf_cluster_downlink_test{endpoint=\"metrics80\",name=\"ace-menlo\"}) > 0 and (sum(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} * -1 + 1)) - sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}) <= 0",
+              "interval": "",
+              "legendFormat": "Downlink Speed",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(aetheredge_iperf_cluster_uplink_test{endpoint=\"metrics80\",name=\"ace-menlo\"} > 0) and (sum(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"} * -1 + 1)) - sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}) <= 0",
+              "interval": "",
+              "legendFormat": "Uplink Speed",
+              "refId": "D"
+            },
+            {
+              "expr": "10",
+              "interval": "",
+              "legendFormat": "Max UL (10 Mbps)",
+              "refId": "F"
+            },
+            {
+              "expr": "115",
+              "interval": "",
+              "legendFormat": "Max DL (115 Mbps)",
+              "refId": "E"
+            },
+            {
+              "expr": "(sum(aetheredge_status_control_plane{endpoint=\"metrics80\",name=\"ace-menlo\"}) * -1 + 1) - sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}) - (sum(5*aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"}))",
+              "interval": "",
+              "legendFormat": "Edge Down",
+              "refId": "B"
+            },
+            {
+              "expr": "sum(aetheredge_in_maintenance_window{endpoint=\"metrics80\",name=\"ace-menlo\"})",
+              "interval": "",
+              "legendFormat": "Edge Maintenance",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:188",
+              "decimals": 0,
+              "format": "Mbits",
+              "label": null,
+              "logBase": 1,
+              "max": "116",
+              "min": "0",
+              "show": true
+            },
+            {
+              "$$hashKey": "object:189",
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": "0.011",
+              "min": "0.01",
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Speed Test Results (Beta)",
       "type": "row"
     },
     {
-      "datasource": "acc-aws",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": 1
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 289,
+      "panels": [
+        {
+          "datasource": "acc-aws",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
               }
-            ]
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 4,
+            "x": 0,
+            "y": 7
+          },
+          "id": 281,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster compute",
+              "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=acc-aws&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster networking",
+              "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=acc-aws&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: nodes",
+              "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=acc-aws&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=stg-acc-aws-es&var-es_namespace=omec&${__url_time_range}"
+            }
+          ],
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.5",
+          "targets": [
+            {
+              "expr": "sum(spgw_number_of_ue_attached{cp_mode=\"spgw\",state=\"active\",level=\"subscribers\",job=\"spgwc-metrics\"})",
+              "interval": "",
+              "legendFormat": "SPGW",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(mme_number_of_ue_attached{endpoint=\"metrics3081\",level=\"subscribers\",sub_state=\"Active\"})",
+              "interval": "",
+              "legendFormat": "MME",
+              "refId": "B"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Active subscribers",
+          "type": "stat"
+        },
+        {
+          "datasource": "acc-aws",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 9,
+            "x": 4,
+            "y": 7
+          },
+          "id": 317,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.5",
+          "targets": [
+            {
+              "expr": "mme_number_of_enb_attached{enb_state=\"Active\", enbname=~\".+\"}",
+              "interval": "",
+              "legendFormat": "{{ enbname }}",
+              "refId": "A"
+            },
+            {
+              "expr": "mme_number_of_enb_attached{enb_state=\"Active\", enbname!~\".+\"}",
+              "hide": true,
+              "interval": "",
+              "legendFormat": "Total",
+              "refId": "B"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Active eNodeB",
+          "type": "stat"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "acc-aws",
+          "decimals": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 3,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 5,
+            "w": 11,
+            "x": 13,
+            "y": 7
+          },
+          "hiddenSeries": false,
+          "id": 283,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.5",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc-metrics\",result=\"success\",mme_addr=\"\",proc_type=\"\"}[5m])) by (procedure)",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Success: {{procedure}}",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc-metrics\",result=\"success\",mme_addr=\"\",proc_type=\"INITIAL_ATTACH\"}[5m])) by (proc_type)",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Success: {{proc_type}}",
+              "refId": "B"
+            },
+            {
+              "expr": "-1 * sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc-metrics\",result=\"failure\",mme_addr=\"\",proc_type=\"\"}[5m])) by (procedure)",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Failure: {{procedure}}",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "SPGW Procedurees Per Second",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:3006",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:3007",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
           }
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 4,
-        "x": 0,
-        "y": 10
-      },
-      "id": 281,
-      "links": [
         {
-          "targetBlank": true,
-          "title": "Drill down: cluster compute",
-          "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=acc-aws&${__url_time_range}"
-        },
-        {
-          "targetBlank": true,
-          "title": "Drill down: cluster networking",
-          "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=acc-aws&${__url_time_range}"
-        },
-        {
-          "targetBlank": true,
-          "title": "Drill down: nodes",
-          "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=acc-aws&${__url_time_range}"
-        },
-        {
-          "targetBlank": true,
-          "title": "Drill down: logs",
-          "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=stg-acc-aws-es&var-es_namespace=omec&${__url_time_range}"
-        }
-      ],
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.1.5",
-      "targets": [
-        {
-          "expr": "sum(spgw_number_of_ue_attached{cp_mode=\"spgw\",state=\"active\",level=\"subscribers\",job=\"spgwc-metrics\"})",
-          "interval": "",
-          "legendFormat": "SPGW",
-          "refId": "A"
-        },
-        {
-          "expr": "sum(mme_number_of_ue_attached{endpoint=\"metrics3081\",level=\"subscribers\",sub_state=\"Active\"})",
-          "interval": "",
-          "legendFormat": "MME",
-          "refId": "B"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Active subscribers",
-      "type": "stat"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "acc-aws",
-      "decimals": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 10,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 10,
-        "x": 4,
-        "y": 10
-      },
-      "hiddenSeries": false,
-      "id": 283,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc-metrics\",result=\"success\",mme_addr=\"\",proc_type=\"\"}[5m])) by (procedure)",
-          "interval": "",
-          "legendFormat": "{{procedure}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc-metrics\",result=\"success\",mme_addr=\"\",proc_type=\"INITIAL_ATTACH\"}[5m])) by (proc_type)",
-          "interval": "",
-          "legendFormat": "{{proc_type}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "SPGW Procedures: Successes Per Second",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3006",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3007",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "acc-aws",
-      "decimals": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 10,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 10,
-        "x": 14,
-        "y": 10
-      },
-      "hiddenSeries": false,
-      "id": 284,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc-metrics\",result=\"failure\",mme_addr=\"\",proc_type=\"\"}[5m])) by (procedure)",
-          "interval": "",
-          "legendFormat": "{{procedure}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc-metrics\",result=\"failure\",mme_addr=\"\",proc_type=\"INITIAL_ATTACH\"}[5m])) by (proc_type)",
-          "interval": "",
-          "legendFormat": "{{proc_type}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "SPGW Procedures: Failures Per Second",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3006",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3007",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "acc-aws",
-      "decimals": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 10,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 10,
-        "x": 4,
-        "y": 15
-      },
-      "hiddenSeries": false,
-      "id": 286,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(number_of_procedures{endpoint=\"metrics3081\",mme_app=\"procedure\",proc_result=\"success\"}[5m])) by (procedure)",
-          "interval": "",
-          "legendFormat": "{{procedure}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "MME Procedures: Successes Per Second",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3006",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3007",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "acc-aws",
-      "decimals": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 10,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 10,
-        "x": 14,
-        "y": 15
-      },
-      "hiddenSeries": false,
-      "id": 287,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(number_of_procedures{endpoint=\"metrics3081\",mme_app=\"procedure\",proc_result=\"failure\"}[5m])) by (procedure)",
-          "interval": "",
-          "legendFormat": "{{procedure}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "MME Procedures: Failures Per Second",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3006",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3007",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "datasource": "acc-aws",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
+          "datasource": "acc-aws",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "center",
+                "displayMode": "auto"
+              },
+              "decimals": 0,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
               {
-                "color": "red",
-                "value": null
+                "matcher": {
+                  "id": "byName",
+                  "options": "IMSI"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 160
+                  }
+                ]
               },
               {
-                "color": "green",
-                "value": 1
+                "matcher": {
+                  "id": "byName",
+                  "options": "__name__"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 171
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "cp_mode"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 99
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "imsi"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 166
+                  }
+                ]
               }
             ]
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 9,
+            "x": 4,
+            "y": 12
+          },
+          "id": 291,
+          "options": {
+            "frameIndex": 3,
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": false,
+                "displayName": "IMSI"
+              }
+            ]
+          },
+          "pluginVersion": "7.1.5",
+          "targets": [
+            {
+              "expr": "sum(increase(subscribers_info{imsi=~\".+\"}[$__range])) by (imsi, mobile_ip)",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Current Subscriber Info",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "__name__": true,
+                  "cp_mode": true,
+                  "endpoint": true,
+                  "instance": true,
+                  "job": true,
+                  "level": true,
+                  "namespace": true,
+                  "pod": true,
+                  "service": true,
+                  "subscriber_info": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "Metric": "IMSI",
+                  "Value": "Attach count",
+                  "imsi": "IMSI",
+                  "job": "",
+                  "mobile_ip": "Mobile IP",
+                  "namespace": ""
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "acc-aws",
+          "decimals": null,
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 3,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 5,
+            "w": 11,
+            "x": 13,
+            "y": 12
+          },
+          "hiddenSeries": false,
+          "id": 286,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.5",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum(rate(number_of_procedures{endpoint=\"metrics3081\",mme_app=\"procedure\",proc_result=\"success\"}[5m])) by (procedure)",
+              "interval": "",
+              "legendFormat": "Success: {{procedure}}",
+              "refId": "A"
+            },
+            {
+              "expr": "-1 * sum(rate(number_of_procedures{endpoint=\"metrics3081\",mme_app=\"procedure\",proc_result=\"failure\"}[5m])) by (procedure)",
+              "interval": "",
+              "legendFormat": "Failure: {{procedure}}",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "MME Procedures Per Second",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:3006",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:3007",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
           }
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 4,
-        "x": 0,
-        "y": 17
-      },
-      "id": 279,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "last"
+        {
+          "datasource": "acc-aws",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 0,
+            "y": 14
+          },
+          "id": 279,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.5",
+          "targets": [
+            {
+              "expr": "sum(kube_statefulset_status_replicas_ready{namespace=\"aether-system\"}) by (statefulset)",
+              "interval": "",
+              "legendFormat": "{{ statefulset }}",
+              "refId": "A"
+            }
           ],
-          "fields": "",
-          "values": false
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Ready replicas",
+          "type": "stat"
         },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.1.5",
-      "targets": [
         {
-          "expr": "kube_statefulset_status_replicas_ready{namespace=\"aether-system\"}",
-          "interval": "",
-          "legendFormat": "{{ statefulset }}",
-          "refId": "A"
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "acc-aws",
+          "decimals": null,
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 3,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 5,
+            "w": 11,
+            "x": 13,
+            "y": 17
+          },
+          "hiddenSeries": false,
+          "id": 285,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.5",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum(rate(number_of_messages_sent{endpoint=\"metrics3081\",interface=\"s6a\"}[5m])) by (msg_type)",
+              "interval": "",
+              "legendFormat": "{{msg_type}}",
+              "refId": "A"
+            },
+            {
+              "expr": "sum(rate(number_of_messages_received{endpoint=\"metrics3081\",interface=\"s6a\"}[5m])) by (msg_type)",
+              "interval": "",
+              "legendFormat": "{{msg_type}}",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "HSS Messages Per Second",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:3006",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:3007",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Ready replicas",
-      "type": "stat"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "acc-aws",
-      "decimals": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 10,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 20,
-        "x": 4,
-        "y": 20
-      },
-      "hiddenSeries": false,
-      "id": 285,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(number_of_messages_sent{endpoint=\"metrics3081\",interface=\"s6a\"}[5m])) by (msg_type)",
-          "interval": "",
-          "legendFormat": "{{msg_type}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum(rate(number_of_messages_received{endpoint=\"metrics3081\",interface=\"s6a\"}[5m])) by (msg_type)",
-          "interval": "",
-          "legendFormat": "{{msg_type}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "HSS Messages Per Second",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:3006",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:3007",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "SD-CORE Activity",
+      "type": "row"
     }
   ],
   "refresh": "5m",
@@ -1371,5 +2100,5 @@
   "timezone": "",
   "title": "Aether Connected Edge",
   "uid": "Y2z8vDtGz",
-  "version": 2
+  "version": 3
 }
