@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 41,
+  "id": 4,
   "links": [],
   "panels": [
     {
@@ -1402,6 +1402,7 @@
       "panels": [
         {
           "datasource": "acc-aws",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -1423,37 +1424,15 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 7,
+            "h": 8,
             "w": 4,
             "x": 0,
             "y": 7
           },
-          "id": 281,
-          "links": [
-            {
-              "targetBlank": true,
-              "title": "Drill down: cluster compute",
-              "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=acc-aws&${__url_time_range}"
-            },
-            {
-              "targetBlank": true,
-              "title": "Drill down: cluster networking",
-              "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=acc-aws&${__url_time_range}"
-            },
-            {
-              "targetBlank": true,
-              "title": "Drill down: nodes",
-              "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=acc-aws&${__url_time_range}"
-            },
-            {
-              "targetBlank": true,
-              "title": "Drill down: logs",
-              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=stg-acc-aws-es&var-es_namespace=omec&${__url_time_range}"
-            }
-          ],
+          "id": 317,
           "options": {
-            "colorMode": "value",
-            "graphMode": "area",
+            "colorMode": "background",
+            "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "horizontal",
             "reduceOptions": {
@@ -1463,71 +1442,7 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
-          },
-          "pluginVersion": "7.1.5",
-          "targets": [
-            {
-              "expr": "sum(spgw_number_of_ue_attached{cp_mode=\"spgw\",state=\"active\",level=\"subscribers\",job=\"spgwc-metrics\"})",
-              "interval": "",
-              "legendFormat": "SPGW",
-              "refId": "A"
-            },
-            {
-              "expr": "sum(mme_number_of_ue_attached{endpoint=\"metrics3081\",level=\"subscribers\",sub_state=\"Active\"})",
-              "interval": "",
-              "legendFormat": "MME",
-              "refId": "B"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Active subscribers",
-          "type": "stat"
-        },
-        {
-          "datasource": "acc-aws",
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {},
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 5,
-            "w": 9,
-            "x": 4,
-            "y": 7
-          },
-          "id": 317,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "last"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
+            "textMode": "name"
           },
           "pluginVersion": "7.1.5",
           "targets": [
@@ -1547,8 +1462,146 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Active eNodeB",
+          "title": "eNodeB Status",
           "type": "stat"
+        },
+        {
+          "datasource": "acc-aws",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "center",
+                "displayMode": "auto"
+              },
+              "decimals": 0,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "IMSI"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 160
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "__name__"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 171
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "cp_mode"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 99
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "imsi"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 166
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 15,
+            "w": 9,
+            "x": 4,
+            "y": 7
+          },
+          "id": 291,
+          "options": {
+            "frameIndex": 3,
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": false,
+                "displayName": "IMSI"
+              }
+            ]
+          },
+          "pluginVersion": "7.1.5",
+          "targets": [
+            {
+              "expr": "sum(increase(subscribers_info{imsi=~\".+\"}[$__range])) by (imsi, mobile_ip)",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Current Subscriber Info",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "__name__": true,
+                  "cp_mode": true,
+                  "endpoint": true,
+                  "instance": true,
+                  "job": true,
+                  "level": true,
+                  "namespace": true,
+                  "pod": true,
+                  "service": true,
+                  "subscriber_info": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "Metric": "IMSI",
+                  "Value": "Attach count",
+                  "imsi": "IMSI",
+                  "job": "",
+                  "mobile_ip": "Mobile IP",
+                  "namespace": ""
+                }
+              }
+            }
+          ],
+          "type": "table"
         },
         {
           "aliasColors": {},
@@ -1662,144 +1715,6 @@
             "align": false,
             "alignLevel": null
           }
-        },
-        {
-          "datasource": "acc-aws",
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": "center",
-                "displayMode": "auto"
-              },
-              "decimals": 0,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "IMSI"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 160
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "__name__"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 171
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "cp_mode"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 99
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "imsi"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 166
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 9,
-            "x": 4,
-            "y": 12
-          },
-          "id": 291,
-          "options": {
-            "frameIndex": 3,
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": false,
-                "displayName": "IMSI"
-              }
-            ]
-          },
-          "pluginVersion": "7.1.5",
-          "targets": [
-            {
-              "expr": "sum(increase(subscribers_info{imsi=~\".+\"}[$__range])) by (imsi, mobile_ip)",
-              "format": "table",
-              "instant": true,
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Current Subscriber Info",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Time": true,
-                  "__name__": true,
-                  "cp_mode": true,
-                  "endpoint": true,
-                  "instance": true,
-                  "job": true,
-                  "level": true,
-                  "namespace": true,
-                  "pod": true,
-                  "service": true,
-                  "subscriber_info": true
-                },
-                "indexByName": {},
-                "renameByName": {
-                  "Metric": "IMSI",
-                  "Value": "Attach count",
-                  "imsi": "IMSI",
-                  "job": "",
-                  "mobile_ip": "Mobile IP",
-                  "namespace": ""
-                }
-              }
-            }
-          ],
-          "type": "table"
         },
         {
           "aliasColors": {},
@@ -1929,15 +1844,37 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
+            "h": 7,
             "w": 4,
             "x": 0,
-            "y": 14
+            "y": 15
           },
-          "id": 279,
+          "id": 281,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster compute",
+              "url": "d/efa86fd1d0c121a26444b636a3f509a8/kubernetes-compute-resources-cluster?orgId=1&refresh=10s&var-datasource=acc-aws&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: cluster networking",
+              "url": "d/ff635a025bcfea7bc3dd4f508990a3e9/kubernetes-networking-cluster?orgId=1&refresh=10s&var-resolution=5m&var-interval=4h&var-datasource=acc-aws&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: nodes",
+              "url": "d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&var-datasource=acc-aws&${__url_time_range}"
+            },
+            {
+              "targetBlank": true,
+              "title": "Drill down: logs",
+              "url": "d/e2QUYvPMk/kubernetes-logs-pod?orgId=1&refresh=10s&var-es_datasource=stg-acc-aws-es&var-es_namespace=omec&${__url_time_range}"
+            }
+          ],
           "options": {
             "colorMode": "value",
-            "graphMode": "none",
+            "graphMode": "area",
             "justifyMode": "auto",
             "orientation": "horizontal",
             "reduceOptions": {
@@ -1952,15 +1889,21 @@
           "pluginVersion": "7.1.5",
           "targets": [
             {
-              "expr": "sum(kube_statefulset_status_replicas_ready{namespace=\"aether-system\"}) by (statefulset)",
+              "expr": "sum(spgw_number_of_ue_attached{cp_mode=\"spgw\",state=\"active\",level=\"subscribers\",job=\"spgwc-metrics\"})",
               "interval": "",
-              "legendFormat": "{{ statefulset }}",
+              "legendFormat": "SPGW",
               "refId": "A"
+            },
+            {
+              "expr": "sum(mme_number_of_ue_attached{endpoint=\"metrics3081\",level=\"subscribers\",sub_state=\"Active\"})",
+              "interval": "",
+              "legendFormat": "MME",
+              "refId": "B"
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Ready replicas",
+          "title": "Active subscribers",
           "type": "stat"
         },
         {
@@ -2100,5 +2043,5 @@
   "timezone": "",
   "title": "Aether Connected Edge",
   "uid": "Y2z8vDtGz",
-  "version": 3
+  "version": 4
 }
