@@ -16,4 +16,4 @@ cp /tmp/config/* config/
 cat config/free5GC.conf
 cat config/webuicfg.conf
 
-./webconsole/webui -webuicfg config/webuicfg.conf
+./webconsole/webconsole -webuicfg config/webuicfg.conf

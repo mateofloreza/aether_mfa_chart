@@ -235,6 +235,11 @@ config:
               log: free5gc/udmsslkey.log
               pem: free5gc/support/TLS/udm.pem
               key: free5gc/support/TLS/udm.key
+          keys:
+                udmProfileAHNPublicKey: 5a8d38864820197c3394b92613b20b91633cbd897119273bf8e4a6f4eec0a650
+                udmProfileAHNPrivateKey: c53c22208b61860b06c62e5406a7b330c2b577aa5558981510d128247d38bd1d
+                udmProfileBHNPublicKey: 0472DA71976234CE833A6907425867B82E074D44EF907DFB4B3E21C1C2256EBCD15A7DED52FCBB097A4ED250E036C7B9C8C7004C4EEDC4F068CD7BF8D3F900E3B4
+                udmProfileBHNPrivateKey: F1AB1074477EBCC7F554EA1C5FC368B1616730155E0041AC447D6301975FECDA
           udrclient:
             scheme: http
             ipv4Addr: udr
@@ -372,8 +377,6 @@ config:
       nodePort:
         enabled: true
         port: 30071
-        ngapIpList:
-            - "0.0.0.0"
     cfgFiles:
       # https://github.com/free5gc/free5gc/blob/main/config/amfcfg.yaml
       amfcfg.conf:
@@ -381,6 +384,8 @@ config:
           version: 1.0.0
           description: AMF initial local configuration
         configuration:
+          ngapIpList:
+            - "0.0.0.0"
           amfName: AMF
           nrfUri: http://nrf:29510
           sbi:
@@ -420,9 +425,43 @@ config:
           networkName:
             full: free5GC
             short: free
-          t3502: 720
-          t3512: 3600
-          non3gppDeregistrationTimer: 3240
+          networkFeatureSupport5GS: # 5gs Network Feature Support IE, refer to TS 24.501
+            enable: true # append this IE in Registration accept or not
+            imsVoPS: 0 # IMS voice over PS session indicator (uinteger, range: 0~1)
+            emc: 0 # Emergency service support indicator for 3GPP access (uinteger, range: 0~3)
+            emf: 0 # Emergency service fallback indicator for 3GPP access (uinteger, range: 0~3)
+            iwkN26: 0 # Interworking without N26 interface indicator (uinteger, range: 0~1)
+            mpsi: 0 # MPS indicator (uinteger, range: 0~1)
+            emcN3: 0 # Emergency service support indicator for Non-3GPP access (uinteger, range: 0~1)
+            mcsi: 0 # MCS indicator (uinteger, range: 0~1)
+          t3502Value: 720  # timer value (seconds) at UE side
+          t3512Value: 3600 # timer value (seconds) at UE side
+          non3gppDeregistrationTimerValue: 3240 # timer value (seconds) at UE side
+          # retransmission timer for paging message
+          t3513:
+            enable: true     # true or false
+            expireTime: 6s   # default is 6 seconds
+            maxRetryTimes: 4 # the max number of retransmission
+          # retransmission timer for NAS Deregistration Request message
+          t3522:
+            enable: true     # true or false
+            expireTime: 6s   # default is 6 seconds
+            maxRetryTimes: 4 # the max number of retransmission
+          # retransmission timer for NAS Registration Accept message
+          t3550:
+            enable: true     # true or false
+            expireTime: 6s   # default is 6 seconds
+            maxRetryTimes: 4 # the max number of retransmission
+          # retransmission timer for NAS Authentication Request/Security Mode Command message
+          t3560:
+            enable: true     # true or false
+            expireTime: 6s   # default is 6 seconds
+            maxRetryTimes: 4 # the max number of retransmission
+          # retransmission timer for NAS Notification message
+          t3565:
+            enable: true     # true or false
+            expireTime: 6s   # default is 6 seconds
+            maxRetryTimes: 4 # the max number of retransmission
   nrf:
     deploy: true
     podAnnotations:
@@ -491,12 +530,16 @@ config:
           serviceNameList:
             - nsmf-pdusession
             - nsmf-event-exposure
-          snssai_info:
-            - sNssai:
-                sst: 1
+          snssaiInfos:
+            - dnnInfos:
+              - dnn: internet
+                dns: # the IP address of DNS
+                   ipv4: 8.8.8.8
+                   ipv6: 2001:4860:4860::8888
+                ueSubnet: 10.250.0.0/16 # should be CIDR type
+              sNssai:
                 sd: "010203"
-              dnnSmfInfoList:
-                - dnn: internet
+                sst: 1
           userplane_information:
             up_nodes:
               gNB1:
@@ -504,15 +547,26 @@ config:
               UPF:
                 type: UPF
                 node_id: upf
+                sNssaiUpfInfos: # S-NSSAI information list for this UPF
+                  - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
+                      sst: 1 # Slice/Service Type (uinteger, range: 0~255)
+                      sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+                    dnnUpfInfoList: # DNN information list for this S-NSSAI
+                      - dnn: internet
+                  - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
+                      sst: 1 # Slice/Service Type (uinteger, range: 0~255)
+                      sd: 112233 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+                    dnnUpfInfoList: # DNN information list for this S-NSSAI
+                      - dnn: internet
+                interfaces: # Interface list for this UPF
+                  - interfaceType: N3 # the type of the interface (N3 or N9)
+                    endpoints: # the IP address of this N3/N9 interface on this UPF
+                      - upf
+                    networkInstance: internet # Data Network Name (DNN)
+   
             links:
               - A: gNB1
                 B: UPF
-          dnn:
-            internet:
-              dns:
-                ipv4: 8.8.8.8
-          ue_subnet: 10.250.0.0/16
-          ulcl: false
   ausf:
     deploy: true
     podAnnotations:
