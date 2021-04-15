@@ -15,7 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1615242482672,
+  "id": 17,
+  "iteration": 1618506324634,
   "links": [],
   "panels": [
     {
@@ -101,7 +102,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:59",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -110,7 +110,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:60",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -195,7 +194,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:22",
           "format": "percent",
           "label": null,
           "logBase": 1,
@@ -204,7 +202,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:23",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -286,7 +283,6 @@
         {
           "bucketAggs": [
             {
-              "$$hashKey": "object:3957",
               "fake": true,
               "field": "kubernetes.pod_name.keyword",
               "id": "3",
@@ -299,7 +295,6 @@
               "type": "terms"
             },
             {
-              "$$hashKey": "object:195",
               "field": "@timestamp",
               "id": "2",
               "settings": {
@@ -312,7 +307,6 @@
           ],
           "metrics": [
             {
-              "$$hashKey": "object:193",
               "field": "select field",
               "id": "1",
               "meta": {},
@@ -346,7 +340,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:875",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -355,7 +348,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:876",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -418,7 +410,6 @@
         {
           "bucketAggs": [
             {
-              "$$hashKey": "object:191",
               "fake": true,
               "field": "kubernetes.container_name.keyword",
               "id": "3",
@@ -431,7 +422,6 @@
               "type": "terms"
             },
             {
-              "$$hashKey": "object:195",
               "field": "@timestamp",
               "id": "2",
               "settings": {
@@ -444,7 +434,6 @@
           ],
           "metrics": [
             {
-              "$$hashKey": "object:193",
               "field": "select field",
               "id": "1",
               "type": "count"
@@ -475,7 +464,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:171",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -484,7 +472,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:172",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -582,7 +569,7 @@
       "options": {
         "showLabels": false,
         "showTime": true,
-        "sortOrder": "Descending",
+        "sortOrder": "Ascending",
         "wrapLogMessage": false
       },
       "pluginVersion": "7.1.5",
@@ -591,7 +578,6 @@
         {
           "bucketAggs": [
             {
-              "$$hashKey": "object:381",
               "field": "@timestamp",
               "id": "2",
               "settings": {
@@ -604,7 +590,6 @@
           ],
           "metrics": [
             {
-              "$$hashKey": "object:211",
               "field": "select field",
               "id": "1",
               "meta": {},
@@ -670,9 +655,9 @@
       {
         "allValue": "stratum*",
         "current": {
-          "selected": false,
-          "text": "onos-tost-onos-classic-1",
-          "value": "onos-tost-onos-classic-1"
+          "selected": true,
+          "text": "onos-tost-onos-classic-0",
+          "value": "onos-tost-onos-classic-0"
         },
         "datasource": "$es_datasource",
         "definition": "{\"find\": \"terms\", \"field\": \"kubernetes.pod_name.keyword\",\"query\":\"kubernetes.namespace_name.keyword:$es_namespace\"}",
@@ -696,7 +681,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
             "onos-classic"
           ],
@@ -726,12 +711,13 @@
       {
         "allValue": "null OR *",
         "current": {
-          "selected": false,
+          "selected": true,
+          "tags": [],
           "text": [
-            "ERROR"
+            "All"
           ],
           "value": [
-            "ERROR"
+            "$__all"
           ]
         },
         "datasource": "$es_datasource",
@@ -776,5 +762,5 @@
   "timezone": "",
   "title": "TOST Metrics",
   "uid": "fVcZZm8Gk",
-  "version": 13
+  "version": 1
 }
