@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 17,
-  "iteration": 1618506324634,
+  "iteration": 1618505885629,
   "links": [],
   "panels": [
     {
@@ -66,19 +66,19 @@
         {
           "expr": "sum(ping_average_response_ms{namespace=\"tost\"}) by (url)",
           "interval": "",
-          "legendFormat": "{{ url }} ",
+          "legendFormat": "average_{{ url }} ",
           "refId": "A"
         },
         {
           "expr": "sum(ping_maximum_response_ms{namespace=\"tost\"}) by (url)",
           "interval": "",
-          "legendFormat": "{{ url }} ",
+          "legendFormat": "max_{{ url }} ",
           "refId": "B"
         },
         {
           "expr": "sum(ping_minimum_response_ms{namespace=\"tost\"}) by (url)",
           "interval": "",
-          "legendFormat": "{{ url }} ",
+          "legendFormat": "min_{{ url }} ",
           "refId": "C"
         }
       ],
@@ -92,6 +92,27 @@
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "average_10.32.5.129 ": "average_mgmt",
+              "average_10.32.5.5 ": "average_eNB",
+              "max_10.32.5.129 ": "max_mgmt",
+              "max_10.32.5.5 ": "max_eNB",
+              "min_10.32.5.129 ": "min_mgmt",
+              "min_10.32.5.5 ": "min_eNB"
+            }
+          }
+        }
+      ],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -169,6 +190,7 @@
       "targets": [
         {
           "expr": "sum(ping_percent_packet_loss{namespace=\"tost\"}) by (url)",
+          "instant": false,
           "interval": "",
           "legendFormat": "{{ url }} ",
           "refId": "A"
@@ -184,6 +206,26 @@
         "sort": 0,
         "value_type": "individual"
       },
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "Time"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "10.32.5.129 ": "mgmt",
+              "10.32.5.5 ": "eNB",
+              "Time": ""
+            }
+          }
+        }
+      ],
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -588,6 +630,7 @@
               "type": "date_histogram"
             }
           ],
+          "hide": false,
           "metrics": [
             {
               "field": "select field",
@@ -609,6 +652,7 @@
       "type": "logs"
     }
   ],
+  "refresh": false,
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -655,7 +699,7 @@
       {
         "allValue": "stratum*",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "onos-tost-onos-classic-0",
           "value": "onos-tost-onos-classic-0"
         },
@@ -711,14 +755,9 @@
       {
         "allValue": "null OR *",
         "current": {
-          "selected": true,
-          "tags": [],
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": "$es_datasource",
         "definition": "{\"find\": \"terms\", \"field\": \"logLevel.keyword\",\"query\":\"kubernetes.namespace_name.keyword:$es_namespace AND kubernetes.pod_name.keyword:$es_pod AND kubernetes.container_name.keyword:$es_container\"}\t",
@@ -742,7 +781,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
