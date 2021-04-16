@@ -15,7 +15,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 4,
   "links": [],
   "panels": [
     {
@@ -1447,17 +1446,10 @@
           "pluginVersion": "7.1.5",
           "targets": [
             {
-              "expr": "mme_number_of_enb_attached{enb_state=\"Active\", enbname=~\".+\"}",
+              "expr": "sum(mme_number_of_enb_attached{enb_state=\"Active\", enbname=~\".+\"}) by (enbname)",
               "interval": "",
               "legendFormat": "{{ enbname }}",
               "refId": "A"
-            },
-            {
-              "expr": "mme_number_of_enb_attached{enb_state=\"Active\", enbname!~\".+\"}",
-              "hide": true,
-              "interval": "",
-              "legendFormat": "Total",
-              "refId": "B"
             }
           ],
           "timeFrom": null,
@@ -2043,5 +2035,5 @@
   "timezone": "",
   "title": "Aether Connected Edge",
   "uid": "Y2z8vDtGz",
-  "version": 4
+  "version": 5
 }
