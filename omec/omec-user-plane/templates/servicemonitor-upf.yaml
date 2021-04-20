@@ -5,17 +5,15 @@
 */}}
 {{- if .Values.servicemonitor.enabled }}
 ---
-apiVersion: v1
-items:
-- apiVersion: monitoring.coreos.com/v1
-  kind: ServiceMonitor
-  metadata:
-    name: upf
-  spec:
-    endpoints:
-    - path: /metrics
-      port: prometheus-exporter
-    selector:
-      matchLabels:
-{{ tuple "upf" . | include "omec-user-plane.metadata_labels" | indent 8 }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: upf
+spec:
+  endpoints:
+  - path: /metrics
+    port: prometheus-exporter
+  selector:
+    matchLabels:
+{{ tuple "upf" . | include "omec-user-plane.metadata_labels" | indent 6 }}
 {{- end }}
