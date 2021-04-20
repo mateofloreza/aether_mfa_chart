@@ -4755,10 +4755,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 7,
+            "h": 6,
             "w": 4,
             "x": 0,
-            "y": 24
+            "y": 3
           },
           "id": 281,
           "links": [
@@ -4818,6 +4818,144 @@
           "type": "stat"
         },
         {
+          "datasource": "acc-gcp1",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "center",
+                "displayMode": "auto"
+              },
+              "decimals": 0,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "IMSI"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 160
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "__name__"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 171
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "cp_mode"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 99
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "imsi"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 166
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 15,
+            "w": 9,
+            "x": 4,
+            "y": 3
+          },
+          "id": 308,
+          "options": {
+            "frameIndex": 3,
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": false,
+                "displayName": "IMSI"
+              }
+            ]
+          },
+          "pluginVersion": "7.1.5",
+          "targets": [
+            {
+              "expr": "sum(increase(subscribers_info{imsi=~\".+\"}[$__range])) by (imsi, mobile_ip)",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Current Subscriber Info",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "__name__": true,
+                  "cp_mode": true,
+                  "endpoint": true,
+                  "instance": true,
+                  "job": true,
+                  "level": true,
+                  "namespace": true,
+                  "pod": true,
+                  "service": true,
+                  "subscriber_info": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "Metric": "IMSI",
+                  "Value": "Attach count",
+                  "imsi": "IMSI",
+                  "job": "",
+                  "mobile_ip": "Mobile IP",
+                  "namespace": ""
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
           "aliasColors": {},
           "bars": false,
           "dashLength": 10,
@@ -4830,16 +4968,16 @@
             },
             "overrides": []
           },
-          "fill": 10,
+          "fill": 3,
           "fillGradient": 0,
           "gridPos": {
             "h": 5,
-            "w": 10,
-            "x": 4,
-            "y": 24
+            "w": 11,
+            "x": 13,
+            "y": 3
           },
           "hiddenSeries": false,
-          "id": 283,
+          "id": 310,
           "legend": {
             "avg": false,
             "current": false,
@@ -4852,7 +4990,7 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -4862,29 +5000,36 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc\",result=\"success\",mme_addr=\"\",proc_type=\"\"}[5m])) by (procedure)",
+              "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc-metrics\",result=\"success\",mme_addr=\"\",proc_type=\"\"}[5m])) by (procedure)",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{procedure}}",
+              "legendFormat": "Success: {{procedure}}",
               "refId": "A"
             },
             {
-              "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc\",result=\"success\",mme_addr=\"\",proc_type=\"INITIAL_ATTACH\"}[5m])) by (proc_type)",
+              "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc-metrics\",result=\"success\",mme_addr=\"\",proc_type=\"INITIAL_ATTACH\"}[5m])) by (proc_type)",
               "hide": false,
               "interval": "",
-              "legendFormat": "{{proc_type}}",
+              "legendFormat": "Success: {{proc_type}}",
               "refId": "B"
+            },
+            {
+              "expr": "-1 * sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc-metrics\",result=\"failure\",mme_addr=\"\",proc_type=\"\"}[5m])) by (procedure)",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "Failure: {{procedure}}",
+              "refId": "C"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "SPGW Procedures: Successes Per Second",
+          "title": "SPGW Procedurees Per Second",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -4930,22 +5075,23 @@
           "dashes": false,
           "datasource": "acc-gcp1",
           "decimals": null,
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "custom": {}
             },
             "overrides": []
           },
-          "fill": 10,
+          "fill": 3,
           "fillGradient": 0,
           "gridPos": {
             "h": 5,
-            "w": 10,
-            "x": 14,
-            "y": 24
+            "w": 11,
+            "x": 13,
+            "y": 8
           },
           "hiddenSeries": false,
-          "id": 284,
+          "id": 312,
           "legend": {
             "avg": false,
             "current": false,
@@ -4958,7 +5104,7 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -4968,224 +5114,27 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc\",result=\"failure\",mme_addr=\"\",proc_type=\"\"}[5m])) by (procedure)",
-              "interval": "",
-              "legendFormat": "{{procedure}}",
-              "refId": "A"
-            },
-            {
-              "expr": "sum(rate(number_of_procedures{cp_mode=\"spgw\", service=\"spgwc\",result=\"failure\",mme_addr=\"\",proc_type=\"INITIAL_ATTACH\"}[5m])) by (proc_type)",
-              "interval": "",
-              "legendFormat": "{{proc_type}}",
-              "refId": "B"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "SPGW Procedures: Failures Per Second",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:3006",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:3007",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "acc-gcp1",
-          "decimals": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 10,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 5,
-            "w": 10,
-            "x": 4,
-            "y": 29
-          },
-          "hiddenSeries": false,
-          "id": 286,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pluginVersion": "7.1.5",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "expr": "sum(rate(number_of_procedures{endpoint=\"metrics3081\",mme_app=\"procedure\",proc_result=\"success\"}[5m])) by (procedure)",
               "interval": "",
-              "legendFormat": "{{procedure}}",
+              "legendFormat": "Success: {{procedure}}",
               "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "MME Procedures: Successes Per Second",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:3006",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
             },
             {
-              "$$hashKey": "object:3007",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "acc-gcp1",
-          "decimals": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 10,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 5,
-            "w": 10,
-            "x": 14,
-            "y": 29
-          },
-          "hiddenSeries": false,
-          "id": 287,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "hideEmpty": false,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pluginVersion": "7.1.5",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(rate(number_of_procedures{endpoint=\"metrics3081\",mme_app=\"procedure\",proc_result=\"failure\"}[5m])) by (procedure)",
+              "expr": "-1 * sum(rate(number_of_procedures{endpoint=\"metrics3081\",mme_app=\"procedure\",proc_result=\"failure\"}[5m])) by (procedure)",
               "interval": "",
-              "legendFormat": "{{procedure}}",
-              "refId": "A"
+              "legendFormat": "Failure: {{procedure}}",
+              "refId": "B"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "MME Procedures: Failures Per Second",
+          "title": "MME Procedures Per Second",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -5226,6 +5175,7 @@
         },
         {
           "datasource": "acc-gcp1",
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -5247,14 +5197,14 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
+            "h": 9,
             "w": 4,
             "x": 0,
-            "y": 31
+            "y": 9
           },
-          "id": 279,
+          "id": 317,
           "options": {
-            "colorMode": "value",
+            "colorMode": "background",
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "horizontal",
@@ -5265,20 +5215,20 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "textMode": "name"
           },
           "pluginVersion": "7.1.5",
           "targets": [
             {
-              "expr": "kube_statefulset_status_replicas_ready{namespace=\"omec\"}",
+              "expr": "sum(mme_number_of_enb_attached{enb_state=\"Active\", enbname=~\".+\"}) by (enbname,enbid)",
               "interval": "",
-              "legendFormat": "{{ statefulset }}",
+              "legendFormat": "{{ enbname }}:{{ enbid }}",
               "refId": "A"
             }
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Ready replicas",
+          "title": "eNodeB Status",
           "type": "stat"
         },
         {
@@ -5295,29 +5245,29 @@
             },
             "overrides": []
           },
-          "fill": 10,
+          "fill": 3,
           "fillGradient": 0,
           "gridPos": {
             "h": 5,
-            "w": 20,
-            "x": 4,
-            "y": 34
+            "w": 11,
+            "x": 13,
+            "y": 13
           },
           "hiddenSeries": false,
-          "id": 285,
+          "id": 314,
           "legend": {
             "avg": false,
             "current": false,
             "hideZero": true,
             "max": false,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
             "total": false,
             "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -5327,7 +5277,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
@@ -5418,5 +5368,5 @@
   "timezone": "",
   "title": "Aether Connected Edge",
   "uid": "Y2z8vDtGz",
-  "version": 4
+  "version": 5
 }
