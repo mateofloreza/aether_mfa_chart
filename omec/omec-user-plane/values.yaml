@@ -26,10 +26,10 @@ resources:
   bess:
     requests:
       cpu: 2
-      memory: 256Mi
+      memory: 512Mi
     limits:
       cpu: 2
-      memory: 256Mi
+      memory: 512Mi
   routectl:
     requests:
       cpu: 256m
