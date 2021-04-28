@@ -1,0 +1,40 @@
+# Copyright 2021-present Open Networking Foundation
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+
+telegraf:
+  image:
+    tag: "1.17"
+  volumes:
+    - name: "telegraf-external-daemon"
+      configMap:
+        name: tost-telegraf-config-script
+        defaultMode: 0755
+  mountPoints:
+    - name: "telegraf-external-daemon"
+      mountPath: /tmp/onos_telegraf.sh
+      subPath: tost_telegraf.sh
+  config:
+    inputs:
+      - execd:
+          command: ["/tmp/onos_telegraf.sh"]
+          signal: "STDIN"
+      - cisco_telemetry_gnmi:
+          addresses:
+            - 10.128.100.34:9339
+          redial: 10s
+      - cisco_telemetry_gnmi.subscription:
+          name: stratum_counters
+          origin: openconfig-interfaces
+          path: /interfaces/interface[name=*]/state/counters
+          sample_interval: 5000ns
+          subscription_mode: sample
+
+    outputs:
+      - prometheus_client:
+          metric_version: 2
+          listen: ":9273"
+onos:
+  username: onos
+  password: rocks
+  server: localhost
+  port: 8181
