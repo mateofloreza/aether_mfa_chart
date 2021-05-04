@@ -17,6 +17,7 @@ metadata:
 spec:
   template:
     metadata:
+      labels:
 {{ tuple "accelleran-cbrs-redis" . | include "accelleran-cbrs-common.metadata_labels" | indent 8 }}
     spec:
     {{- if .Values.nodeSelectors.enabled }}
