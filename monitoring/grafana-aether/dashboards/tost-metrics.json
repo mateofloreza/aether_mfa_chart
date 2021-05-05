@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 17,
-  "iteration": 1618505885629,
+  "id": 28,
+  "iteration": 1620252734676,
   "links": [],
   "panels": [
     {
@@ -24,7 +24,314 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "ace-menlo",
+      "datasource": "$datasource",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 14,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "stratum_counters_in_octets",
+          "interval": "",
+          "legendFormat": "in-{{ source }}:{{ name }} ",
+          "refId": "A"
+        },
+        {
+          "expr": "stratum_counters_out_octets",
+          "interval": "",
+          "legendFormat": "out-{{ source }}:{{ name }}",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Stratum Couter (octect)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:162",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:163",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$datasource",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 15,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "stratum_counters_in_errors",
+          "interval": "",
+          "legendFormat": "in-{{ source }}:{{ name }} ",
+          "refId": "A"
+        },
+        {
+          "expr": "stratum_counters_out_errors",
+          "interval": "",
+          "legendFormat": "out-{{ source }}:{{ name }}",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Stratum Counter (errors)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:162",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:163",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$datasource",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "hiddenSeries": false,
+      "id": 12,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "onos_telegraf_active_links",
+          "interval": "",
+          "legendFormat": "Active Links",
+          "refId": "A"
+        },
+        {
+          "expr": "onos_telegraf_devices",
+          "interval": "",
+          "legendFormat": "Devies",
+          "refId": "B"
+        },
+        {
+          "expr": "onos_telegraf_enable_device_ports",
+          "interval": "",
+          "legendFormat": "Enabled Device Ports",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Topology Metrics",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:99",
+          "decimals": null,
+          "format": "locale",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:100",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$datasource",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -37,7 +344,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 14
       },
       "hiddenSeries": false,
       "id": 4,
@@ -105,10 +412,55 @@
             "renameByName": {
               "average_10.32.5.129 ": "average_mgmt",
               "average_10.32.5.5 ": "average_eNB",
+              "average_10.32.7.1 ": "average_mgmt",
+              "average_10.32.7.10 ": "average_eNB",
+              "average_10.32.9.10 ": "average_eNB",
+              "average_10.64.1.10 ": "average_eNB",
+              "average_10.64.1.129 ": "average_mgmt",
+              "average_10.64.11.129 ": "average_mgmt",
+              "average_10.64.11.140 ": "average_eNB",
+              "average_10.64.13.1 ": "average_mgmt",
+              "average_10.64.13.10 ": "average_eNB",
+              "average_10.64.3.1 ": "average_mgmt",
+              "average_10.64.3.10 ": "average_eNB",
+              "average_10.64.5.1 ": "average_mgmt",
+              "average_10.64.5.10 ": "average_eNB",
+              "average_10.64.7.10 ": "average_eNB",
+              "average_10.64.7.129 ": "average_mgmt",
               "max_10.32.5.129 ": "max_mgmt",
               "max_10.32.5.5 ": "max_eNB",
+              "max_10.32.7.1 ": "max_mgmt",
+              "max_10.32.7.10 ": "max_eNB",
+              "max_10.32.9.10 ": "max_eNB",
+              "max_10.64.1.10 ": "max_eNB",
+              "max_10.64.1.129 ": "max_mgmt",
+              "max_10.64.11.129 ": "max_mgmt",
+              "max_10.64.11.140 ": "max_eNB",
+              "max_10.64.13.1 ": "max_mgmt",
+              "max_10.64.13.10 ": "max_eNB",
+              "max_10.64.3.1 ": "max_mgmt",
+              "max_10.64.3.10 ": "max_eNB",
+              "max_10.64.5.1 ": "max_mgmt",
+              "max_10.64.5.10 ": "max_eNB",
+              "max_10.64.7.10 ": "max_eNB",
+              "max_10.64.7.129 ": "max_mgmt",
               "min_10.32.5.129 ": "min_mgmt",
-              "min_10.32.5.5 ": "min_eNB"
+              "min_10.32.5.5 ": "min_eNB",
+              "min_10.32.7.1 ": "min_mgmt",
+              "min_10.32.7.10 ": "min_eNB",
+              "min_10.32.9.10 ": "min_eNB",
+              "min_10.64.1.10 ": "min_eNB",
+              "min_10.64.1.129 ": "min_mgmt",
+              "min_10.64.11.129 ": "min_mgmt",
+              "min_10.64.11.140 ": "min_eNB",
+              "min_10.64.13.1 ": "min_mgmt",
+              "min_10.64.13.10 ": "min_eNB",
+              "min_10.64.3.1 ": "min_mgmt",
+              "min_10.64.3.10 ": "min_eNB",
+              "min_10.64.5.1 ": "min_mgmt",
+              "min_10.64.5.10 ": "min_eNB",
+              "min_10.64.7.10 ": "min_eNB",
+              "min_10.64.7.129 ": "min_mgmt"
             }
           }
         }
@@ -149,7 +501,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "ace-menlo",
+      "datasource": "$datasource",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -162,7 +514,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 14
       },
       "hiddenSeries": false,
       "id": 2,
@@ -190,9 +542,8 @@
       "targets": [
         {
           "expr": "sum(ping_percent_packet_loss{namespace=\"tost\"}) by (url)",
-          "instant": false,
           "interval": "",
-          "legendFormat": "{{ url }} ",
+          "legendFormat": "{{ url }}",
           "refId": "A"
         }
       ],
@@ -219,8 +570,23 @@
             "excludeByName": {},
             "indexByName": {},
             "renameByName": {
-              "10.32.5.129 ": "mgmt",
-              "10.32.5.5 ": "eNB",
+              "10.32.5.129": "mgmt",
+              "10.32.5.5": "eNB",
+              "10.32.7.1": "mgmt",
+              "10.32.7.10": "eNB",
+              "10.32.9.10": "eNB",
+              "10.64.1.10": "eNB",
+              "10.64.1.129": "mgmt",
+              "10.64.11.129": "mgmt",
+              "10.64.11.140": "eNB",
+              "10.64.13.1": "mgmt",
+              "10.64.13.10": "eNB",
+              "10.64.3.1": "mgmt",
+              "10.64.3.10": "eNB",
+              "10.64.5.1": "eNB",
+              "10.64.5.129": "mgmt",
+              "10.64.7.10": "eNB",
+              "10.64.7.129": "mgmt",
               "Time": ""
             }
           }
@@ -292,7 +658,7 @@
         "h": 5,
         "w": 12,
         "x": 0,
-        "y": 6
+        "y": 20
       },
       "hiddenSeries": false,
       "id": 6,
@@ -422,7 +788,7 @@
         "h": 5,
         "w": 12,
         "x": 12,
-        "y": 6
+        "y": 20
       },
       "hiddenSeries": false,
       "id": 8,
@@ -605,7 +971,7 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 25
       },
       "id": 10,
       "options": {
@@ -661,18 +1027,38 @@
       {
         "current": {
           "selected": false,
+          "text": "ace-menlo",
+          "value": "ace-menlo"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Datasource",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "ace.*",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
           "text": "ace-menlo-es",
           "value": "ace-menlo-es"
         },
-        "hide": 2,
+        "hide": 0,
         "includeAll": false,
-        "label": "Datasource",
+        "label": "Log_Datasource",
         "multi": false,
         "name": "es_datasource",
         "options": [],
         "query": "elasticsearch",
+        "queryValue": "",
         "refresh": 1,
-        "regex": "ace-menlo-es",
+        "regex": "ace.*",
         "skipUrlSync": false,
         "type": "datasource"
       },
@@ -700,8 +1086,8 @@
         "allValue": "stratum*",
         "current": {
           "selected": false,
-          "text": "onos-tost-onos-classic-0",
-          "value": "onos-tost-onos-classic-0"
+          "text": "config",
+          "value": "config"
         },
         "datasource": "$es_datasource",
         "definition": "{\"find\": \"terms\", \"field\": \"kubernetes.pod_name.keyword\",\"query\":\"kubernetes.namespace_name.keyword:$es_namespace\"}",
@@ -725,13 +1111,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "text": [
-            "onos-classic"
-          ],
-          "value": [
-            "onos-classic"
-          ]
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": "$es_datasource",
         "definition": "{\"find\": \"terms\", \"field\": \"kubernetes.container_name.keyword\",\"query\":\"kubernetes.namespace_name.keyword:$es_namespace AND kubernetes.pod_name.keyword:$es_pod\"}\t",
@@ -781,7 +1163,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {
@@ -801,5 +1183,5 @@
   "timezone": "",
   "title": "TOST Metrics",
   "uid": "fVcZZm8Gk",
-  "version": 1
+  "version": 6
 }
