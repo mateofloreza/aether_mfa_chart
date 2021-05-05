@@ -383,6 +383,28 @@ config:
         info:
           version: 1.0.0
           description: AMF initial local configuration
+        logger:
+          AMF:
+            debugLevel: info
+            ReportCaller: false
+          NAS:
+            debugLevel: info
+            ReportCaller: false
+          FSM:
+            debugLevel: info
+            ReportCaller: false
+          NGAP:
+            debugLevel: info
+            ReportCaller: false
+          Aper:
+            debugLevel: info
+            ReportCaller: false
+          PathUtil:
+            debugLevel: info
+            ReportCaller: false
+          OpenApi:
+            debugLevel: info
+            ReportCaller: false
         configuration:
           ngapIpList:
             - "0.0.0.0"

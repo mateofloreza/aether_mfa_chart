@@ -65,14 +65,10 @@ spec:
         - name: run-script
           mountPath: /free5gc/script/amf-run.sh
           subPath: amf-run.sh
-        - name: config-dir
+        - name: amf-config
           mountPath: /free5gc/config
         - name: common-config
-          mountPath: /tmp/config/free5GC.conf
-          subPath: free5GC.conf
-        - name: nf-config
-          mountPath: /tmp/config/amfcfg.conf
-          subPath: amfcfg.conf
+          mountPath: /free5gc/common
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump
@@ -86,12 +82,10 @@ spec:
         configMap:
           name: common
           defaultMode: 493 
-      - name: nf-config
+      - name: amf-config
         configMap:
           name: amf
           defaultMode: 493
-      - name: config-dir
-        emptyDir: {}
     {{- if .Values.config.coreDump.enabled }}
       - name: host-rootfs
         hostPath:
