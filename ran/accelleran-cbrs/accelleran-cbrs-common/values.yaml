@@ -4,19 +4,16 @@
 
 images:
   tags:
-    initCU: docker.io/omecproject/pod-init:1.0.0
-    nats: registry.aetherproject.org/accelleran/accelleran-cu-nats:v1.0.0
-    redis: registry.aetherproject.org/accelleran/accelleran-cu-redis:v1.0.0
-    redisClient: docker.io/redis:5.0.6-alpine3.10
-    ric: registry.aetherproject.org/accelleran/accelleran-cu-ric:v1.0.0
-    ricWeb: registry.aetherproject.org/accelleran/accelleran-cu-ricweb:v1.0.0
-    depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
+    initCU: "registry.aetherproject.org/accelleran/pod-init:1.0.0"
+    nats: "registry.aetherproject.org/accelleran/accelleran-cu-nats:v1.0.0"
+    redis: "registry.aetherproject.org/accelleran/accelleran-cu-redis:v1.0.0"
+    redisClient: "docker.io/redis:5.0.6-alpine3.10"
+    ric: "registry.aetherproject.org/accelleran/accelleran-cu-ric:v1.0.0"
+    ricWeb: "registry.aetherproject.org/accelleran/accelleran-cu-ricweb:v1.0.0"
+    depCheck: "quay.io/stackanetes/kubernetes-entrypoint:v0.3.1"
   pullPolicy: IfNotPresent
-  credentials: {}
-  # If specified, use this credential to access the image
-  #   registry:
-  #   username:
-  #   password:
+  pullSecrets:
+    - name: aether.registry
 
 nodeSelectors:
   enabled: false
