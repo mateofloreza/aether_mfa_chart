@@ -8,18 +8,17 @@ images:
     bess: docker.io/omecproject/upf-epc-bess:master-latest
     pfcpiface: docker.io/omecproject/upf-epc-pfcpiface:master-latest
     zmqiface: docker.io/omecproject/upf-epc-cpiface:master-latest
-  pullPolicy: Always
-  credentials: {}
-  # If specified, use this credential to access the image
-  #   registry:
-  #   username:
-  #   password:
+  pullPolicy: IfNotPresent
+  # Optionally specify an array of imagePullSecrets.
+  # Secrets must be manually created in the namespace.
+  #pullSecrets:
+  #  - name: aether.registry
 
 nodeSelectors:
   enabled: false
   upf:
-    label: omec-upf
-    value: enabled
+    label: node-role.aetherproject.org
+    value: omec-upf
 
 resources:
   enabled: true
@@ -88,7 +87,7 @@ config:
         measure: true
     bess:
       web:
-        nodePort: 36000
+        nodePort: 32001
     cpiface:
       # pfcp or zmq
       mode: pfcp

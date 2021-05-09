@@ -49,9 +49,9 @@ spec:
       nodeSelector:
         {{ .Values.nodeSelectors.upf.label }}: {{ .Values.nodeSelectors.upf.value }}
     {{- end }}
-    {{- if .Values.images.credentials }}
+    {{- if hasKey .Values.images "pullSecrets" }}
       imagePullSecrets:
-        - name: {{ .Release.Name }}.registry
+{{ toYaml .Values.images.pullSecrets | indent 8 }}
     {{- end }}
       initContainers:
       - name: bess-init
