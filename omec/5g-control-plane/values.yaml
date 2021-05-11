@@ -5,15 +5,15 @@
 images:
   tags:
     init: docker.io/omecproject/pod-init:1.0.0
-    amf: registry.aetherproject.org/omecproject/5gc-amf:onf-master-latest
-    nrf: registry.aetherproject.org/omecproject/5gc-nrf:onf-master-latest
-    smf: registry.aetherproject.org/omecproject/5gc-smf:onf-master-latest
-    ausf: registry.aetherproject.org/omecproject/5gc-ausf:onf-master-latest
-    nssf: registry.aetherproject.org/omecproject/5gc-nssf:onf-master-latest
-    pcf: registry.aetherproject.org/omecproject/5gc-pcf:onf-master-latest
-    udr: registry.aetherproject.org/omecproject/5gc-udr:onf-master-latest
-    udm: registry.aetherproject.org/omecproject/5gc-udm:onf-master-latest
-    webui: registry.aetherproject.org/omecproject/5gc-webui:onf-master-latest
+    amf: registry.aetherproject.org/omecproject/5gc-amf:onf-release3.0.5-latest
+    nrf: registry.aetherproject.org/omecproject/5gc-nrf:onf-release3.0.5-latest
+    smf: registry.aetherproject.org/omecproject/5gc-smf:onf-release3.0.5-latest
+    ausf: registry.aetherproject.org/omecproject/5gc-ausf:onf-release3.0.5-latest
+    nssf: registry.aetherproject.org/omecproject/5gc-nssf:onf-release3.0.5-latest
+    pcf: registry.aetherproject.org/omecproject/5gc-pcf:onf-release3.0.5-latest
+    udr: registry.aetherproject.org/omecproject/5gc-udr:onf-release3.0.5-latest
+    udm: registry.aetherproject.org/omecproject/5gc-udm:onf-release3.0.5-latest
+    webui: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-latest
   pullPolicy: IfNotPresent
   # Optionally specify an array of imagePullSecrets.
   # Secrets must be manually created in the namespace.

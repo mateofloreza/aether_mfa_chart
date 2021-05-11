@@ -12,4 +12,4 @@ cp /free5gc/amf/amf /tmp/coredump/
 
 cat /free5gc/config/amfcfg.conf
 
-./free5gc/amf/amf -amfcfg /free5gc/config/amfcfg.conf
+/free5gc/amf/amf -amfcfg /free5gc/config/amfcfg.conf
