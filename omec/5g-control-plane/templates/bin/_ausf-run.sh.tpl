@@ -10,10 +10,6 @@ set -xe
 cp /free5gc/ausf/ausf /tmp/coredump/
 {{- end }}
 
-cd /free5gc
-cp /tmp/config/* config/
+cat /free5gc/config/ausfcfg.conf
 
-cat config/free5GC.conf
-cat config/ausfcfg.conf
-
-./ausf/ausf -ausfcfg config/ausfcfg.conf
+./free5gc/ausf/ausf -ausfcfg /free5gc/config/ausfcfg.conf

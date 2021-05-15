@@ -65,14 +65,10 @@ spec:
         - name: run-script
           mountPath: /free5gc/script/pcf-run.sh
           subPath: pcf-run.sh
-        - name: config-dir
-          mountPath: /free5gc/config
         - name: common-config
-          mountPath: /tmp/config/free5GC.conf
-          subPath: free5GC.conf
+          mountPath: /free5gc/common
         - name: nf-config
-          mountPath: /tmp/config/pcfcfg.conf
-          subPath: pcfcfg.conf
+          mountPath: /free5gc/config
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump
@@ -90,8 +86,6 @@ spec:
         configMap:
           name: pcf
           defaultMode: 493
-      - name: config-dir
-        emptyDir: {}
     {{- if .Values.config.coreDump.enabled }}
       - name: host-rootfs
         hostPath:

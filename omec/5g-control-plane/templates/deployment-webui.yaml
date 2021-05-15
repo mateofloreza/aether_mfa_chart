@@ -62,11 +62,9 @@ spec:
         - name: config-dir
           mountPath: /free5gc/config
         - name: common-config
-          mountPath: /tmp/config/free5GC.conf
-          subPath: free5GC.conf
+          mountPath: /free5gc/config
         - name: nf-config
-          mountPath: /tmp/config/webuicfg.conf
-          subPath: webuicfg.conf
+          mountPath: /free5gc/config
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump

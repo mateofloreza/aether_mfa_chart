@@ -11,10 +11,8 @@ cp /free5gc/smf/smf /tmp/coredump/
 {{- end }}
 
 cd /free5gc
-cp /tmp/config/* config/
 sed -i "s/POD_IP/${POD_IP}/g" config/smfcfg.conf
 
-cat config/free5GC.conf
 cat config/smfcfg.conf
 cat config/uerouting.conf
 
