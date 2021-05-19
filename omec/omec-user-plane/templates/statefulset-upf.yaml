@@ -107,7 +107,7 @@ spec:
             hugepages-1Gi: 2Gi
           {{- end }}
           {{- if .Values.config.upf.sriov.enabled }}
-            intel.com/sriov_vfio_net: 2
+            intel.com/intel_sriov_vfio: 2
           {{- end }}
           limits:
           {{- if .Values.resources.enabled }}
@@ -117,7 +117,7 @@ spec:
             hugepages-1Gi: 2Gi
           {{- end }}
           {{- if .Values.config.upf.sriov.enabled }}
-            intel.com/sriov_vfio_net: 2
+            intel.com/intel_sriov_vfio: 2
           {{- end }}
         env:
           - name: CONF_FILE
