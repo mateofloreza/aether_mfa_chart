@@ -373,6 +373,7 @@ config:
         enabled: false
         port: 30088
     ngapp:
+      #externalIp:
       port: 38412
       nodePort:
         enabled: true
