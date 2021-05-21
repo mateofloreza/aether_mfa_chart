@@ -71,10 +71,12 @@ config:
       gateway: 192.168.252.1
       ip: 192.168.252.3/24
       #mac:
+      #vlan:
     core:
       gateway: 192.168.250.1
       ip: 192.168.250.3/24
       #mac:
+      #vlan:
     cfgFiles:
       upf.json:
         mode: dpdk
