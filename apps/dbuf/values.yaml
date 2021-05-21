@@ -64,3 +64,4 @@ network:
   # route the following subnets via sr-iov interface
   # route: 10.56.215.0/24,10.56.214.0/24
   route: ""
+  #vlan:
