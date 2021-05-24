@@ -139,10 +139,14 @@ config:
             be-internet-access:
               qci: 9
               arp: 1
-              AMBR_UL: 100000
-              AMBR_DL: 20000000
+              AMBR_UL: 1024000
+              AMBR_DL: 10240000
               service-activation-rules:
               - best-effort-internet-access
+              #activate-conditions:
+              #  timer: 50
+              #deactivate-conditions:
+              #  timer: 60
           rules:
             best-effort-internet-access:
               definition:
@@ -157,10 +161,9 @@ config:
                     Priority-Level: 1
                     Pre-emption-Capability: 1
                     Pre-emption-Vulnerability: 1
-                  APN-Aggregate-Max-Bitrate-UL: 1024000
-                  APN-Aggregate-Max-Bitrate-DL: 10240000
                 Flow-Information:
-                  Flow-Description: "permit out ip 0.0.0.0/0 to assigned"
+                  Flow-Direction: 3
+                  Flow-Description: "permit out ip from 0.0.0.0/0 to assigned"
       pcrf.json:
         common:
           fdcfg: conf/pcrf.conf
