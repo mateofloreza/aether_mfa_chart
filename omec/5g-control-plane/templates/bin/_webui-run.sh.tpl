@@ -10,6 +10,10 @@ set -xe
 cp /free5gc/webconsole/webui /tmp/coredump/
 {{- end }}
 
-cat /free5gc/config/webuicfg.conf
+cd /free5gc
+cp /tmp/config/* config/
 
-./free5gc/webconsole/webconsole -webuicfg /free5gc/config/webuicfg.conf
+cat config/free5GC.conf
+cat config/webuicfg.conf
+
+./webconsole/webconsole -webuicfg config/webuicfg.conf

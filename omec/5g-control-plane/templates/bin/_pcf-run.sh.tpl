@@ -10,6 +10,10 @@ set -xe
 cp /free5gc/pcf/pcf /tmp/coredump/
 {{- end }}
 
-cat /free5gc/config/pcfcfg.conf
+cd /free5gc
+cp /tmp/config/* config/
 
-./free5gc/pcf/pcf -pcfcfg /free5gc/config/pcfcfg.conf
+cat config/free5GC.conf
+cat config/pcfcfg.conf
+
+./pcf/pcf -pcfcfg config/pcfcfg.conf

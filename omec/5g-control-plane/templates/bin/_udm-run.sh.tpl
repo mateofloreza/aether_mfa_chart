@@ -10,6 +10,10 @@ set -xe
 cp /free5gc/udm/udm /tmp/coredump/
 {{- end }}
 
-cat /free5gc/config/udmcfg.conf
+cd /free5gc
+cp /tmp/config/* config/
 
-./free5gc/udm/udm -udmcfg /free5gc/config/udmcfg.conf
+cat config/free5GC.conf
+cat config/udmcfg.conf
+
+./udm/udm -udmcfg config/udmcfg.conf

@@ -10,6 +10,10 @@ set -xe
 cp /free5gc/nssf/nssf /tmp/coredump/
 {{- end }}
 
-cat /free5gc/config/nssfcfg.conf
+cd /free5gc
+cp /tmp/config/* config/
 
-./free5gc/nssf/nssf -nssfcfg /free5gc/config/nssfcfg.conf
+cat config/free5GC.conf
+cat config/nssfcfg.conf
+
+./nssf/nssf -nssfcfg config/nssfcfg.conf
