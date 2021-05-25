@@ -19,10 +19,6 @@
 {{- $_ := .Values.config.mongodb.url | set $config "MongoDBUrl" -}}
 {{- end }}
 
-{{- if not (hasKey $config "DefaultServiceIP") -}}
-{{- $_ := "POD_IP" | set $config "DefaultServiceIP" -}}
-{{- end }}
-
 {{- if not (hasKey $nrfcfg "logger") -}}
 {{- $_ := .Values.config.logger | set $nrfcfg "logger" -}}
 {{- end }}

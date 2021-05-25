@@ -11,7 +11,6 @@ cp /free5gc/webconsole/webui /tmp/coredump/
 {{- end }}
 
 cd /free5gc
-cp /tmp/config/* config/
 
 cat config/webuicfg.conf
 

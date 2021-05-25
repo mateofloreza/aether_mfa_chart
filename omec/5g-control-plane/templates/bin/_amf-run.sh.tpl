@@ -10,6 +10,7 @@ set -xe
 cp /free5gc/amf/amf /tmp/coredump/
 {{- end }}
 
-cat /free5gc/config/amfcfg.conf
+cd /free5gc
+cat config/amfcfg.conf
 
-/free5gc/amf/amf -amfcfg /free5gc/config/amfcfg.conf
+./amf/amf -amfcfg config/amfcfg.conf

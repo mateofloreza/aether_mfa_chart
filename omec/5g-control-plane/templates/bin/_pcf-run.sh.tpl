@@ -11,7 +11,6 @@ cp /free5gc/pcf/pcf /tmp/coredump/
 {{- end }}
 
 cd /free5gc
-cp /tmp/config/* config/
 
 cat config/pcfcfg.conf
 

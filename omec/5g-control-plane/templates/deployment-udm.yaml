@@ -69,11 +69,8 @@ spec:
         - name: run-script
           mountPath: /free5gc/script/udm-run.sh
           subPath: udm-run.sh
-        - name: config-dir
-          mountPath: /free5gc/config
         - name: nf-config
-          mountPath: /tmp/config/udmcfg.conf
-          subPath: udmcfg.conf
+          mountPath: /free5gc/config
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump

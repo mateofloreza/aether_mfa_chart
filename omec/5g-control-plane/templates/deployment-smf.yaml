@@ -67,14 +67,10 @@ spec:
         - name: run-script
           mountPath: /free5gc/script/smf-run.sh
           subPath: smf-run.sh
-        - name: config-dir
+        - name: nf-config
+          mountPath: /free5gc/uerouting
+        - name: nf-config
           mountPath: /free5gc/config
-        - name: nf-config
-          mountPath: /tmp/config/uerouting.conf
-          subPath: uerouting.conf
-        - name: nf-config
-          mountPath: /tmp/config/smfcfg.conf
-          subPath: smfcfg.conf
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump
@@ -88,8 +84,6 @@ spec:
         configMap:
           name: smf
           defaultMode: 493
-      - name: config-dir
-        emptyDir: {}
     {{- if .Values.config.coreDump.enabled }}
       - name: host-rootfs
         hostPath:

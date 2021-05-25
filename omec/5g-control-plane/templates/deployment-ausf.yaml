@@ -67,11 +67,8 @@ spec:
         - name: run-script
           mountPath: /free5gc/script/ausf-run.sh
           subPath: ausf-run.sh
-        - name: config-dir
-          mountPath: /free5gc/config
         - name: nf-config
-          mountPath: /tmp/config/ausfcfg.conf
-          subPath: ausfcfg.conf
+          mountPath: /free5gc/config
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump
@@ -85,8 +82,6 @@ spec:
         configMap:
           name: ausf
           defaultMode: 493
-      - name: config-dir
-        emptyDir: {}
     {{- if .Values.config.coreDump.enabled }}
       - name: host-rootfs
         hostPath:
