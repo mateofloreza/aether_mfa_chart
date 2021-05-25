@@ -14,7 +14,6 @@ cd /free5gc
 cp /tmp/config/* config/
 sed -i "s/POD_IP/${POD_IP}/g" config/nrfcfg.conf
 
-cat config/free5GC.conf
 cat config/nrfcfg.conf
 
 ./nrf/nrf -nrfcfg config/nrfcfg.conf

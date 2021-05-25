@@ -13,7 +13,6 @@ cp /free5gc/webconsole/webui /tmp/coredump/
 cd /free5gc
 cp /tmp/config/* config/
 
-cat config/free5GC.conf
 cat config/webuicfg.conf
 
 ./webconsole/webconsole -webuicfg config/webuicfg.conf

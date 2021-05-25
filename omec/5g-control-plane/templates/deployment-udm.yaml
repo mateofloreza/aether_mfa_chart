@@ -71,9 +71,6 @@ spec:
           subPath: udm-run.sh
         - name: config-dir
           mountPath: /free5gc/config
-        - name: common-config
-          mountPath: /tmp/config/free5GC.conf
-          subPath: free5GC.conf
         - name: nf-config
           mountPath: /tmp/config/udmcfg.conf
           subPath: udmcfg.conf
@@ -86,10 +83,6 @@ spec:
         configMap:
           name: udm
           defaultMode: 493
-      - name: common-config
-        configMap:
-          name: common
-          defaultMode: 493 
       - name: nf-config
         configMap:
           name: udm

@@ -14,6 +14,10 @@
 {{- $_ := .Values.config.amf.sbi.port | set $sbi "port" -}}
 {{- end }}
 
+{{- if not (hasKey $amfcfg "logger") -}}
+{{- $_ := .Values.config.logger | set $amfcfg "logger" -}}
+{{- end }}
+
 {{- end }}
 
 

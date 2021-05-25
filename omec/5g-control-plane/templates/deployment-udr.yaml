@@ -67,9 +67,6 @@ spec:
           subPath: udr-run.sh
         - name: config-dir
           mountPath: /free5gc/config
-        - name: common-config
-          mountPath: /tmp/config/free5GC.conf
-          subPath: free5GC.conf
         - name: nf-config
           mountPath: /tmp/config/udrcfg.conf
           subPath: udrcfg.conf
@@ -82,10 +79,6 @@ spec:
         configMap:
           name: udr
           defaultMode: 493
-      - name: common-config
-        configMap:
-          name: common
-          defaultMode: 493 
       - name: nf-config
         configMap:
           name: udr

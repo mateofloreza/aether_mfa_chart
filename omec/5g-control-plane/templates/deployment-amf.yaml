@@ -67,8 +67,6 @@ spec:
           subPath: amf-run.sh
         - name: amf-config
           mountPath: /free5gc/config
-        - name: common-config
-          mountPath: /free5gc/common
       {{- if .Values.config.coreDump.enabled }}
         - name: coredump
           mountPath: /tmp/coredump
@@ -78,10 +76,6 @@ spec:
         configMap:
           name: amf
           defaultMode: 493
-      - name: common-config
-        configMap:
-          name: common
-          defaultMode: 493 
       - name: amf-config
         configMap:
           name: amf

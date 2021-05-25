@@ -9,9 +9,16 @@
 {{- if not .Values.config.useExistingConfigMap -}}
 {{- $webuicfg := index .Values.config.webui.cfgFiles "webuicfg.conf" }}
 {{- $config := index $webuicfg "configuration" }}
+
+{{- if not (hasKey $webuicfg "logger") -}}
+{{- $_ := .Values.config.logger | set $webuicfg "logger" -}}
+{{- end }}
+
+
 {{- if not (hasKey $config "mongodb") -}}
 {{- $_ := dict "name" .Values.config.mongodb.name "url" .Values.config.mongodb.url | set $config "mongodb" -}}
 {{- end }}
+
 {{- end }}
 
 ---

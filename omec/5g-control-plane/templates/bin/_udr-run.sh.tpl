@@ -13,7 +13,6 @@ cp /free5gc/udr/udr /tmp/coredump/
 cd /free5gc
 cp /tmp/config/* config/
 
-cat config/free5GC.conf
 cat config/udrcfg.conf
 
 ./udr/udr -udrcfg config/udrcfg.conf

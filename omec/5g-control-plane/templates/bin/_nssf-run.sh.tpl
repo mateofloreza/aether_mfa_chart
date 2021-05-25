@@ -13,7 +13,6 @@ cp /free5gc/nssf/nssf /tmp/coredump/
 cd /free5gc
 cp /tmp/config/* config/
 
-cat config/free5GC.conf
 cat config/nssfcfg.conf
 
 ./nssf/nssf -nssfcfg config/nssfcfg.conf

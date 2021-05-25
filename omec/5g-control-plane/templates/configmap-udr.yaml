@@ -15,6 +15,10 @@
 {{- $_ := dict "name" .Values.config.mongodb.name "url" .Values.config.mongodb.url | set $config "mongodb" -}}
 {{- end }}
 
+{{- if not (hasKey $udrcfg "logger") -}}
+{{- $_ := .Values.config.logger | set $udrcfg "logger" -}}
+{{- end }}
+
 {{- if not (hasKey $sbi "port") -}}
 {{- $_ := .Values.config.udr.sbi.port | set $sbi "port" -}}
 {{- end }}

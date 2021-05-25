@@ -13,6 +13,9 @@
 {{- if not (hasKey $smfcfg.configuration "pfcp") -}}
 {{- $_ := dict "addr" "POD_IP" | set $smfcfg.configuration "pfcp" -}}
 {{- end }}
+{{- if not (hasKey $smfcfg "logger") -}}
+{{- $_ := .Values.config.logger | set $smfcfg "logger" -}}
+{{- end }}
 {{- if not (hasKey $sbi "port") -}}
 {{- $_ := .Values.config.smf.sbi.port | set $sbi "port" -}}
 {{- end }}

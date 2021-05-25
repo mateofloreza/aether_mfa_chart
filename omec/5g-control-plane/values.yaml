@@ -107,78 +107,76 @@ config:
   mongodb:
     name: free5gc
     url: mongodb://mongodb
-  commonCfgFiles:
-    free5GC.conf:
-      logger:
-        # network function
-        AMF:
-          debugLevel: info
-          ReportCaller: false
-        SMF:
-          debugLevel: info
-          ReportCaller: false
-        UDR:
-          debugLevel: info
-          ReportCaller: false
-        UDM:
-          debugLevel: info
-          ReportCaller: false
-        NRF:
-          debugLevel: info
-          ReportCaller: false
-        PCF:
-          debugLevel: info
-          ReportCaller: false
-        AUSF:
-          debugLevel: info
-          ReportCaller: false
-        N3IWF:
-          debugLevel: info
-          ReportCaller: false
-      # library
-        NAS:
-          debugLevel: info
-          ReportCaller: false
-        FSM:
-          debugLevel: info
-          ReportCaller: false
-        NGAP:
-          debugLevel: info
-          ReportCaller: false
-        NamfComm:
-          debugLevel: info
-          ReportCaller: false
-        NamfEventExposure:
-          debugLevel: info
-          ReportCaller: false
-        NsmfPDUSession:
-          debugLevel: info
-          ReportCaller: false
-        NudrDataRepository:
-          debugLevel: info
-          ReportCaller: false
-        OpenApi:
-          debugLevel: info
-          ReportCaller: false
-        Aper:
-          debugLevel: info
-          ReportCaller: false
-        CommonConsumerTest:
-          debugLevel: info
-          ReportCaller: false
-        PFCP:
-          debugLevel: info
-          ReportCaller: false
-        MongoDBLibrary:
-          debugLevel: info
-          ReportCaller: false
-        PathUtil:
-          debugLevel: info
-          ReportCaller: false
-      # webui
-        WEBUI:
-          debugLevel: info
-          ReportCaller: false
+  logger:
+    # network function
+    AMF:
+      debugLevel: info
+      ReportCaller: false
+    SMF:
+      debugLevel: info
+      ReportCaller: false
+    UDR:
+      debugLevel: info
+      ReportCaller: false
+    UDM:
+      debugLevel: info
+      ReportCaller: false
+    NRF:
+      debugLevel: info
+      ReportCaller: false
+    PCF:
+      debugLevel: info
+      ReportCaller: false
+    AUSF:
+      debugLevel: info
+      ReportCaller: false
+    N3IWF:
+      debugLevel: info
+      ReportCaller: false
+  # library
+    NAS:
+      debugLevel: info
+      ReportCaller: false
+    FSM:
+      debugLevel: info
+      ReportCaller: false
+    NGAP:
+      debugLevel: info
+      ReportCaller: false
+    NamfComm:
+      debugLevel: info
+      ReportCaller: false
+    NamfEventExposure:
+      debugLevel: info
+      ReportCaller: false
+    NsmfPDUSession:
+      debugLevel: info
+      ReportCaller: false
+    NudrDataRepository:
+      debugLevel: info
+      ReportCaller: false
+    OpenApi:
+      debugLevel: info
+      ReportCaller: false
+    Aper:
+      debugLevel: info
+      ReportCaller: false
+    CommonConsumerTest:
+      debugLevel: info
+      ReportCaller: false
+    PFCP:
+      debugLevel: info
+      ReportCaller: false
+    MongoDBLibrary:
+      debugLevel: info
+      ReportCaller: false
+    PathUtil:
+      debugLevel: info
+      ReportCaller: false
+  # webui
+    WEBUI:
+      debugLevel: info
+      ReportCaller: false
   webui:
     deploy: true
     podAnnotations:
@@ -393,28 +391,6 @@ config:
         info:
           version: 1.0.0
           description: AMF initial local configuration
-        logger:
-          AMF:
-            debugLevel: info
-            ReportCaller: false
-          NAS:
-            debugLevel: info
-            ReportCaller: false
-          FSM:
-            debugLevel: info
-            ReportCaller: false
-          NGAP:
-            debugLevel: info
-            ReportCaller: false
-          Aper:
-            debugLevel: info
-            ReportCaller: false
-          PathUtil:
-            debugLevel: info
-            ReportCaller: false
-          OpenApi:
-            debugLevel: info
-            ReportCaller: false
         configuration:
           ngapIpList:
             - "0.0.0.0"

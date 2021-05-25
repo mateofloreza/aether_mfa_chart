@@ -10,6 +10,10 @@
 {{- $udmcfg := index .Values.config.udm.cfgFiles "udmcfg.conf" }}
 {{- $sbi := index $udmcfg.configuration "sbi" }}
 
+{{- if not (hasKey $udmcfg "logger") -}}
+{{- $_ := .Values.config.logger | set $udmcfg "logger" -}}
+{{- end }}
+
 {{- if not (hasKey $sbi "port") -}}
 {{- $_ := .Values.config.udm.sbi.port | set $sbi "port" -}}
 {{- end }}

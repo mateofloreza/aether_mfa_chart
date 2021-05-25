@@ -13,7 +13,6 @@ cp /free5gc/ausf/ausf /tmp/coredump/
 cd /free5gc
 cp /tmp/config/* config/
 
-cat config/free5GC.conf
 cat config/ausfcfg.conf
 
 ./ausf/ausf -ausfcfg config/ausfcfg.conf

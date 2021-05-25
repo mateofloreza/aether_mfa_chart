@@ -65,9 +65,6 @@ spec:
           subPath: nrf-run.sh
         - name: config-dir
           mountPath: /free5gc/config
-        - name: common-config
-          mountPath: /tmp/config/free5GC.conf
-          subPath: free5GC.conf
         - name: nf-config
           mountPath: /tmp/config/nrfcfg.conf
           subPath: nrfcfg.conf
@@ -80,10 +77,6 @@ spec:
         configMap:
           name: nrf
           defaultMode: 493
-      - name: common-config
-        configMap:
-          name: common
-          defaultMode: 493 
       - name: nf-config
         configMap:
           name: nrf

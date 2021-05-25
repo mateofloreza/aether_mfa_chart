@@ -69,9 +69,6 @@ spec:
           subPath: ausf-run.sh
         - name: config-dir
           mountPath: /free5gc/config
-        - name: common-config
-          mountPath: /tmp/config/free5GC.conf
-          subPath: free5GC.conf
         - name: nf-config
           mountPath: /tmp/config/ausfcfg.conf
           subPath: ausfcfg.conf
@@ -84,10 +81,6 @@ spec:
         configMap:
           name: ausf
           defaultMode: 493
-      - name: common-config
-        configMap:
-          name: common
-          defaultMode: 493 
       - name: nf-config
         configMap:
           name: ausf

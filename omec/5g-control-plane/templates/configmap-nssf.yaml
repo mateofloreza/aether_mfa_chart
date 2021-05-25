@@ -10,6 +10,10 @@
 {{- $nssfcfg := index .Values.config.nssf.cfgFiles "nssfcfg.conf" }}
 {{- $sbi := index $nssfcfg.configuration "sbi" }}
 
+{{- if not (hasKey $nssfcfg "logger") -}}
+{{- $_ := .Values.config.logger | set $nssfcfg "logger" -}}
+{{- end }}
+
 {{- if not (hasKey $sbi "port") -}}
 {{- $_ := .Values.config.nssf.sbi.port | set $sbi "port" -}}
 {{- end }}

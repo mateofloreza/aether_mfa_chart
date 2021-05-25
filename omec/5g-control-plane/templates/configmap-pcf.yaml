@@ -10,6 +10,10 @@
 {{- $pcfcfg := index .Values.config.pcf.cfgFiles "pcfcfg.conf" }}
 {{- $sbi := index $pcfcfg.configuration "sbi" }}
 
+{{- if not (hasKey $pcfcfg "logger") -}}
+{{- $_ := .Values.config.logger | set $pcfcfg "logger" -}}
+{{- end }}
+
 {{- if not (hasKey $sbi "port") -}}
 {{- $_ := .Values.config.pcf.sbi.port | set $sbi "port" -}}
 {{- end }}

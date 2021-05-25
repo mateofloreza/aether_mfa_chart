@@ -10,6 +10,11 @@
 {{- $ausfcfg := index .Values.config.ausf.cfgFiles "ausfcfg.conf" }}
 {{- $sbi := index $ausfcfg.configuration "sbi" }}
 
+{{- if not (hasKey $ausfcfg "logger") -}}
+{{- $_ := .Values.config.logger | set $ausfcfg "logger" -}}
+{{- end }}
+
+
 {{- if not (hasKey $sbi "port") -}}
 {{- $_ := .Values.config.ausf.sbi.port | set $sbi "port" -}}
 {{- end }}
