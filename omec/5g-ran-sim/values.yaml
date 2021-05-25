@@ -5,8 +5,7 @@
 images:
   tags:
     init: docker.io/omecproject/pod-init:1.0.0
-    #gnbsim:  ajaythakuronf/5gc-gnbsim:0.1.0-dev
-    gnbsim: ajaythakuronf/5gc-gnbsim:0.2.0-dev-201
+    gnbsim:  ajaythakuronf/5gc-gnbsim:0.0.9-dev
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
   pullPolicy: IfNotPresent
   credentials: {}

@@ -166,6 +166,15 @@ config:
         CommonConsumerTest:
           debugLevel: info
           ReportCaller: false
+        PFCP:
+          debugLevel: info
+          ReportCaller: false
+        MongoDBLibrary:
+          debugLevel: info
+          ReportCaller: false
+        PathUtil:
+          debugLevel: info
+          ReportCaller: false
       # webui
         WEBUI:
           debugLevel: info
@@ -573,12 +582,12 @@ config:
                 sNssaiUpfInfos: # S-NSSAI information list for this UPF
                   - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
                       sst: 1 # Slice/Service Type (uinteger, range: 0~255)
-                      sd: 010203 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+                      sd: "010203" # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
                     dnnUpfInfoList: # DNN information list for this S-NSSAI
                       - dnn: internet
                   - sNssai: # S-NSSAI (Single Network Slice Selection Assistance Information)
                       sst: 1 # Slice/Service Type (uinteger, range: 0~255)
-                      sd: 112233 # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
+                      sd: "112233" # Slice Differentiator (3 bytes hex string, range: 000000~FFFFFF)
                     dnnUpfInfoList: # DNN information list for this S-NSSAI
                       - dnn: internet
                 interfaces: # Interface list for this UPF
