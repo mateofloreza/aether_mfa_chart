@@ -125,6 +125,8 @@ spec:
           - name: CONF_FILE
             value: /etc/bess/conf/upf.json
         volumeMounts:
+          - name: shared-app
+            mountPath: /pod-share
         {{- if .Values.config.upf.hugepage.enabled }}
           - name: hugepages
             mountPath: /dev/hugepages
@@ -170,6 +172,8 @@ spec:
 {{ toYaml .Values.resources.cpiface | indent 10 }}
       {{- end }}
         volumeMounts:
+          - name: shared-app
+            mountPath: /pod-share
           - name: configs
             mountPath: /tmp/conf
       volumes:
@@ -177,6 +181,8 @@ spec:
         configMap:
           name: upf
           defaultMode: 493
+      - name: shared-app
+        emptyDir: {}
     {{- if .Values.config.upf.hugepage.enabled }}
       - name: hugepages
         emptyDir:
