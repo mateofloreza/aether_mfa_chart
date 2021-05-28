@@ -87,6 +87,10 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
+      {{- if .Values.config.spgwc.managedByRoc }}
+        - name: DISABLE_CONFIG_WATCHER  # If the variable has a value then changes
+          value: "true"                 # to subscriber_mapping.json are ignored
+      {{- end }}
       {{- if .Values.resources.enabled }}
         resources:
 {{ toYaml .Values.resources.spgwc | indent 10 }}
