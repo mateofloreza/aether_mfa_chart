@@ -5,13 +5,11 @@
 images:
   tags:
     init: docker.io/omecproject/pod-init:1.0.0
-    pfcpiface: docker.io/omecproject/upf-epc-pfcpiface:up4
+    pfcpiface: registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-e3f53d5
   pullPolicy: Always
-  credentials: {}
-  # If specified, use this credential to access the image
-  #   registry:
-  #   username:
-  #   password:
+  # Secrets must be manually created in the namespace.
+  pullSecrets:
+    - name: aether.registry
 
 nodeSelectors:
   enabled: false

@@ -7,4 +7,4 @@ description: OMEC pfcp agent based on BESS
 name: omec-upf-pfcp-agent
 icon: https://guide.opencord.org/logos/cord.svg
 
-version: 0.1.4
+version: 0.1.5
