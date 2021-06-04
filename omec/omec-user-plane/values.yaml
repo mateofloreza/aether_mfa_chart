@@ -5,14 +5,12 @@
 images:
   tags:
     init: docker.io/omecproject/pod-init:1.0.0
-    bess: docker.io/omecproject/upf-epc-bess:master-latest
-    pfcpiface: docker.io/omecproject/upf-epc-pfcpiface:master-latest
-    zmqiface: docker.io/omecproject/upf-epc-cpiface:master-latest
+    bess: registry.aetherproject.org/proxy/omecproject/upf-epc-bess:master-e3f53d5
+    pfcpiface: registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-e3f53d5
   pullPolicy: IfNotPresent
-  # Optionally specify an array of imagePullSecrets.
   # Secrets must be manually created in the namespace.
-  #pullSecrets:
-  #  - name: aether.registry
+  pullSecrets:
+    - name: aether.registry
 
 nodeSelectors:
   enabled: false
@@ -90,9 +88,6 @@ config:
     bess:
       web:
         nodePort: 32001
-    cpiface:
-      # pfcp or zmq
-      mode: pfcp
 
 servicemonitor:
   enabled: false

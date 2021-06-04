@@ -157,24 +157,12 @@ spec:
 {{ toYaml .Values.resources.web | indent 10 }}
       {{- end }}
       - name: cpiface
-      {{- if eq .Values.config.upf.cpiface.mode "zmq" }}
-        image: {{ .Values.images.tags.zmqiface | quote }}
-        imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
-        env:
-          - name: GLOG_v
-            value: "1"
-        command: ["zmq-cpiface"]
-        args:
-          - --json_config
-          - /tmp/conf/upf.json
-      {{- else }}
         image: {{ .Values.images.tags.pfcpiface | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
         command: ["pfcpiface"]
         args:
           - -config
           - /tmp/conf/upf.json
-      {{- end }}
       {{- if .Values.resources.enabled }}
         resources:
 {{ toYaml .Values.resources.cpiface | indent 10 }}
