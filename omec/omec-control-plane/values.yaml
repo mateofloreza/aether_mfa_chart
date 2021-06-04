@@ -7,18 +7,17 @@
 images:
   tags:
     init: docker.io/omecproject/pod-init:1.0.0
-    hssdb: docker.io/omecproject/c3po-hssdb:master-latest
-    hss: docker.io/omecproject/c3po-hss:master-latest
-    mme: docker.io/omecproject/nucleus:master-latest
-    spgwc: docker.io/omecproject/spgw:master-latest
-    pcrf: omecproject/c3po-pcrf:pcrf-latest
-    pcrfdb: omecproject/c3po-pcrfdb:pcrf-latest
+    hssdb: "registry.aetherproject.org/proxy/omecproject/c3po-hssdb:master-deaea91"
+    hss: "registry.aetherproject.org/proxy/omecproject/c3po-hss:master-deaea91"
+    mme: "registry.aetherproject.org/proxy/omecproject/nucleus:master-9f86f87"
+    spgwc: "registry.aetherproject.org/omecproject/spgw:master-b9ce120"
+    pcrf: "registry.aetherproject.org/proxy/omecproject/c3po-pcrf:pcrf-7824e6e"
+    pcrfdb: "registry.aetherproject.org/proxy/omecproject/c3po-pcrfdb:pcrf-7824e6e"
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
   pullPolicy: IfNotPresent
-  # Optionally specify an array of imagePullSecrets.
   # Secrets must be manually created in the namespace.
-  #pullSecrets:
-  #  - name: aether.registry
+  pullSecrets:
+    - name: aether.registry
 
 nodeSelectors:
   enabled: false
@@ -372,7 +371,7 @@ config:
           name: vmmestandalone
           group_id: 1
           code: 1
-          logging: error
+          logging: debug
           mcc:
             dig1: 2
             dig2: 0
@@ -382,7 +381,7 @@ config:
             dig2: 1
             dig3: -1
           plmnlist:
-            #plmn1 - aether common plmn, plmn2 is for comac-in-box
+            #plmn1 is aether common plmn, plmn2 is for aether-in-a-box
             plmn1: "mcc=315,mnc=010"
             plmn2: "mcc=208,mnc=01"
           apnlist:
@@ -432,7 +431,7 @@ config:
       nodePort:
         enabled: false
         port: 30080
-    jsonCfgFiles:
+    cfgFiles:
       cp.json:
         global:
           transmitTimerSec: 2

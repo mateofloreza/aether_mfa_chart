@@ -6,9 +6,9 @@
 
 {{- if .Values.config.spgwc.deploy }}
 {{- if not .Values.config.useExistingConfigMap }}
-{{- $cpJson := index .Values.config.spgwc.jsonCfgFiles "cp.json" }}
+{{- $cpJson := index .Values.config.spgwc.cfgFiles "cp.json" }}
 {{- $global := index $cpJson "global" }}
-{{- $configJson := index .Values.config.spgwc.jsonCfgFiles "config.json" }}
+{{- $configJson := index .Values.config.spgwc.cfgFiles "config.json" }}
 {{- $configJsonSpgwc := index $configJson "spgwc" }}
 {{- $configJsonGx := index $configJson "gx" }}
 
@@ -92,7 +92,7 @@ data:
     LoadExtension = "/usr/local/lib/freeDiameter/dict_ts32299_avps.fdx";
     LoadExtension = "/usr/local/lib/freeDiameter/dict_CreditControl.fdx";
     LoadExtension = "/usr/local/lib/freeDiameter/dict_Gx.fdx";
-{{- range $key, $value := .Values.config.spgwc.jsonCfgFiles }}
+{{- range $key, $value := .Values.config.spgwc.cfgFiles }}
   {{ $key }}: |-
 {{ toPrettyJson $value | indent 4 }}
 {{- end }}
