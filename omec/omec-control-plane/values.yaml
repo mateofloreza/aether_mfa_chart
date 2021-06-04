@@ -407,7 +407,9 @@ config:
           #realm:
   spgwc:
     deploy: true
-    managedByRoc: false
+    managedByRoc:
+      enabled: false
+      syncUrl: ""
     podAnnotations:
       fluentbit.io/parser: spgwc
       field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'

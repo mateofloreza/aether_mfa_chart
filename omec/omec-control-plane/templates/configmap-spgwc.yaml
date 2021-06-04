@@ -107,4 +107,6 @@ metadata:
 data:
   spgwc-run.sh: |
 {{ tuple "bin/_spgwc-run.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
+  spgwc-init.sh: |
+{{ tuple "bin/_spgwc-init.sh.tpl" . | include "omec-control-plane.template" | indent 4 }}
 {{- end }}

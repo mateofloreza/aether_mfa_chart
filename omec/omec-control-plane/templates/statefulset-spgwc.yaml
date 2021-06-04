@@ -87,7 +87,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-      {{- if .Values.config.spgwc.managedByRoc }}
+      {{- if .Values.config.spgwc.managedByRoc.enabled }}
         - name: DISABLE_CONFIG_WATCHER  # If the variable has a value then changes
           value: "true"                 # to subscriber_mapping.json are ignored
       {{- end }}
@@ -134,6 +134,24 @@ spec:
         - name: coredump
           mountPath: /tmp/coredump
       {{- end }}
+    {{- if .Values.config.spgwc.managedByRoc.enabled }}
+      - name: init-sync
+        image: curlimages/curl:7.77.0
+        imagePullPolicy: IfNotPresent
+        stdin: true
+        tty: true
+        command: ["sh", "-c"]
+        args:
+        - /opt/cp/scripts/spgwc-init.sh
+        volumeMounts:
+        - name: scripts
+          mountPath: /opt/cp/scripts
+      volumes:
+      - name: scripts
+        configMap:
+          name: spgwc-scripts
+          defaultMode: 493
+    {{- end }}
       volumes:
       - name: scripts
         configMap:
