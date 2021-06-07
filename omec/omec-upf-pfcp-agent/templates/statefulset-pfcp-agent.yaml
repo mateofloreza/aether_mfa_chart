@@ -49,8 +49,6 @@ spec:
         args:
           - -config
           - /tmp/conf/upf.json
-          - -n4SrcIPStr
-          - $(POD_IP)
       {{- if .Values.resources.enabled }}
         resources:
 {{ toYaml .Values.resources.pfcpiface | indent 10 }}
