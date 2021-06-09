@@ -530,7 +530,7 @@ config:
           description: SMF initial local configuration
         configuration:
           pfcp:
-             addr: "0.0.0.0"
+             addr: "POD_IP"
           smfName: SMF
           nrfUri: http://nrf:29510
           sbi:
