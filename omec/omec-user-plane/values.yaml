@@ -85,9 +85,9 @@ config:
         core:
           ifname: core
         measure: true
-    bess:
-      web:
-        nodePort: 32001
+
+service:
+  type: ClusterIP
 
 servicemonitor:
   enabled: false
