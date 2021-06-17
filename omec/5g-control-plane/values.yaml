@@ -107,6 +107,11 @@ config:
   mongodb:
     name: free5gc
     url: mongodb://mongodb
+  grpc:
+    golog_verbosity: "99"
+    severity: "info"
+    trace: "all"
+    verbosity: "debug"
   logger:
     # network function
     AMF:
@@ -191,6 +196,8 @@ config:
       nodePort:
         enabled: false
         port: 35000
+    grpc:
+      port: 9876
     ingress:
       enabled: false
       hostname: free5gc.local
@@ -541,7 +548,7 @@ config:
                 dns: # the IP address of DNS
                    ipv4: 8.8.8.8
                    ipv6: 2001:4860:4860::8888
-                ueSubnet: 10.250.0.0/16 # should be CIDR type
+                ueSubnet: 172.250.0.0/16 # should be CIDR type
               sNssai:
                 sd: "010203"
                 sst: 1

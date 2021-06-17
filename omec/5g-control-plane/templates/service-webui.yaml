@@ -23,6 +23,9 @@ spec:
   - name: urlport-http
     port: {{ .Values.config.webui.urlport.port }}
     protocol: TCP
+  - name: grpc
+    port: {{ .Values.config.webui.grpc.port }}
+    protocol: TCP
 {{- if or .Values.config.webui.urlport.nodePort.enabled .Values.config.webui.prometheus.nodePort.enabled }}
 ---
 apiVersion: v1
