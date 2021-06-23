@@ -3,9 +3,8 @@
 
 
 elasticsearch:
-  host: opendistro-es-client-service.logging
+  host: opendistro-es-client-service.logging-system
   port: 9200
-
 
 configuration:
   base_dir: /tmp/opendistro

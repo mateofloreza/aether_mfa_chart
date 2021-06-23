@@ -1,18 +1,20 @@
 # Copyright 2020-present Open Networking Foundation
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: "{{ .Release.Name }}"
 spec:
-  backoffLimit: 4
-  activeDeadlineSeconds: 100
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opendistro-config
   template:
     metadata:
-      name: "{{ .Release.Name }}"
+      labels:
+        app: opendistro-config
     spec:
-      restartPolicy: OnFailure
       containers:
         - name: config
           image: opennetworking/utils:jq-kubectl-curl

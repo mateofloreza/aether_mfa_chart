@@ -19,6 +19,11 @@ data:
     setting_dir=${SETTING_DIR}
     temp_dir=${OUTPUT_DIR:-/opendistro_temp}
 
+    cleanup() {
+      echo "Cleaning up..."
+      exit
+    }
+
     #return destination id if exist
     check_destination() { name=$1
         curl -s -H "content-type: application/json" "$host/_opendistro/_alerting/destinations" | jq -r ".destinations[] | select(.name == \"$name\").id"
@@ -150,4 +155,5 @@ data:
       handle_monitor
     fi
 
-    exit 0
+    trap cleanup INT TERM
+    sleep infinity
