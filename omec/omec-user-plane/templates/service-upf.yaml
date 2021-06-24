@@ -11,6 +11,10 @@ metadata:
   name: upf
   labels:
 {{ tuple "upf" . | include "omec-user-plane.metadata_labels" | indent 4 }}
+{{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+{{- end }}
 spec:
   type: {{ .Values.service.type }}
   selector:
@@ -26,6 +30,10 @@ metadata:
   name: upf-http
   labels:
 {{ tuple "upf" . | include "omec-user-plane.metadata_labels" | indent 4 }}
+{{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+{{- end }}
 spec:
   type: {{ .Values.service.type }}
   selector:
