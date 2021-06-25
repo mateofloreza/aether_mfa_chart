@@ -100,6 +100,9 @@ mongodb:
   #replicaCount: 3
 
 config:
+  managedByConfigPod:      # config comes from helm by default, if enabled true, then discard
+    enabled: false         # helm chart config and use the config from config Pod 
+    syncUrl: ""            # Get the config from adapater in case control plane is down
   useExistingConfigMap: false
   coreDump:
     enabled: false
@@ -433,8 +436,8 @@ config:
             cipheringOrder:
               - NEA0
           networkName:
-            full: free5GC
-            short: free
+            full: Aether5G
+            short: Aether
           networkFeatureSupport5GS: # 5gs Network Feature Support IE, refer to TS 24.501
             enable: true # append this IE in Registration accept or not
             imsVoPS: 0 # IMS voice over PS session indicator (uinteger, range: 0~1)
