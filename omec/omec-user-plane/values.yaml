@@ -5,8 +5,8 @@
 images:
   tags:
     init: docker.io/omecproject/pod-init:1.0.0
-    bess: registry.aetherproject.org/proxy/omecproject/upf-epc-bess:master-e3f53d5
-    pfcpiface: registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-e3f53d5
+    bess: registry.aetherproject.org/proxy/omecproject/upf-epc-bess:master-471b06a
+    pfcpiface: registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-471b06a
   pullPolicy: IfNotPresent
   # Secrets must be manually created in the namespace.
   pullSecrets:
