@@ -108,6 +108,7 @@ data:
         for k in $(jq ' keys | .[]' "$config_file"); do
             file=$dir/$(jq -r ".[$k].file" "$config_file");
             dest_name=$(jq -r ".[$k].destination" "$config_file");
+            format=$(jq -r ".[$k].format" "$config_file");
 
             dest_id=$(check_destination "$dest_name")
             if [ -z "$dest_id" ]; then
@@ -116,11 +117,15 @@ data:
             fi
 
             name=$(jq -r '.name' "$file")
+
+            ## Replace the slack output format
+            FILENAME=$(mktemp)
+            jq --arg slack "${format}" '.triggers[0].actions[0].message_template.source=$slack' "$file" > "$FILENAME"
             monitor_id=$(check_monitor "$name")
             if [ "$monitor_id" = "null" ]; then
-                create_monitor "$file" "$dest_id"
+                create_monitor "$FILENAME" "$dest_id"
             else
-                update_monitor "$file" "$dest_id" "$monitor_id"
+                update_monitor "$FILENAME" "$dest_id" "$monitor_id"
             fi
         done
 
