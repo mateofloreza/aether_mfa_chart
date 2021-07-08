@@ -304,9 +304,6 @@ config:
           version: 1.0.0
           description: PCF initial local configuration
         configuration:
-          mongodb:       # the mongodb connected by this PCF
-            name: free5gc                  # name of the mongodb
-            url: mongodb://mongodb-arbiter-headless:27017 # a valid URL of the mongodb
           pcfName: PCF
           nrfUri: http://nrf:29510
           sbi:

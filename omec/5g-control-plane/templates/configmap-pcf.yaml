@@ -9,6 +9,7 @@
 {{- if not .Values.config.useExistingConfigMap -}}
 {{- $pcfcfg := index .Values.config.pcf.cfgFiles "pcfcfg.conf" }}
 {{- $sbi := index $pcfcfg.configuration "sbi" }}
+{{- $config := index $pcfcfg "configuration" }}
 
 {{- if not (hasKey $pcfcfg "logger") -}}
 {{- $_ := .Values.config.logger | set $pcfcfg "logger" -}}
@@ -16,6 +17,10 @@
 
 {{- if not (hasKey $sbi "port") -}}
 {{- $_ := .Values.config.pcf.sbi.port | set $sbi "port" -}}
+{{- end }}
+
+{{- if not (hasKey $config "mongodb") -}}
+{{- $_ := dict "name" .Values.config.mongodb.name "url" .Values.config.mongodb.url | set $config "mongodb" -}}
 {{- end }}
 {{- end }}
 
