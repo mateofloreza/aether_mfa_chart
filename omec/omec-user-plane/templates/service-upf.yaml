@@ -17,6 +17,10 @@ metadata:
 {{- end }}
 spec:
   type: {{ .Values.service.type }}
+{{- if .Values.service.externalIp }}
+  externalIPs:
+    - {{ .Values.service.externalIp }}
+{{- end }}
   selector:
 {{ tuple "upf" . | include "omec-user-plane.metadata_labels" | indent 4 }}
   ports:
@@ -36,6 +40,10 @@ metadata:
 {{- end }}
 spec:
   type: {{ .Values.service.type }}
+{{- if .Values.service.externalIp }}
+  externalIPs:
+    - {{ .Values.service.externalIp }}
+{{- end }}
   selector:
 {{ tuple "upf" . | include "omec-user-plane.metadata_labels" | indent 4 }}
   ports:

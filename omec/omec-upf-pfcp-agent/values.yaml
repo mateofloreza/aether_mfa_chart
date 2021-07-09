@@ -31,9 +31,6 @@ config:
   coreDump:
     enabled: false
     path: /tmp/coredump
-  nodePort:
-    enabled: false
-    port: 30805
   pfcp:
     cfgFiles:
       upf.json:
@@ -43,3 +40,7 @@ config:
           access_ip: "172.17.0.1/32"
           p4rtc_server: "onos-tost-onos-classic-hs.tost"
           p4rtc_port: "51001"
+service:
+  type: ClusterIP
+  #externalIp:
+  #annotations:
