@@ -35,6 +35,11 @@ config:
       nodePort:
         enabled: false
         port: 30080
+    config:
+      port: 8080
+      nodePort:
+        enabled: false
+        port: 30081
     cfgFiles:
       simapp.yaml:
         info:
