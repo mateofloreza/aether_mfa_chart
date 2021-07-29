@@ -52,6 +52,8 @@ spec:
           value: {{ .Values.config.grpc.trace | quote }}
         - name: GRPC_VERBOSITY
           value: {{ .Values.config.grpc.verbosity | quote }}
+        - name: CONFIGPOD_DEPLOYMENT
+          value: "5G"
         imagePullPolicy: {{ .Values.images.pullPolicy }}
       {{- if .Values.config.coreDump.enabled }}
         securityContext:
