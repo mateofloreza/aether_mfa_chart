@@ -53,6 +53,12 @@ config:
         configuration:
           provision-network-slice: false
           subscribers:
+          - ueId-start: 208014567891201 #4G User for aiab setup
+            ueId-end: 208014567891201
+            plmnId: 20893
+            opc: d4416644f6154936193433dd20a0ace0
+            key: 465b5ce8b199b49faa5f0a2ee238a6bc
+            sequenceNumber: 96
           - ueId-start: 123456789123458
             ueId-end: 123456789123458
             plmnId: 20893
@@ -71,8 +77,8 @@ config:
           device-groups:
           - name:  "iot-camera"
             imsis:
-              - "123456789123456"
-              - "123456789123457"
+              - "123456789123458"
+              - "208014567891201"
             ip-domain-name: "pool1"
             ip-domain-expanded:
               dnn: internet
@@ -111,5 +117,5 @@ config:
                 mnc: "010"
               site-name: "menlo"
               upf:
-                upf-name: "upf.menlo.aetherproject.org"
+                upf-name: "upf"
                 upf-port: 8805
