@@ -20,6 +20,9 @@ spec:
     "vlan": {{ .Values.config.upf.access.vlan }},
   {{- end }}
     "type": {{ .Values.config.upf.cniPlugin | quote }},
+  {{- if eq .Values.config.upf.cniPlugin "macvlan" }}
+    "master": {{ .Values.config.upf.access.iface | quote }},
+  {{- end }}
     "ipam": {
         "type": {{ .Values.config.upf.ipam | quote }}
     },
@@ -41,6 +44,9 @@ spec:
     "vlan": {{ .Values.config.upf.core.vlan }},
   {{- end }}
     "type": {{ .Values.config.upf.cniPlugin | quote }},
+  {{- if eq .Values.config.upf.cniPlugin "macvlan" }}
+    "master": {{ .Values.config.upf.core.iface | quote }},
+  {{- end }}
     "ipam": {
         "type": {{ .Values.config.upf.ipam | quote }}
     },
