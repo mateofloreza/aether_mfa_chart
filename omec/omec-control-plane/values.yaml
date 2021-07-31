@@ -14,6 +14,7 @@ images:
     pcrf: "registry.aetherproject.org/proxy/omecproject/c3po-pcrf:pcrf-7824e6e"
     pcrfdb: "registry.aetherproject.org/proxy/omecproject/c3po-pcrfdb:pcrf-7824e6e"
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
+    config4g: "registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-latest"
   pullPolicy: IfNotPresent
   # Secrets must be manually created in the namespace.
   pullSecrets:
@@ -31,6 +32,9 @@ nodeSelectors:
     label: omec-cp
     value: enabled
   spgwc:
+    label: omec-cp
+    value: enabled
+  config4g:
     label: omec-cp
     value: enabled
 
@@ -66,6 +70,13 @@ resources:
     limits:
       cpu: 2
       memory: 5Gi
+  config4g:
+    requests:
+      cpu: 1
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 1Gi
 
 cassandra:
   deploy: true
@@ -97,6 +108,51 @@ config:
     enabled: true
     path: /tmp/coredump
   useExistingConfigMap: false
+  logger:
+    WEBUI:
+      debugLevel: info
+      ReportCaller: false
+  config4g:
+    deploy: false
+    podAnnotations:
+      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
+    prometheus:
+      port: 9089
+      nodePort:
+        enabled: false
+        port: 30084
+    urlport:
+      port: 5000
+      nodePort:
+        enabled: false
+        port: 35000
+    ingress:
+      enabled: false
+      hostname: free5gc.local
+      path: /
+      pathType: Prefix
+    cfgFiles:
+      webuicfg.conf:
+        info:
+          version: 1.0.0
+          description: WebUI initial local configuration
+        configuration:
+          endpoints:
+            - type: spgw
+              configPushUrl: "http://spgwc:8080/v1/config"
+              configCheckUrl: "http://spgwc:8080/v1/config-check"
+            #- type: mmeapp
+            #  configPushUrl: "http://mme-app-config:8080/v1/config/slice"
+            #  configCheckUrl: "http://mme-app-config:8080/v1/config-check"
+            #- type: mmes1ap
+            #  configPushUrl: "http://mme-s1ap-config:8080/v1/config/slice"
+            #  configCheckUrl: "http://mme-s1ap-config:8080/v1/config-check"
+            - type: hss
+              configPushUrl: "http://hss:8080/v2/config/imsis"
+              configCheckUrl: "http://hss:8080/v2/config-check"
+            #- type: pcrf
+            #  configPushUrl: "http://pcrf:8080/v1/config/policies"
+            #  configCheckUrl: "http://pcrf:8080/v1/config-check"
   pcrf:
     deploy: true
     podAnnotations:

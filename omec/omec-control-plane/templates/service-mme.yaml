@@ -32,6 +32,12 @@ spec:
     - name: prometheus-exporter
       port: {{ .Values.config.mme.prometheus.port }}
       protocol: TCP
+    - name: mme-app-config
+      port: 8080
+      protocol: TCP
+    - name: mme-s1ap-config
+      port: 8081
+      protocol: TCP
 ---
 apiVersion: v1
 kind: Service
