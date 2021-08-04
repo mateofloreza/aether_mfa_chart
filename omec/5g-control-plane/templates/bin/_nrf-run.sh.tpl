@@ -14,4 +14,4 @@ cd /free5gc
 
 cat config/nrfcfg.conf
 
-./nrf/nrf -nrfcfg config/nrfcfg.conf
+GOTRACEBACK=crash ./nrf/nrf -nrfcfg config/nrfcfg.conf

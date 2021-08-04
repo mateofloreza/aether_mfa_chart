@@ -15,4 +15,4 @@ cd /free5gc
 cat config/smfcfg.conf
 cat uerouting/uerouting.conf
 
-./smf/smf -smfcfg config/smfcfg.conf -uerouting uerouting/uerouting.conf
+GOTRACEBACK=crash ./smf/smf -smfcfg config/smfcfg.conf -uerouting uerouting/uerouting.conf

@@ -13,4 +13,4 @@ cp /free5gc/ausf/ausf /tmp/coredump/
 cd /free5gc
 cat config/ausfcfg.conf
 
-./ausf/ausf -ausfcfg config/ausfcfg.conf
+GOTRACEBACK=crash ./ausf/ausf -ausfcfg config/ausfcfg.conf

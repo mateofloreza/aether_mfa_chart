@@ -14,4 +14,4 @@ cd /free5gc
 
 cat config/pcfcfg.conf
 
-./pcf/pcf -pcfcfg config/pcfcfg.conf
+GOTRACEBACK=crash ./pcf/pcf -pcfcfg config/pcfcfg.conf

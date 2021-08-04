@@ -13,4 +13,4 @@ cp /free5gc/amf/amf /tmp/coredump/
 cd /free5gc
 cat config/amfcfg.conf
 
-./amf/amf -amfcfg config/amfcfg.conf
+GOTRACEBACK=crash ./amf/amf -amfcfg config/amfcfg.conf

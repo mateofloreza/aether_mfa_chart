@@ -14,4 +14,4 @@ cd /free5gc
 
 cat config/udmcfg.conf
 
-./udm/udm -udmcfg config/udmcfg.conf
+GOTRACEBACK=crash ./udm/udm -udmcfg config/udmcfg.conf

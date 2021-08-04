@@ -14,4 +14,4 @@ cd /free5gc
 
 cat config/nssfcfg.conf
 
-./nssf/nssf -nssfcfg config/nssfcfg.conf
+GOTRACEBACK=crash ./nssf/nssf -nssfcfg config/nssfcfg.conf

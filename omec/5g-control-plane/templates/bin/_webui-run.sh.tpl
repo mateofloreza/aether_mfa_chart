@@ -14,4 +14,4 @@ cd /free5gc
 
 cat config/webuicfg.conf
 
-./webconsole/webconsole -webuicfg config/webuicfg.conf
+GOTRACEBACK=crash ./webconsole/webconsole -webuicfg config/webuicfg.conf

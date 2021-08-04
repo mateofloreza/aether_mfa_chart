@@ -14,4 +14,4 @@ cd /free5gc
 
 cat config/udrcfg.conf
 
-./udr/udr -udrcfg config/udrcfg.conf
+GOTRACEBACK=crash ./udr/udr -udrcfg config/udrcfg.conf
