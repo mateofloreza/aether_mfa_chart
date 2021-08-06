@@ -49,12 +49,12 @@ omec-sub-provision:
   images:
     tags:
       #5G NF images
-      webui: registry.aetherproject.org/proxy/omecproject/5gc-webui:onf-release3.0.5-bf7e6f6
-      amf: registry.aetherproject.org/proxy/omecproject/5gc-amf:onf-release3.0.5-c43b11d
-      smf: registry.aetherproject.org/proxy/omecproject/5gc-smf:onf-release3.0.5-b62c8e5
-      pcf: registry.aetherproject.org/proxy/omecproject/5gc-pcf:onf-release3.0.5-417ce9f
-      ausf: registry.aetherproject.org/proxy/omecproject/5gc-ausf:onf-release3.0.5-acbcb29
-      nrf: registry.aetherproject.org/proxy/omecproject/5gc-nrf:onf-release3.0.5-c40a6c5
-      nssf: registry.aetherproject.org/proxy/omecproject/5gc-nssf:onf-release3.0.5-ad7235e
-      udr: registry.aetherproject.org/proxy/omecproject/5gc-udr:onf-release3.0.5-e295a76
-      udm: registry.aetherproject.org/proxy/omecproject/5gc-udm:onf-release3.0.5-ea3ef93
+      webui: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-bf7e6f6
+      amf: registry.aetherproject.org/omecproject/5gc-amf:onf-release3.0.5-c43b11d
+      smf: registry.aetherproject.org/omecproject/5gc-smf:onf-release3.0.5-b62c8e5
+      pcf: registry.aetherproject.org/omecproject/5gc-pcf:onf-release3.0.5-417ce9f
+      ausf: registry.aetherproject.org/omecproject/5gc-ausf:onf-release3.0.5-acbcb29
+      nrf: registry.aetherproject.org/omecproject/5gc-nrf:onf-release3.0.5-c40a6c5
+      nssf: registry.aetherproject.org/omecproject/5gc-nssf:onf-release3.0.5-ad7235e
+      udr: registry.aetherproject.org/omecproject/5gc-udr:onf-release3.0.5-e295a76
+      udm: registry.aetherproject.org/omecproject/5gc-udm:onf-release3.0.5-ea3ef93
