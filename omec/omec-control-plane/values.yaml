@@ -150,9 +150,9 @@ config:
             - type: hss
               configPushUrl: "http://hss:8080/v2/config/imsis"
               configCheckUrl: "http://hss:8080/v2/config-check"
-            #- type: pcrf
-            #  configPushUrl: "http://pcrf:8080/v1/config/policies"
-            #  configCheckUrl: "http://pcrf:8080/v1/config-check"
+            - type: pcrf
+              configPushUrl: "http://pcrf:8080/v1/config/policies"
+              configCheckUrl: "http://pcrf:8080/v1/config-check"
   pcrf:
     deploy: true
     podAnnotations:
