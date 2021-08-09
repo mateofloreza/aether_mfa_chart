@@ -26,6 +26,7 @@ omec-control-plane:
       deploy: true
 
 omec-user-plane:
+  enable: true
   images:
     tags:
       #4G/5G user plane images
@@ -40,6 +41,7 @@ omec-user-plane:
             hostname: "upf"
 
 omec-sub-provision:
+  enable: true
   images:
     tags:
       simapp: registry.aetherproject.org/omecproject/simapp:main-aa6dae9
