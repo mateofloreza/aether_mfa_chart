@@ -11,7 +11,7 @@ metadata:
   name: access-net
 {{- if $.Values.config.upf.sriov.enabled }}
   annotations:
-    k8s.v1.cni.cncf.io/resourceName: intel.com/intel_sriov_vfio
+    k8s.v1.cni.cncf.io/resourceName: {{ .Values.config.upf.sriov.resourceName }}
 {{- end }}
 spec:
   config: '{
@@ -35,7 +35,7 @@ metadata:
   name: core-net
 {{- if $.Values.config.upf.sriov.enabled }}
   annotations:
-    k8s.v1.cni.cncf.io/resourceName: intel.com/intel_sriov_vfio
+    k8s.v1.cni.cncf.io/resourceName: {{ .Values.config.upf.sriov.resourceName }}
 {{- end }}
 spec:
   config: '{

@@ -60,6 +60,7 @@ config:
       enabled: true
     sriov:
       enabled: true
+      resourceName: "intel.com/intel_sriov_vfio"
     # Dynamic IP allocation is not supported yet
     ipam: static
     cniPlugin: vfioveth
