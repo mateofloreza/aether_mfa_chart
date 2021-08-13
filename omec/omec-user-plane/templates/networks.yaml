@@ -23,6 +23,9 @@ spec:
   {{- if eq .Values.config.upf.cniPlugin "macvlan" }}
     "master": {{ .Values.config.upf.access.iface | quote }},
   {{- end }}
+  {{- if eq .Values.config.upf.cniPlugin "host-device" }}
+    "device": {{ .Values.config.upf.access.iface | quote }},
+  {{- end }}
     "ipam": {
         "type": {{ .Values.config.upf.ipam | quote }}
     },
@@ -46,6 +49,9 @@ spec:
     "type": {{ .Values.config.upf.cniPlugin | quote }},
   {{- if eq .Values.config.upf.cniPlugin "macvlan" }}
     "master": {{ .Values.config.upf.core.iface | quote }},
+  {{- end }}
+  {{- if eq .Values.config.upf.cniPlugin "host-device" }}
+    "device": {{ .Values.config.upf.core.iface | quote }},
   {{- end }}
     "ipam": {
         "type": {{ .Values.config.upf.ipam | quote }}
