@@ -107,6 +107,8 @@ config:
   coreDump:
     enabled: true
     path: /tmp/coredump
+  managedByConfigPod:      # config comes from helm by default, if enabled true, then discard
+    enabled: false         # helm chart config and use the config from config Pod
   useExistingConfigMap: false
   logger:
     WEBUI:
@@ -144,9 +146,9 @@ config:
             #- type: mmeapp
             #  configPushUrl: "http://mme-app-config:8080/v1/config/slice"
             #  configCheckUrl: "http://mme-app-config:8080/v1/config-check"
-            #- type: mmes1ap
-            #  configPushUrl: "http://mme-s1ap-config:8080/v1/config/slice"
-            #  configCheckUrl: "http://mme-s1ap-config:8080/v1/config-check"
+            - type: mme-s1ap
+              configPushUrl: "http://mme:8081/v1/config/slice"
+              configCheckUrl: "http://mme:8081/v1/config-check"
             - type: hss
               configPushUrl: "http://hss:8080/v2/config/imsis"
               configCheckUrl: "http://hss:8080/v2/config-check"
@@ -428,14 +430,6 @@ config:
           group_id: 1
           code: 1
           logging: debug
-          mcc:
-            dig1: 2
-            dig2: 0
-            dig3: 8
-          mnc:
-            dig1: 0
-            dig2: 1
-            dig3: -1
           plmnlist:
             #plmn1 is aether common plmn, plmn2 is for aether-in-a-box
             plmn1: "mcc=315,mnc=010"

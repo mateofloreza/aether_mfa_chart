@@ -127,6 +127,10 @@ spec:
               fieldPath: status.podIP
         - name: MMERUNENV
           value: "container"
+      {{- if .Values.config.managedByConfigPod.enabled }}
+        - name: MANAGED_BY_CONFIG_POD
+          value: "true"
+      {{- end }}
         volumeMounts:
         - name: scripts
           mountPath: /opt/mme/scripts
@@ -158,6 +162,10 @@ spec:
         env:
         - name: MMERUNENV
           value: "container"
+      {{- if .Values.config.managedByConfigPod.enabled }}
+        - name: MANAGED_BY_CONFIG_POD
+          value: "true"
+      {{- end }}
         volumeMounts:
         - name: scripts
           mountPath: /opt/mme/scripts
@@ -189,6 +197,10 @@ spec:
         env:
         - name: MMERUNENV
           value: "container"
+      {{- if .Values.config.managedByConfigPod.enabled }}
+        - name: MANAGED_BY_CONFIG_POD
+          value: "true"
+      {{- end }}
         volumeMounts:
         - name: scripts
           mountPath: /opt/mme/scripts
@@ -218,6 +230,10 @@ spec:
         env:
         - name: MMERUNENV
           value: "container"
+      {{- if .Values.config.managedByConfigPod.enabled }}
+        - name: MANAGED_BY_CONFIG_POD
+          value: "true"
+      {{- end }}
         volumeMounts:
         - name: scripts
           mountPath: /opt/mme/scripts
