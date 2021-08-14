@@ -7,12 +7,12 @@
 images:
   tags:
     init: docker.io/omecproject/pod-init:1.0.0
-    hssdb: "registry.aetherproject.org/proxy/omecproject/c3po-hssdb:master-22ccd06"
-    hss: "registry.aetherproject.org/proxy/omecproject/c3po-hss:master-22ccd06"
-    mme: "registry.aetherproject.org/proxy/omecproject/nucleus:master-9f86f87"
+    hssdb: "registry.aetherproject.org/proxy/omecproject/c3po-hssdb:master-9de5dba"
+    hss: "registry.aetherproject.org/proxy/omecproject/c3po-hss:master-9de5dba"
+    mme: "registry.aetherproject.org/proxy/omecproject/nucleus:master-9e2bf16"
     spgwc: "registry.aetherproject.org/omecproject/spgw:master-d8b0987"
-    pcrf: "registry.aetherproject.org/proxy/omecproject/c3po-pcrf:pcrf-7824e6e"
-    pcrfdb: "registry.aetherproject.org/proxy/omecproject/c3po-pcrfdb:pcrf-7824e6e"
+    pcrf: "registry.aetherproject.org/proxy/omecproject/c3po-pcrf:pcrf-b29af70"
+    pcrfdb: "registry.aetherproject.org/proxy/omecproject/c3po-pcrfdb:pcrf-b29af70"
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
     config4g: "registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-c22caf8"
   pullPolicy: IfNotPresent
