@@ -11,7 +11,7 @@ metadata:
   name: access-net
 {{- if $.Values.config.upf.sriov.enabled }}
   annotations:
-    k8s.v1.cni.cncf.io/resourceName: {{ .Values.config.upf.sriov.resourceName }}
+    k8s.v1.cni.cncf.io/resourceName: {{ .Values.config.upf.access.resourceName }}
 {{- end }}
 spec:
   config: '{
@@ -38,7 +38,7 @@ metadata:
   name: core-net
 {{- if $.Values.config.upf.sriov.enabled }}
   annotations:
-    k8s.v1.cni.cncf.io/resourceName: {{ .Values.config.upf.sriov.resourceName }}
+    k8s.v1.cni.cncf.io/resourceName: {{ .Values.config.upf.core.resourceName }}
 {{- end }}
 spec:
   config: '{

@@ -107,7 +107,12 @@ spec:
             hugepages-1Gi: 2Gi
           {{- end }}
           {{- if .Values.config.upf.sriov.enabled }}
-            {{ .Values.config.upf.sriov.resourceName }}: 2
+          {{- if eq .Values.config.upf.access.resourceName .Values.config.upf.core.resourceName }}
+            {{ .Values.config.upf.access.resourceName }}: 2
+          {{- else }}
+            {{ .Values.config.upf.access.resourceName }}: 1
+            {{ .Values.config.upf.core.resourceName }}: 1
+          {{- end }}
           {{- end }}
           limits:
           {{- if .Values.resources.enabled }}
@@ -117,7 +122,12 @@ spec:
             hugepages-1Gi: 2Gi
           {{- end }}
           {{- if .Values.config.upf.sriov.enabled }}
-            {{ .Values.config.upf.sriov.resourceName }}: 2
+          {{- if eq .Values.config.upf.access.resourceName .Values.config.upf.core.resourceName }}
+            {{ .Values.config.upf.access.resourceName }}: 2
+          {{- else }}
+            {{ .Values.config.upf.access.resourceName }}: 1
+            {{ .Values.config.upf.core.resourceName }}: 1
+          {{- end }}
           {{- end }}
         env:
           - name: CONF_FILE
