@@ -67,7 +67,7 @@ config:
       subnet: 192.168.251.0/24
     access:
       # Provide sriov resource name when sriov is enabled
-      resourceName: "intel.com/intel_sriov_vfio_access"
+      resourceName: "intel.com/intel_sriov_vfio"
       gateway: 192.168.252.1
       ip: 192.168.252.3/24
       #mac:
@@ -75,7 +75,7 @@ config:
       #iface:
     core:
       # Provide sriov resource name when sriov is enabled
-      resourceName: "intel.com/intel_sriov_vfio_core"
+      resourceName: "intel.com/intel_sriov_vfio"
       gateway: 192.168.250.1
       ip: 192.168.250.3/24
       #mac:
