@@ -45,8 +45,12 @@ spec:
         tty: true
         command: ["/free5gc/script/config4g-run.sh"]
         env:
-        - name: CONFIGPOD_DEPLOYMENT 
+        - name: CONFIGPOD_DEPLOYMENT
           value: "4G"
+      {{- if .Values.config.managedByConfigPod.enabled }}
+        - name: MANAGED_BY_CONFIG_POD
+          value: "true"
+      {{- end }}
       {{- if .Values.resources.enabled }}
         resources:
 {{ toYaml .Values.resources.config4g | indent 10 }}

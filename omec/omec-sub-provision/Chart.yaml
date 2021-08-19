@@ -5,7 +5,7 @@
 
 apiVersion: v2
 description: Mobile Sim Provisioning services
-name: omec-sub-provision 
+name: omec-sub-provision
 icon: https://guide.opencord.org/logos/cord.svg
 
-version: 0.0.4
+version: 0.0.5
