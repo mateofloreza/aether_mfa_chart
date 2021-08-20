@@ -66,6 +66,13 @@ spec:
           capabilities:
             add:
             - NET_ADMIN
+        resources:
+          limits:
+            cpu: 256m
+            memory: 128Mi
+          requests:
+            cpu: 256m
+            memory: 128Mi
     {{- if .Values.config.coreDump.enabled }}
 {{ tuple "upf" . | include "omec-user-plane.coredump_init" | indent 6 }}
     {{- end }}
