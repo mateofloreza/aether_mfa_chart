@@ -101,7 +101,7 @@ mongodb:
 
 config:
   managedByConfigPod:      # config comes from helm by default, if enabled true, then discard
-    enabled: false         # helm chart config and use the config from config Pod 
+    enabled: false         # helm chart config and use the config from config Pod
     syncUrl: ""            # Get the config from adapater in case control plane is down
   useExistingConfigMap: false
   coreDump:
@@ -187,18 +187,12 @@ config:
       ReportCaller: false
   webui:
     deploy: true
-    podAnnotations:
-      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
-    prometheus:
-      port: 9089
-      nodePort:
-        enabled: false
-        port: 30084
+    #podAnnotations:
+    serviceType: ClusterIP
     urlport:
       port: 5000
-      nodePort:
-        enabled: false
-        port: 35000
+      # Provide nodePort when serviceType is NodePort
+      #nodePort: 35000
     grpc:
       port: 9876
     ingress:
@@ -218,18 +212,12 @@ config:
         configuration: {}
   udm:
     deploy: true
-    podAnnotations:
-      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
-    prometheus:
-      port: 9089
-      nodePort:
-        enabled: false
-        port: 30084
+    #podAnnotations:
+    serviceType: ClusterIP
     sbi:
       port: 29503
-      nodePort:
-        enabled: false
-        port: 30074
+      # Provide nodePort when serviceType is NodePort
+      #nodePort: 30074
     cfgFiles:
       # https://github.com/free5gc/free5gc/blob/main/config/udmcfg.yaml
       udmcfg.conf:
@@ -259,18 +247,12 @@ config:
                 udmProfileBHNPrivateKey: F1AB1074477EBCC7F554EA1C5FC368B1616730155E0041AC447D6301975FECDA
   udr:
     deploy: true
-    podAnnotations:
-      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
-    prometheus:
-      port: 9089
-      nodePort:
-        enabled: false
-        port: 30084
+    #podAnnotations:
+    serviceType: ClusterIP
     sbi:
       port: 29504
-      nodePort:
-        enabled: false
-        port: 30074
+      # Provide nodePort when serviceType is NodePort
+      #nodePort: 30074
     cfgFiles:
       # https://github.com/free5gc/free5gc/blob/main/config/udrcfg.yaml
       udrcfg.conf:
@@ -285,18 +267,12 @@ config:
             registerIPv4: udr
   pcf:
     deploy: true
-    podAnnotations:
-      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
-    prometheus:
-      port: 9089
-      nodePort:
-        enabled: false
-        port: 30084
+    #podAnnotations:
+    serviceType: ClusterIP
     sbi:
       port: 29507
-      nodePort:
-        enabled: false
-        port: 30077
+      # Provide nodePort when serviceType is NodePort
+      #nodePort: 30077
     cfgFiles:
       # https://github.com/free5gc/free5gc/blob/main/config/pcfcfg.yaml
       pcfcfg.conf:
@@ -322,18 +298,12 @@ config:
             - serviceName: npcf-ue-policy-control
   nssf:
     deploy: true
-    podAnnotations:
-      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
-    prometheus:
-      port: 9089
-      nodePort:
-        enabled: false
-        port: 30084
+    #podAnnotations:
+    serviceType: ClusterIP
     sbi:
       port: 29531
-      nodePort:
-        enabled: false
-        port: 30081
+      # Provide nodePort when serviceType is NodePort
+      #nodePort: 30081
     cfgFiles:
       # https://github.com/free5gc/free5gc/blob/main/config/nssfcfg.yaml
       nssfcfg.conf:
@@ -371,22 +341,18 @@ config:
     deploy: true
     podAnnotations:
       field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
+    serviceType: ClusterIP
     prometheus:
       port: 9089
-      nodePort:
-        enabled: false
-        port: 30084
+      # Provide nodePort when serviceType is NodePort
+      #nodePort: 30084
     sbi:
       port: 29518
-      nodePort:
-        enabled: false
-        port: 30088
+      #nodePort: 30088
     ngapp:
       #externalIp:
       port: 38412
-      nodePort:
-        enabled: true
-        port: 30071
+      #nodePort: 30071
     cfgFiles:
       # https://github.com/free5gc/free5gc/blob/main/config/amfcfg.yaml
       amfcfg.conf:
@@ -474,13 +440,12 @@ config:
             maxRetryTimes: 4 # the max number of retransmission
   nrf:
     deploy: true
-    podAnnotations:
-      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
+    #podAnnotations:
+    serviceType: ClusterIP
     sbi:
       port: 29510
-      nodePort:
-        enabled: false
-        port: 30070
+      # Provide nodePort when serviceType is NodePort
+      #nodePort: 30070
     cfgFiles:
       # https://github.com/free5gc/free5gc/blob/main/config/nrfcfg.yaml
       nrfcfg.conf:
@@ -502,21 +467,17 @@ config:
     deploy: true
     podAnnotations:
       field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
+    serviceType: ClusterIP
     n4:
       port: 8805
-      nodePort:
-        enabled: false
-        port: 30021
+      # Provide nodePort when serviceType is NodePort
+      #nodePort: 30021
     prometheus:
       port: 9089
-      nodePort:
-        enabled: false
-        port: 30084
+      #nodePort: 30084
     sbi:
       port: 29502
-      nodePort:
-        enabled: false
-        port: 30080
+      #nodePort: 30080
     cfgFiles:
       uerouting.conf:
         info:
@@ -575,24 +536,18 @@ config:
                     endpoints: # the IP address of this N3/N9 interface on this UPF
                       - upf
                     networkInstance: internet # Data Network Name (DNN)
-   
+
             links:
               - A: gNB1
                 B: UPF
   ausf:
     deploy: true
-    podAnnotations:
-      field.cattle.io/workloadMetrics: '[{"path":"/metrics","port":9089,"schema":"HTTP"}]'
-    prometheus:
-      port: 9089
-      nodePort:
-        enabled: false
-        port: 30084
+    #podAnnotations:
+    serviceType: ClusterIP
     sbi:
       port: 29509
-      nodePort:
-        enabled: false
-        port: 30082
+      # Provide nodePort when serviceType is NodePort
+      #nodePort: 30082
     cfgFiles:
       # https://github.com/free5gc/free5gc/blob/main/config/ausfcfg.yaml
       ausfcfg.conf:

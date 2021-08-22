@@ -13,40 +13,16 @@ metadata:
   labels:
 {{ tuple "udm" . | include "5g-control-plane.metadata_labels" | indent 4 }}
 spec:
-  type: ClusterIP
+  type: {{ .Values.config.udm.serviceType }}
   selector:
 {{ tuple "udm" . | include "5g-control-plane.metadata_labels" | indent 4 }}
   ports:
-  - name: prometheus-exporter
-    port: {{ .Values.config.udm.prometheus.port }}
-    protocol: TCP
   - name: sbi
     port: {{ .Values.config.udm.sbi.port }}
     protocol: TCP
-{{- if or .Values.config.udm.prometheus.nodePort.enabled .Values.config.udm.sbi.nodePort.enabled }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: udm-external
-  labels:
-{{ tuple "udm" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-spec:
-  type: NodePort
-  selector:
-{{ tuple "udm" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-  ports:
-{{- if .Values.config.udm.prometheus.nodePort.enabled }}
-  - name: prometheus-exporter
-    port: {{ .Values.config.udm.prometheus.port }}
-    protocol: TCP
-    nodePort: {{ .Values.config.udm.prometheus.nodePort.port }}
-{{- end }}
-{{- if .Values.config.udm.sbi.nodePort.enabled }}
-  - name: sbi
-    port: {{ .Values.config.udm.sbi.port }}
-    protocol: TCP
-    nodePort: {{ .Values.config.udm.sbi.nodePort.port }}
+{{- if eq .Values.config.udm.serviceType "NodePort" }}
+{{- if .Values.config.udm.sbi.nodePort }}
+    nodePort: {{ .Values.config.udm.sbi.nodePort }}
 {{- end }}
 {{- end }}
 {{- end }}

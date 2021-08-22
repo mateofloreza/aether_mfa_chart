@@ -13,31 +13,16 @@ metadata:
   labels:
 {{ tuple "nrf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
 spec:
-  type: ClusterIP
+  type: {{ .Values.config.nrf.serviceType }}
   selector:
 {{ tuple "nrf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
   ports:
   - name: sbi
     port: {{ .Values.config.nrf.sbi.port }}
     protocol: TCP
-{{- if or .Values.config.nrf.sbi.nodePort.enabled }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nrf-external
-  labels:
-{{ tuple "nrf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-spec:
-  type: NodePort
-  selector:
-{{ tuple "nrf" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-  ports:
-{{- if .Values.config.nrf.sbi.nodePort.enabled }}
-  - name: sbi
-    port: {{ .Values.config.nrf.sbi.port }}
-    protocol: TCP
-    nodePort: {{ .Values.config.nrf.sbi.nodePort.port }}
+{{- if eq .Values.config.nrf.serviceType "NodePort" }}
+{{- if .Values.config.nrf.sbi.nodePort }}
+    nodePort: {{ .Values.config.nrf.sbi.nodePort }}
 {{- end }}
 {{- end }}
 {{- end }}

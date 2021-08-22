@@ -13,43 +13,24 @@ metadata:
   labels:
 {{ tuple "webui" . | include "5g-control-plane.metadata_labels" | indent 4 }}
 spec:
-  type: ClusterIP
+  type: {{ .Values.config.webui.serviceType }}
   selector:
 {{ tuple "webui" . | include "5g-control-plane.metadata_labels" | indent 4 }}
   ports:
-  - name: prometheus-exporter
-    port: {{ .Values.config.webui.prometheus.port }}
-    protocol: TCP
   - name: urlport-http
     port: {{ .Values.config.webui.urlport.port }}
     protocol: TCP
+{{- if eq .Values.config.webui.serviceType "NodePort" }}
+{{- if .Values.config.webui.urlport.nodePort }}
+    nodePort: {{ .Values.config.webui.urlport.nodePort }}
+{{- end }}
+{{- end }}
   - name: grpc
     port: {{ .Values.config.webui.grpc.port }}
     protocol: TCP
-{{- if or .Values.config.webui.urlport.nodePort.enabled .Values.config.webui.prometheus.nodePort.enabled }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: webui-external
-  labels:
-{{ tuple "webui" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-spec:
-  type: NodePort
-  selector:
-{{ tuple "webui" . | include "5g-control-plane.metadata_labels" | indent 4 }}
-  ports:
-{{- if .Values.config.webui.prometheus.nodePort.enabled }}
-  - name: prometheus-exporter
-    port: {{ .Values.config.webui.prometheus.port }}
-    protocol: TCP
-    nodePort: {{ .Values.config.webui.prometheus.nodePort.port }}
-{{- end }}
-{{- if .Values.config.webui.urlport.nodePort.enabled }}
-  - name: urlport-http
-    port: {{ .Values.config.webui.urlport.port }}
-    protocol: TCP
-    nodePort: {{ .Values.config.webui.urlport.nodePort.port }}
+{{- if eq .Values.config.webui.serviceType "NodePort" }}
+{{- if .Values.config.webui.grpc.nodePort }}
+    nodePort: {{ .Values.config.webui.grpc.nodePort }}
 {{- end }}
 {{- end }}
 {{- end }}
