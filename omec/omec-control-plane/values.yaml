@@ -10,7 +10,7 @@ images:
     hssdb: "registry.aetherproject.org/proxy/omecproject/c3po-hssdb:master-9de5dba"
     hss: "registry.aetherproject.org/proxy/omecproject/c3po-hss:master-9de5dba"
     mme: "registry.aetherproject.org/proxy/omecproject/nucleus:master-9e2bf16"
-    spgwc: "registry.aetherproject.org/omecproject/spgw:master-d8b0987"
+    spgwc: "registry.aetherproject.org/omecproject/spgw:master-951c59c"
     pcrf: "registry.aetherproject.org/proxy/omecproject/c3po-pcrf:pcrf-b29af70"
     pcrfdb: "registry.aetherproject.org/proxy/omecproject/c3po-pcrfdb:pcrf-b29af70"
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
