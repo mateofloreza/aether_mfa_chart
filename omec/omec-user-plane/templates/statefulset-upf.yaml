@@ -68,11 +68,11 @@ spec:
             - NET_ADMIN
         resources:
           limits:
-            cpu: 256m
-            memory: 128Mi
+            cpu: 128m
+            memory: 64Mi
           requests:
-            cpu: 256m
-            memory: 128Mi
+            cpu: 128m
+            memory: 64Mi
     {{- if .Values.config.coreDump.enabled }}
 {{ tuple "upf" . | include "omec-user-plane.coredump_init" | indent 6 }}
     {{- end }}
@@ -175,7 +175,7 @@ spec:
         resources:
 {{ toYaml .Values.resources.web | indent 10 }}
       {{- end }}
-      - name: cpiface
+      - name: pfcp-agent
         image: {{ .Values.images.tags.pfcpiface | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
         command: ["pfcpiface"]
@@ -191,6 +191,26 @@ spec:
             mountPath: /pod-share
           - name: configs
             mountPath: /tmp/conf
+    {{- if .Values.config.gratuitousArp.enabled }}
+      - name: arping
+        image: {{ .Values.images.tags.tools | quote }}
+        imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
+        command: ["sh", "-xec"]
+        args:
+          - |
+            while true; do
+              arping -c 3 -A -I {{ index $accessConfig "ifname" }} {{ (split "/" .Values.config.upf.access.ip)._0 }}
+              arping -c 3 -A -I {{ index $coreConfig "ifname" }} {{ (split "/" .Values.config.upf.core.ip)._0 }}
+              sleep {{ .Values.config.gratuitousArp.interval }}
+            done
+        resources:
+          limits:
+            cpu: 128m
+            memory: 64Mi
+          requests:
+            cpu: 128m
+            memory: 64Mi
+    {{- end }}
       volumes:
       - name: configs
         configMap:

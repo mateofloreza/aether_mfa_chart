@@ -34,7 +34,7 @@ Render init container for coredump.
 {{- $pod := index . 0 -}}
 {{- $context := index . 1 -}}
 - name: {{ $pod }}-coredump-init
-  image: {{ $context.Values.images.tags.init | quote }}
+  image: {{ $context.Values.images.tags.tools | quote }}
   imagePullPolicy: {{ $context.Values.images.pullPolicy }}
   securityContext:
     privileged: true

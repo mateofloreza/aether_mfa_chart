@@ -4,9 +4,9 @@
 
 images:
   tags:
-    init: docker.io/omecproject/pod-init:1.0.0
     bess: registry.aetherproject.org/proxy/omecproject/upf-epc-bess:master-49283ad
     pfcpiface: registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-49283ad
+    tools: registry.aetherproject.org/tools/busybox:stable
   pullPolicy: IfNotPresent
   # Secrets must be manually created in the namespace.
   pullSecrets:
@@ -53,6 +53,9 @@ config:
   coreDump:
     enabled: false
     path: /tmp/coredump
+  gratuitousArp:
+    enabled: false
+    interval: 10 # seconds
   upf:
     # Enable privileged when run from VM with sriov support
     privileged: false
@@ -91,6 +94,9 @@ config:
         core:
           ifname: core
         measure: true
+        cpiface:
+          dnn: "internet"
+          hostname: "upf"
 
 service:
   type: ClusterIP
