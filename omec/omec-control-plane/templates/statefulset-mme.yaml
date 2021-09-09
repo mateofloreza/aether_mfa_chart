@@ -44,7 +44,7 @@ spec:
         securityContext:
           privileged: true
           runAsUser: 0
-        command: ["bash", "-xc"]
+        command: ["sh", "-xc"]
         args:
         - |
           if chroot /mnt/host-rootfs modinfo nf_conntrack_proto_sctp > /dev/null 2>&1; then \

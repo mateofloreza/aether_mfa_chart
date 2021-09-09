@@ -4,8 +4,8 @@
 
 images:
   tags:
-    init: docker.io/omecproject/pod-init:1.0.0
-    pfcpiface: registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-49283ad
+    init: registry.aetherproject.org/tools/busybox:stable
+    pfcpiface: "registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-cc2886e"
   pullPolicy: Always
   # Secrets must be manually created in the namespace.
   pullSecrets:
