@@ -5,7 +5,7 @@
 images:
   tags:
     init: registry.aetherproject.org/tools/busybox:stable
-    pfcpiface: "registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-cc2886e"
+    pfcpiface: "registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-fcdbc95"
   pullPolicy: Always
   # Secrets must be manually created in the namespace.
   pullSecrets:
