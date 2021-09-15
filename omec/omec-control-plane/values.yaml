@@ -14,7 +14,7 @@ images:
     spgwc: registry.aetherproject.org/omecproject/spgw:master-6aad2f2
     pcrf: registry.aetherproject.org/proxy/omecproject/c3po-pcrf:pcrf-b29af70
     pcrfdb: registry.aetherproject.org/proxy/omecproject/c3po-pcrfdb:pcrf-b29af70
-    config4g: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-32ae97a
+    config4g: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-bf0b54f
   pullPolicy: IfNotPresent
   # Secrets must be manually created in the namespace.
   pullSecrets:
