@@ -5,7 +5,7 @@
 images:
   tags:
     init: docker.io/omecproject/pod-init:1.0.0
-    amf: registry.aetherproject.org/omecproject/5gc-amf:onf-release3.0.5-921b890
+    amf: registry.aetherproject.org/omecproject/5gc-amf:onf-release3.0.5-ed73600
     nrf: registry.aetherproject.org/omecproject/5gc-nrf:onf-release3.0.5-3471442
     smf: registry.aetherproject.org/omecproject/5gc-smf:onf-release3.0.5-e991983
     ausf: registry.aetherproject.org/omecproject/5gc-ausf:onf-release3.0.5-85ea075
@@ -13,7 +13,7 @@ images:
     pcf: registry.aetherproject.org/omecproject/5gc-pcf:onf-release3.0.5-95ae49f
     udr: registry.aetherproject.org/omecproject/5gc-udr:onf-release3.0.5-bc3b287
     udm: registry.aetherproject.org/omecproject/5gc-udm:onf-release3.0.5-40055e8
-    webui: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-bf0b54f
+    webui: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-097c4bd
   pullPolicy: IfNotPresent
   # Optionally specify an array of imagePullSecrets.
   # Secrets must be manually created in the namespace.
