@@ -287,6 +287,13 @@ config:
             bindingIPv4: "0.0.0.0"
             registerIPv4: pcf
           defaultBdtRefId: BdtPolicyId-
+          plmnList:
+            - plmnId:
+                mcc: 222
+                mnc: 99
+            - plmnId:
+                mcc: 333
+                mnc: 88
           serviceList:
             - serviceName: npcf-am-policy-control
             - serviceName: npcf-smpolicycontrol
