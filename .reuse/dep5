@@ -3,8 +3,6 @@ Upstream-Name: aether-helm-charts
 Upstream-Contact: Open Networking Foundation <info@opennetworking.org>
 Source: https://gerrit.opencord.org/aether-helm-charts
 
-# Sample paragraph, commented out:
-#
-# Files: src/*
-# Copyright: $YEAR $NAME <$CONTACT>
-# License: ...
+Files: VERSION .gitreview
+Copyright: 2021 Open Networking Foundation
+License: Apache-2.0
