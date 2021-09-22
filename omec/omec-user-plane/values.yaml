@@ -4,8 +4,8 @@
 
 images:
   tags:
-    bess: "registry.aetherproject.org/proxy/omecproject/upf-epc-bess:master-fcdbc95"
-    pfcpiface: "registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-fcdbc95"
+    bess: "registry.aetherproject.org/proxy/omecproject/upf-epc-bess:master-df79a8a"
+    pfcpiface: "registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-df79a8a"
     tools: registry.aetherproject.org/tools/busybox:stable
   pullPolicy: IfNotPresent
   # Secrets must be manually created in the namespace.
@@ -97,6 +97,14 @@ config:
         cpiface:
           dnn: "internet"
           hostname: "upf"
+        # Default global rate limits. Can be changed at runtime via BESS gRPC.
+        slice_rate_limit_config:
+          # Uplink
+          n6_bps: 1000000000 # 1Gbps
+          n6_burst_bytes: 12500000 # 10ms * 1Gbps
+          # Downlink
+          n3_bps: 1000000000 # 1Gbps
+          n3_burst_bytes: 12500000 # 10ms * 1Gbps
 
 service:
   type: ClusterIP
