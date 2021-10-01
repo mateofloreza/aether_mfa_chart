@@ -10,8 +10,8 @@ images:
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
     hssdb: registry.aetherproject.org/proxy/omecproject/c3po-hssdb:master-9a5f565
     hss: registry.aetherproject.org/proxy/omecproject/c3po-hss:master-9a5f565
-    mme: registry.aetherproject.org/proxy/omecproject/nucleus:master-c0d9143
-    spgwc: registry.aetherproject.org/omecproject/spgw:master-6aad2f2
+    mme: registry.aetherproject.org/proxy/omecproject/nucleus:master-2dac293
+    spgwc: registry.aetherproject.org/omecproject/spgw:master-86f31e4
     pcrf: registry.aetherproject.org/proxy/omecproject/c3po-pcrf:pcrf-b29af70
     pcrfdb: registry.aetherproject.org/proxy/omecproject/c3po-pcrfdb:pcrf-b29af70
     config4g: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-73f0e35
@@ -208,6 +208,7 @@ config:
             best-effort-internet-access:
               definition:
                 Charging-Rule-Name: "best-effort-internet-access"
+                Flow-Status: 2
                 QoS-Information:
                   QoS-Class-Identifier: 9
                   Max-Requested-Bandwidth-UL: 512000
@@ -436,6 +437,7 @@ config:
             plmn2: "mcc=208,mnc=01"
           apnlist:
             internet: "spgwc"
+            default: "spgwc" #default spgwc to be used
           feature_list:
             dcnr_support: "disabled"
           security:
