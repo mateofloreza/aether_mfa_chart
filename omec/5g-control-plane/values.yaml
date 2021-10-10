@@ -10,9 +10,9 @@ images:
     smf: registry.aetherproject.org/omecproject/5gc-smf:onf-release3.0.5-7454986
     ausf: registry.aetherproject.org/omecproject/5gc-ausf:onf-release3.0.5-be7d4ac
     nssf: registry.aetherproject.org/omecproject/5gc-nssf:onf-release3.0.5-aa3a60b
-    pcf: registry.aetherproject.org/omecproject/5gc-pcf:onf-release3.0.5-9f7734b
+    pcf: registry.aetherproject.org/omecproject/5gc-pcf:onf-release3.0.5-PR_14-4633322
     udr: registry.aetherproject.org/omecproject/5gc-udr:onf-release3.0.5-deef506
-    udm: registry.aetherproject.org/omecproject/5gc-udm:onf-release3.0.5-5049868
+    udm: registry.aetherproject.org/omecproject/5gc-udm:onf-release3.0.5-PR_12-fb08bc9
     webui: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-d26163d
   pullPolicy: IfNotPresent
   # Optionally specify an array of imagePullSecrets.
@@ -226,6 +226,13 @@ config:
           description: UDM initial local configuration
         configuration:
           nrfUri: http://nrf:29510
+          plmnList:
+            - plmnId:
+                mcc: 208
+                mnc: 93
+            - plmnId:
+                mcc: 222
+                mnc: 88
           serviceNameList:
             - nudm-sdm
             - nudm-uecm
@@ -261,6 +268,13 @@ config:
           description: UDR initial local configuration
         configuration:
           nrfUri: http://nrf:29510
+          plmnSupportList:
+            - plmnId:
+                mcc: 208
+                mnc: 93
+            - plmnId:
+                mcc: 333
+                mnc: 88
           sbi:
             scheme: http
             bindingIPv4: "0.0.0.0"
@@ -289,8 +303,8 @@ config:
           defaultBdtRefId: BdtPolicyId-
           plmnList:
             - plmnId:
-                mcc: 222
-                mnc: 99
+                mcc: 208
+                mnc: 93
             - plmnId:
                 mcc: 333
                 mnc: 88
