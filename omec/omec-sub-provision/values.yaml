@@ -5,7 +5,7 @@
 images:
   tags:
     init: docker.io/omecproject/pod-init:1.0.0
-    simapp: "registry.aetherproject.org/omecproject/simapp:main-a2a3e71"
+    simapp: "registry.aetherproject.org/omecproject/simapp:main-bff796a"
   pullPolicy: IfNotPresent
   # Optionally specify an array of imagePullSecrets.
   # Secrets must be manually created in the namespace.
@@ -85,6 +85,13 @@ config:
               dns-primary: "8.8.8.8"
               mtu: 1460
               ue-ip-pool: "10.91.0.0/16"
+              ue-dnn-qos:
+                uplink: 2000000
+                downlink: 8000000
+                traffic-class:
+                  name: "gold"
+                  qci: 9
+                  arp: 6
             site-info: "menlo"
           network-slices:
           - name: "slice1"
@@ -104,10 +111,6 @@ config:
             permit-applications:
             - "iot-app1-permit"
             - "iot-app2-permit"
-            qos:
-              downlink: 20000000
-              traffic-class: "platinum"
-              uplink: 4000000
             site-info:
               gNodeBs:
               - name: "menlo-gnb1"
