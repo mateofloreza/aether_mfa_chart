@@ -199,8 +199,8 @@ spec:
         args:
           - |
             while true; do
-              arping -c 3 -A -I {{ index $accessConfig "ifname" }} {{ (split "/" .Values.config.upf.access.ip)._0 }}
-              arping -c 3 -A -I {{ index $coreConfig "ifname" }} {{ (split "/" .Values.config.upf.core.ip)._0 }}
+              arping -c 2 {{ .Values.config.upf.access.gateway }}
+              arping -c 2 {{ .Values.config.upf.core.gateway }}
               sleep {{ .Values.config.gratuitousArp.interval }}
             done
         resources:
