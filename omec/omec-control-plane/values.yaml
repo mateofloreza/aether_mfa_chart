@@ -10,11 +10,11 @@ images:
     depCheck: quay.io/stackanetes/kubernetes-entrypoint:v0.3.1
     hssdb: registry.aetherproject.org/proxy/omecproject/c3po-hssdb:master-771c0c3
     hss: registry.aetherproject.org/proxy/omecproject/c3po-hss:master-771c0c3
-    mme: registry.aetherproject.org/proxy/omecproject/nucleus:master-2dac293
+    mme: registry.aetherproject.org/proxy/omecproject/nucleus:master-0ad6a09
     spgwc: registry.aetherproject.org/omecproject/spgw:master-86f31e4
     pcrf: registry.aetherproject.org/proxy/omecproject/c3po-pcrf:pcrf-b29af70
     pcrfdb: registry.aetherproject.org/proxy/omecproject/c3po-pcrfdb:pcrf-b29af70
-    config4g: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-cbadbad
+    config4g: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-f6df683
   pullPolicy: IfNotPresent
   # Secrets must be manually created in the namespace.
   pullSecrets:
