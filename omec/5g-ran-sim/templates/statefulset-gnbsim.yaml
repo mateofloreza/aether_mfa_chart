@@ -41,10 +41,11 @@ spec:
         {{ .Values.nodeSelectors.gnbsim.label }}: {{ .Values.nodeSelectors.gnbsim.value }}
     {{- end }}
       serviceAccountName: gnbsim
-    {{- if .Values.images.credentials }}
+    {{- if hasKey .Values.images "pullSecrets" }}
       imagePullSecrets:
-        - name: {{ .Release.Name }}.registry
+{{ toYaml .Values.images.pullSecrets | indent 8 }}
     {{- end }}
+
       initContainers:
       - name: wait-amf-module
         image: {{ .Values.images.tags.init | quote }}
