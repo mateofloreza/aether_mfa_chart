@@ -36,6 +36,6 @@ data:
 
         # Config Pod's ready status indicate the status of ONOS cluster
         # Assumption: Config Pod has only one instance
-        ONOS_READY=$(kubectl -n {{ .Values.onos.namespace }} get pods -lcomponent={{ .Values.onos.component_label }} --no-headers -o custom-columns=':.status.containerStatuses[*].ready' | grep true | wc -l)
+        ONOS_READY=$(kubectl -n {{ .Values.onos.namespace }} get pods -l {{ .Values.onos.component_label }} --no-headers -o custom-columns=':.status.containerStatuses[*].ready' | grep true | wc -l)
         echo "onos_telegraf active_links=${ACTIVE_LINKS},enable_device_ports=${ENABLE_DEVICE_PORTS},devices=${DEVICES},ready=${ONOS_READY}"
     done

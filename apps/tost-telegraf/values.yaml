@@ -52,6 +52,6 @@ onos:
   server: localhost
   port: 8181
   namespace: tost
-  component_label: onos-tost-config
+  component_label: app=onos-config-loader
   ready_script: /root/onos/bin/check-onos-status
   container_name: onos-classic
