@@ -54,7 +54,7 @@ config:
     enabled: false
     path: /tmp/coredump
   gratuitousArp:
-    enabled: false
+    enabled: true
     interval: 10 # seconds
   upf:
     # Enable privileged when run from VM with sriov support
