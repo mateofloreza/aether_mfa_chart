@@ -199,8 +199,11 @@ spec:
         args:
           - |
             while true; do
-              arping -c 2 {{ .Values.config.upf.access.gateway }}
-              arping -c 2 {{ .Values.config.upf.core.gateway }}
+              # arping does not work - BESS graph is still disconnected
+              #arping -c 2 -I {{ index $accessConfig "ifname" }} {{ .Values.config.upf.access.gateway }}
+              #arping -c 2 -I {{ index $coreConfig "ifname" }} {{ .Values.config.upf.core.gateway }}
+              ping {{ .Values.config.upf.access.gateway }}
+              ping {{ .Values.config.upf.core.gateway }}
               sleep {{ .Values.config.gratuitousArp.interval }}
             done
         resources:
