@@ -11,8 +11,8 @@ telegraf:
         defaultMode: 0755
   mountPoints:
     - name: "telegraf-external-daemon"
-      mountPath: /tmp/onos_telegraf.sh
-      subPath: tost_telegraf.sh
+      mountPath: /tmp/sdfabric_telegraf.sh
+      subPath: sdfabric_telegraf.sh
   rbac:
     rules:
     - apiGroups: [""]
@@ -29,7 +29,7 @@ telegraf:
   config:
     inputs:
       - execd:
-          command: ["sh", "-c", "/tmp/onos_telegraf.sh"]
+          command: ["sh", "-c", "/tmp/sdfabric_telegraf.sh"]
           signal: "STDIN"
       - cisco_telemetry_gnmi:
           addresses:

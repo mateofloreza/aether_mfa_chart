@@ -13,7 +13,7 @@ metadata:
     release: "{{ .Release.Name }}"
     app: tost-telegraf
 data:
-  tost_telegraf.sh: |
+  sdfabric_telegraf.sh: |
     #!/bin/bash
     set -x
     #Locale setting for json_pp
@@ -34,8 +34,13 @@ data:
         DEVICES=$(curl --fail -sSL --user {{ .Values.onos.username }}:{{ .Values.onos.password }} --noproxy {{ .Values.onos.server }} -X GET -H 'Accept: application/json' \
         http://{{ .Values.onos.server }}:{{ .Values.onos.port }}/onos/v1/devices | json_pp | grep "\"type\" : \"SWITCH\"" | wc -l)
 
+        ONOS_PODS=$(kubectl get po -l app=onos-classic -o name)
+        for POD in $ONOS_PODS; do
+            ONOS_READY=$(kubectl -n {{ .Values.onos.namespace }} get ${POD} --no-headers -o custom-columns=':.status.containerStatuses[*].ready' | grep true | wc -l)
+            echo "onos_telegraf,type=onos,onos_pod=${POD} ready=${ONOS_READY}"
+        done
         # Config Pod's ready status indicate the status of ONOS cluster
         # Assumption: Config Pod has only one instance
         ONOS_READY=$(kubectl -n {{ .Values.onos.namespace }} get pods -l {{ .Values.onos.component_label }} --no-headers -o custom-columns=':.status.containerStatuses[*].ready' | grep true | wc -l)
-        echo "onos_telegraf active_links=${ACTIVE_LINKS},enable_device_ports=${ENABLE_DEVICE_PORTS},devices=${DEVICES},ready=${ONOS_READY}"
+        echo "onos_telegraf,type=cluster active_links=${ACTIVE_LINKS},enable_device_ports=${ENABLE_DEVICE_PORTS},devices=${DEVICES},ready=${ONOS_READY}"
     done
