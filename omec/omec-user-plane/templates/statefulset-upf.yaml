@@ -195,7 +195,7 @@ spec:
       - name: arping
         image: {{ .Values.images.tags.tools | quote }}
         imagePullPolicy: {{ .Values.images.pullPolicy | quote }}
-        command: ["sh", "-xec"]
+        command: ["sh", "-xc"]
         args:
           - |
             while true; do
