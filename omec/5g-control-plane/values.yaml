@@ -13,7 +13,7 @@ images:
     pcf: registry.aetherproject.org/omecproject/5gc-pcf:onf-release3.0.5-PR_14-4633322
     udr: registry.aetherproject.org/omecproject/5gc-udr:onf-release3.0.5-deef506
     udm: registry.aetherproject.org/omecproject/5gc-udm:onf-release3.0.5-PR_12-fb08bc9
-    webui: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-f6df683
+    webui: registry.aetherproject.org/omecproject/5gc-webui:onf-release3.0.5-327b680
   pullPolicy: IfNotPresent
   # Optionally specify an array of imagePullSecrets.
   # Secrets must be manually created in the namespace.
