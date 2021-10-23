@@ -16,3 +16,4 @@ spec:
   - port: prometheus-client
     path: /metrics
     scheme: HTTP
+    interval: {{ .Values.service_monitor_interval }}

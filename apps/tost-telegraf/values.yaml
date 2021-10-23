@@ -1,6 +1,8 @@
 # Copyright 2021-present Open Networking Foundation
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
+service_monitor_interval: 30s
+
 telegraf:
   image:
     tag: "1.17"
@@ -52,6 +54,5 @@ onos:
   server: localhost
   port: 8181
   namespace: tost
-  component_label: app=onos-config-loader
-  ready_script: /root/onos/bin/check-onos-status
-  container_name: onos-classic
+  onos_classic_label: app=onos-classic
+  onos_config_loader_label: app=onos-config-loader

@@ -15,32 +15,49 @@ metadata:
 data:
   sdfabric_telegraf.sh: |
     #!/bin/bash
-    set -x
-    #Locale setting for json_pp
-    export LC_CTYPE="POSIX"
-    export LC_NUMERIC="POSIX"
-
-    #Install kubectl
+    # Install kubectl and jq
     curl -sLO https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl
-    install -m 755 kubectl  /usr/local/bin/kubectl
+    install -m 755 kubectl /usr/local/bin/kubectl
+    apt update
+    apt install -y jq
+
+    # Utility for jq
+    cat <<EOF > ~/.jq
+    def count(s): reduce s as \$_ (0;.+1);
+    EOF
+
+    get-onos-server() {
+        ONOS_SERVER={{ .Values.onos.server }}
+        CONTROLLERS=( $(kubectl get -n tost --output json  pods | \
+            jq '.items[] | select(.status.containerStatuses[].ready==true and .status.containerStatuses[].name=="onos-classic")' | \
+            jq -r .status.podIP) )
+        if (( ${#CONTROLLERS[@]} )); then
+            CONTROLLERS=( $(shuf -e "${CONTROLLERS[@]}") )
+            ONOS_SERVER=${CONTROLLERS[0]}
+        fi
+    }
 
     while IFS= read -r LINE; do
-        ACTIVE_LINKS=$(curl --fail -sSL --user {{ .Values.onos.username }}:{{ .Values.onos.password }} --noproxy {{ .Values.onos.server }} -X GET -H 'Accept: application/json' \
-        http://{{ .Values.onos.server }}:{{ .Values.onos.port }}/onos/v1/links | json_pp | grep "\"state\" : \"ACTIVE\"" | wc -l)
-
-        ENABLE_DEVICE_PORTS=$(curl --fail -sSL --user {{ .Values.onos.username }}:{{ .Values.onos.password }} --noproxy {{ .Values.onos.server }} -X GET -H 'Accept: application/json' \
-        http://{{ .Values.onos.server }}:{{ .Values.onos.port }}/onos/v1/devices/ports | json_pp | grep "\"isEnabled\" : true" | wc -l)
-
-        DEVICES=$(curl --fail -sSL --user {{ .Values.onos.username }}:{{ .Values.onos.password }} --noproxy {{ .Values.onos.server }} -X GET -H 'Accept: application/json' \
-        http://{{ .Values.onos.server }}:{{ .Values.onos.port }}/onos/v1/devices | json_pp | grep "\"type\" : \"SWITCH\"" | wc -l)
-
-        ONOS_PODS=$(kubectl get po -l app=onos-classic -o name)
-        for POD in $ONOS_PODS; do
-            ONOS_READY=$(kubectl -n {{ .Values.onos.namespace }} get ${POD} --no-headers -o custom-columns=':.status.containerStatuses[*].ready' | grep true | wc -l)
-            echo "onos_telegraf,type=onos,onos_pod=${POD} ready=${ONOS_READY}"
-        done
-        # Config Pod's ready status indicate the status of ONOS cluster
-        # Assumption: Config Pod has only one instance
-        ONOS_READY=$(kubectl -n {{ .Values.onos.namespace }} get pods -l {{ .Values.onos.component_label }} --no-headers -o custom-columns=':.status.containerStatuses[*].ready' | grep true | wc -l)
-        echo "onos_telegraf,type=cluster active_links=${ACTIVE_LINKS},enable_device_ports=${ENABLE_DEVICE_PORTS},devices=${DEVICES},ready=${ONOS_READY}"
+        # Topology matrix
+        get-onos-server
+        ACTIVE_LINKS=$(curl --fail -sSL --user {{ .Values.onos.username }}:{{ .Values.onos.password }} --noproxy $ONOS_SERVER:{{ .Values.onos.port }} -X GET -H 'Accept: application/json' \
+        http://$ONOS_SERVER:{{ .Values.onos.port }}/onos/v1/links | \
+        jq 'count(.links[]?.state | select(. == "ACTIVE"))')
+        get-onos-server
+        DEVICES=$(curl --fail -sSL --user {{ .Values.onos.username }}:{{ .Values.onos.password }} --noproxy $ONOS_SERVER:{{ .Values.onos.port }} -X GET -H 'Accept: application/json' \
+            http://$ONOS_SERVER:{{ .Values.onos.port }}/onos/v1/devices | \
+            jq 'count(.devices[]? | select(.available and .type=="SWITCH"))')
+        get-onos-server
+        ENABLE_DEVICE_PORTS=$(curl --fail -sSL --user {{ .Values.onos.username }}:{{ .Values.onos.password }} --noproxy $ONOS_SERVER:{{ .Values.onos.port }} -X GET -H 'Accept: application/json' \
+            http://$ONOS_SERVER:{{ .Values.onos.port }}/onos/v1/devices/ports | \
+            jq 'count(.ports[]?.isEnabled | select(.))')
+        ACTIVE_LINKS=${ACTIVE_LINKS:-0}
+        DEVICES=${DEVICES:-0}
+        ENABLED_DEVICE_PORTS=${ENABLED_DEVICE_PORTS:-0}
+        echo "onos_telegraf active_links=${ACTIVE_LINKS},enable_device_ports=${ENABLE_DEVICE_PORTS},devices=${DEVICES}"
+        # Readiness for each ONOS instance and the config loader(overall readiness)
+        kubectl get po -n {{ .Values.onos.namespace }} -l '{{ .Values.onos.onos_classic_label }}' -o json | \
+            jq -r '.items[]? | "onos_telegraf,pod=" + (.metadata.name) + " ready=" + (count(select(.status.containerStatuses[].ready)) | tostring)'
+        kubectl get po -n {{ .Values.onos.namespace }} -l '{{ .Values.onos.onos_config_loader_label }}' -o json | \
+            jq -r '"onos_telegraf,pod=onos-config-loader ready=" + (count(select(.items[0].status.containerStatuses[].ready)) | tostring)'
     done
