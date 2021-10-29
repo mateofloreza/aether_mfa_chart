@@ -7,7 +7,7 @@
 set -xe
 
 {{- if .Values.config.coreDump.enabled }}
-cp /free5gc/webconsole/webui /tmp/coredump/
+cp /free5gc/webconsole/webconsole /tmp/coredump/
 {{- end }}
 
 cd /free5gc
