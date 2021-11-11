@@ -128,3 +128,6 @@ service:
 
 servicemonitor:
   enabled: false
+
+podsecuritypolicy:
+  enabled: false
