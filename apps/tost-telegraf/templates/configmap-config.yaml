@@ -61,3 +61,90 @@ data:
         kubectl get po -n {{ .Values.onos.namespace }} -l '{{ .Values.onos.onos_config_loader_label }}' -o json | \
             jq -r '"onos_telegraf,pod=onos-config-loader ready=" + (count(select(.items[0].status.containerStatuses[].ready)) | tostring)'
     done
+
+  sdfabric_health_indicator.sh: |
+    #!/bin/bash
+    {{ if .Values.health_indicator.enabled }}
+    # Constant
+    readonly HEALTH_UNKNOWN=0
+    readonly HEALTH_UP=1
+    readonly HEALTH_DEGRADED=2
+    readonly HEALTH_DOWN=3
+    readonly REASON_PKT_LOSS=1
+    readonly REASON_RTT=2
+    readonly REASON_ONOS_NOT_READY=3
+    readonly REASON_ATOMIX_NOT_READY=4
+    readonly REASON_LINK_DOWN=5
+    readonly REASON_DEVICE_DOWN=6
+
+    PACKET_LOSS_PERCENT=0
+    AVG_RTT=0
+
+    check_host() {
+        PING_RESULT=$(ping -i 0.1 -W 1 -c 10 $1)
+        PACKET_LOSS_PERCENT=$(echo $PING_RESULT | grep -P -o '\d+% packet loss' | awk -F '%' '{print $1}')
+        AVG_RTT=$(echo $PING_RESULT | grep -P -o '(\d+\.\d+)/(\d+\.\d+)/(\d+\.\d+)/(\d+\.\d+)' | awk -F'/' '{print $2}')
+        AVG_RTT=${AVG_RTT%.*} # default bash can only compare integer
+        if [[ $PACKET_LOSS_PERCENT -ge {{ .Values.health_indicator.packet_loss_threshold }} ]]; then
+            echo "sdfabric_telegraf health=$HEALTH_DOWN,reason=$REASON_PKT_LOSS"
+            return 1
+        elif [[ $AVG_RTT -gt {{ $.Values.health_indicator.rtt_threshold_ms }} ]]; then
+            echo "sdfabric_telegraf health=$HEALTH_DEGRADED,reson=$REASON_RTT,rtt=$AVG_RTT,expected_rtt={{ $.Values.health_indicator.rtt_threshold_ms }}"
+            return 1
+        elif [[ $PACKET_LOSS_PERCENT -gt 0 ]]; then
+            echo "sdfabric_telegraf health=$HEALTH_DEGRADED,reason=$REASON_PKT_LOSS,percent=$PACKET_LOSS_PERCENT"
+            return 1
+        fi
+        return 0
+    }
+
+    # Wait until jq and kubectl are installed
+    while ! (which jq && which kubectl) > /dev/null ; do
+        sleep 1
+    done
+
+    MAX_NUM_LINKS=0
+
+    while IFS= read -r LINE; do
+        {{ range .Values.health_indicator.expected_hosts }}
+        check_host {{ . }} || continue
+        {{ end }}
+
+        NUM_ATOMIX_NOT_READY=$(kubectl get po -n {{ .Values.onos.namespace }} -l '{{ .Values.onos.atomix_label }}' -o json | \
+            jq -r 'count(select(.items[].status.containerStatuses[].ready == false))')
+        if [[ $NUM_ATOMIX_NOT_READY -gt 0 ]]; then
+            echo "sdfabric_telegraf health=$HEALTH_DEGRADED,reason=$REASON_ATOMIX_NOT_READY,num_atomix_not_ready=$NUM_ATOMIX_NOT_READY"
+            continue
+        fi
+
+        NUM_ONOS_NOT_READY=$(kubectl get po -n {{ .Values.onos.namespace }} -l '{{ .Values.onos.onos_classic_label }}' -o json | \
+            jq -r 'count(select(.items[].status.containerStatuses[].ready == false))')
+        if [[ $NUM_ONOS_NOT_READY -gt 0 ]]; then
+            echo "sdfabric_telegraf health=$HEALTH_DEGRADED,reason=$REASON_ONOS_NOT_READY,num_onos_not_ready=$NUM_ONOS_NOT_READY"
+            continue
+        fi
+
+        ACTIVE_LINKS=$(curl --fail -sSL --user {{ .Values.onos.username }}:{{ .Values.onos.password }} --noproxy {{ .Values.onos.server }}:{{ .Values.onos.port }} -X GET -H 'Accept: application/json' \
+            http://{{ .Values.onos.server }}:{{ .Values.onos.port }}/onos/v1/links | \
+            jq 'count(.links[]?.state | select(. == "ACTIVE"))')
+        if [[ -z $ACTIVE_LINKS ]] || [[ ! $ACTIVE_LINKS -eq {{ .Values.health_indicator.expected_num_links }} ]]; then
+            echo "sdfabric_telegraf health=$HEALTH_DEGRADED,reason=$REASON_LINK_DOWN,active_links=$ACTIVE_LINKS,expected_links={{ .Values.expected_num_links }}"
+            continue
+        fi
+
+        UNAVAILABLE_DEVICES=$(curl --fail -sSL --user {{ .Values.onos.username }}:{{ .Values.onos.password }} --noproxy {{ .Values.onos.server }}:{{ .Values.onos.port }} -X GET -H 'Accept: application/json' \
+            http://{{ .Values.onos.server }}:{{ .Values.onos.port }}/onos/v1/devices | \
+            jq 'count(.devices[]? | select(.type=="SWITCH" and (.available == false)))')
+        if [[ $UNAVAILABLE_DEVICES -gt 0 ]]; then
+            echo "sdfabric_telegraf health=$HEALTH_DEGRADED,reason=$REASON_DEVICE_DOWN,num_device_down=$UNAVAILABLE_DEVICES"
+            continue
+        fi
+
+        echo "sdfabric_telegraf health=$HEALTH_UP"
+    done
+    {{ else }}
+    # Health indicator is off
+    while IFS= read -r LINE; do
+      echo "sdfabric_telegraf health=$HEALTH_UNKNOWN"
+    done
+    {{ end }}

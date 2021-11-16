@@ -15,6 +15,9 @@ telegraf:
     - name: "telegraf-external-daemon"
       mountPath: /tmp/sdfabric_telegraf.sh
       subPath: sdfabric_telegraf.sh
+    - name: "telegraf-external-daemon"
+      mountPath: /tmp/sdfabric_health_indicator.sh
+      subPath: sdfabric_health_indicator.sh
   rbac:
     rules:
     - apiGroups: [""]
@@ -32,6 +35,9 @@ telegraf:
     inputs:
       - execd:
           command: ["sh", "-c", "/tmp/sdfabric_telegraf.sh"]
+          signal: "STDIN"
+      - execd:
+          command: ["sh", "-c", "/tmp/sdfabric_health_indicator.sh"]
           signal: "STDIN"
       - cisco_telemetry_gnmi:
           addresses:
@@ -55,4 +61,14 @@ onos:
   port: 8181
   namespace: tost
   onos_classic_label: app=onos-classic
+  atomix_label: app=onos-tost-atomix
   onos_config_loader_label: app=onos-config-loader
+
+health_indicator:
+  enabled: false
+  expected_hosts: []
+  rtt_threshold_ms: 30
+  # Health indicator return DOWN status when {packet_loss_threshold}% of packet loss
+  # from one of expected host.
+  packet_loss_threshold: 100
+  expected_num_links: 0
