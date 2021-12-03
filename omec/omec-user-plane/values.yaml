@@ -4,8 +4,8 @@
 
 images:
   tags:
-    bess: "registry.aetherproject.org/proxy/omecproject/upf-epc-bess:master-9a3fc9a"
-    pfcpiface: "registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-9a3fc9a"
+    bess: "registry.aetherproject.org/proxy/omecproject/upf-epc-bess:master-d9ee73d"
+    pfcpiface: "registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-d9ee73d"
     tools: registry.aetherproject.org/tools/busybox:stable
   pullPolicy: IfNotPresent
   # Secrets must be manually created in the namespace.
