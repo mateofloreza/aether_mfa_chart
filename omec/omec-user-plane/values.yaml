@@ -4,8 +4,8 @@
 
 images:
   tags:
-    bess: "registry.aetherproject.org/proxy/omecproject/upf-epc-bess:master-103b198"
-    pfcpiface: "registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-103b198"
+    bess: "registry.aetherproject.org/proxy/omecproject/upf-epc-bess:master-ada6849"
+    pfcpiface: "registry.aetherproject.org/proxy/omecproject/upf-epc-pfcpiface:master-ada6849"
     tools: registry.aetherproject.org/tools/busybox:stable
   pullPolicy: IfNotPresent
   # Secrets must be manually created in the namespace.
@@ -99,6 +99,7 @@ config:
         core:
           ifname: core
         measure_upf: true
+        measure_flow: true
         enable_notify_bess: true
         notify_sockaddr: "/pod-share/notifycp"
         cpiface:
