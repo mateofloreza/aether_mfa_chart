@@ -22,6 +22,12 @@ spec:
           env:
             - name: ES_URL
               value: "{{ .Values.elasticsearch.host }}:{{ .Values.elasticsearch.port}}"
+            - name: AUTH_USERNAME
+              value: "{{ .Values.elasticsearch.auth.username}}"
+            - name: AUTH_PASSWORD
+              value: "{{ .Values.elasticsearch.auth.password}}"
+            - name: SKIP_TLS
+              value: "{{ .Values.elasticsearch.auth.skip_tls}}"
             {{ if .Values.configuration.setting }}
             - name: SETTING_DIR
               value: "{{ .Values.configuration.base_dir }}/{{ .Values.configuration.setting }}"

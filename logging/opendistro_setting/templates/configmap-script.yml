@@ -14,6 +14,9 @@ data:
   update.sh: |
     #!/bin/bash
     host=${ES_URL:-localhost:9201}
+    skip_tls=${SKIP_TLS:true}
+    auth_username=${AUTH_USERNAME}
+    auth_password=${AUTH_PASSWORD}
     dest_dir=${DEST_DIR}
     monitor_dir=${MONITOR_DIR}
     setting_dir=${SETTING_DIR}
@@ -135,13 +138,26 @@ data:
         dir=$setting_dir
         mkdir -p "$temp_dir/$dir"
         config_file=$dir/config.json
+
+        curl_opts=""
+
+        if [ ! -z $auth_username ]; then
+          curl_opts="$curl_opts -u $auth_username:$auth_password"
+        fi
+
+        if [ $skip_tls ]; then
+          curl_opts="$curl_opts -k"
+        fi
+
+
         for k in $(jq ' keys | .[]' "$config_file"); do
             file=$dir/$(jq -r ".[$k].file" "$config_file");
+            type=$(jq -r ".[$k].type" "$config_file");
             url=$(jq -r ".[$k].url" "$config_file");
 
             new_file="$temp_dir/$file"
             jq -c '' < "$file" > "$new_file"
-            curl -s -X POST -H "content-type: application/json" -d "@$new_file" "$host/$url"
+            curl -s $curl_opts -X $type -H "content-type: application/json" -d "@$new_file" "$host/$url"
             rm "$new_file"
             echo "  "
         done

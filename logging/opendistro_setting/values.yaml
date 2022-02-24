@@ -3,13 +3,17 @@
 
 
 elasticsearch:
-  host: opendistro-es-client-service.logging-system
+  host: https://opensearch-cluster-master.logging-system
   port: 9200
+  auth:
+    username: admin
+    password: admin
+    skip_tls: true
 
 configuration:
   base_dir: /tmp/opendistro
   # Have to prepare the configmap first
-  # setting_configmap: opendistro-kibana-setting
+  # setting_configmap: opensearch-kibana-setting
   # setting: settings/
   # Have to prepare the configmap first
   # monitor_configmap: opendistro-kibana-monitor
