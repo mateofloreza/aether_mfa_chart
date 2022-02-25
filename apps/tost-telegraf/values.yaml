@@ -65,7 +65,7 @@ onos:
   onos_config_loader_label: app=onos-config-loader
 
 health_indicator:
-  enabled: false
+  enabled: true
   expected_hosts: []
   rtt_threshold_ms: 30
   # Health indicator return DOWN status when {packet_loss_threshold}% of packet loss
