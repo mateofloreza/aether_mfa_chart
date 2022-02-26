@@ -11,13 +11,13 @@ elasticsearch:
     skip_tls: true
 
 configuration:
-  base_dir: /tmp/opendistro
+  base_dir: /tmp/opensearch
   # Have to prepare the configmap first
   # setting_configmap: opensearch-kibana-setting
   # setting: settings/
   # Have to prepare the configmap first
-  # monitor_configmap: opendistro-kibana-monitor
+  # monitor_configmap: opensearch-kibana-monitor
   # monitor: monitor/
   # Have to prepare the secret first
-  # destination_secret: opendistro-kibana-destination
+  # destination_secret: opensearch-kibana-destination
   # destination: destination/

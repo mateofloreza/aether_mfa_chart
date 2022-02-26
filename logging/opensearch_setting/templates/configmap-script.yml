@@ -20,7 +20,7 @@ data:
     dest_dir=${DEST_DIR}
     monitor_dir=${MONITOR_DIR}
     setting_dir=${SETTING_DIR}
-    temp_dir=${OUTPUT_DIR:-/opendistro_temp}
+    temp_dir=${OUTPUT_DIR:-/opensearch_temp}
 
     curl_opts=""
     if [ ! -z $auth_username ]; then
@@ -38,7 +38,7 @@ data:
 
     #return destination id if exist
     check_destination() { name=$1
-        curl -s $curl_opts -H "content-type: application/json" "$host/_opendistro/_alerting/destinations" | jq -r ".destinations[] | select(.name == \"$name\").id"
+        curl -s $curl_opts -H "content-type: application/json" "$host/_opensearch/_alerting/destinations" | jq -r ".destinations[] | select(.name == \"$name\").id"
     }
 
     update_destination() {
@@ -48,7 +48,7 @@ data:
         #compress the json file to reduce the http size
         new_file="$temp_dir/$file"
         jq -c '' < "$file" > "$new_file"
-        curl -s $curl_opts -X PUT -H "content-type: application/json" -d "@$new_file" "$host/_opendistro/_alerting/destinations/$id"
+        curl -s $curl_opts -X PUT -H "content-type: application/json" -d "@$new_file" "$host/_opensearch/_alerting/destinations/$id"
         rm "$new_file"
         echo "  "
     }
@@ -58,7 +58,7 @@ data:
         file=$1
         new_file="$temp_dir/$file"
         jq -c '' < "$file" > "$new_file"
-        curl -s $curl_opts -X POST -H "content-type: application/json" -d "@$new_file" "$host/_opendistro/_alerting/destinations"
+        curl -s $curl_opts -X POST -H "content-type: application/json" -d "@$new_file" "$host/_opensearch/_alerting/destinations"
         rm "$new_file"
         echo "  "
     }
@@ -68,7 +68,7 @@ data:
         name=$1
         curl -s $curl_opts -H "content-type: application/json" \
             --data "{\"query\":{\"match\":{ \"monitor.name\": \"$name\"}}}" \
-            "$host/_opendistro/_alerting/monitors/_search" | jq -r '.hits.hits[0]._id'
+            "$host/_opensearch/_alerting/monitors/_search" | jq -r '.hits.hits[0]._id'
     }
 
     create_monitor() {
@@ -77,7 +77,7 @@ data:
         new_file="$temp_dir/$file"
         echo "create monitor"
         jq -c ".triggers[0].actions[0].destination_id=\"$dest_id\""  "$file" > "$new_file"
-        curl -s $curl_opts -X POST -H "content-type: application/json" -d "@$new_file" "$host/_opendistro/_alerting/monitors/"
+        curl -s $curl_opts -X POST -H "content-type: application/json" -d "@$new_file" "$host/_opensearch/_alerting/monitors/"
         rm "$new_file"
         echo " "
     }
@@ -89,7 +89,7 @@ data:
         new_file="$temp_dir/$file"
         echo "update monitor"
         jq -c ".triggers[0].actions[0].destination_id=\"$dest_id\""  "$file" > "$new_file"
-        curl -s $curl_opts -X PUT -H "content-type: application/json" -d "@$new_file" "$host/_opendistro/_alerting/monitors/$monitor_id"
+        curl -s $curl_opts -X PUT -H "content-type: application/json" -d "@$new_file" "$host/_opensearch/_alerting/monitors/$monitor_id"
         rm "$new_file"
         echo " "
     }

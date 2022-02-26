@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
 apiVersion: v2
-name: opendistro-setting
+name: opensearch-setting
 description: A Helm chart deploying container to config opensearch services
 
 # A chart can be either an 'application' or a 'library' chart.

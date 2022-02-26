@@ -9,11 +9,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: opendistro-config
+      app: opensearch-config
   template:
     metadata:
       labels:
-        app: opendistro-config
+        app: opensearch-config
     spec:
       containers:
         - name: config
