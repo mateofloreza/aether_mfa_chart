@@ -1,0 +1,89 @@
+# Copyright 2020-present Open Networking Foundation
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "person-detection-app.fullname" . }}
+  labels:
+    {{- include "person-detection-app.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "person-detection-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "person-detection-app.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "person-detection-app.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          env:
+            - name: ROCUSER
+              valueFrom:
+                secretKeyRef:
+                  name: rocsecret
+                  key: username
+            - name: ROCPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rocsecret
+                  key: password
+            - name: ROCURL
+              value: {{ .Values.rocUrl }}
+            - name: KEYCLOAKURL
+              value: {{ .Values.keycloakUrl }}
+            - name: ENTERPRISE
+              value: {{ .Values.enterprise }}
+            - name: SITE
+              value: {{ .Values.site }}
+            - name: DEVICEGROUP
+              value: {{ .Values.deviceGroup }}
+            - name: NUMDEVICES
+              value: "{{ .Values.numDevices }}"
+            - name: MQTTIP
+              value: "{{ .Values.mqttIp }}"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,18 @@
+# Copyright 2020-present Open Networking Foundation
+# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "person-detection-app.fullname" . }}
+  labels:
+    {{- include "person-detection-app.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "person-detection-app.selectorLabels" . | nindent 4 }}
