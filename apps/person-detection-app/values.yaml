@@ -1,5 +1,5 @@
-# Copyright 2020-present Open Networking Foundation
-# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+# Copyright 2022-present Open Networking Foundation
+# SPDX-License-Identifier: Apache-2.0
 #
 # Default values for person-detection-app.
 # This is a YAML-formatted file.
@@ -13,11 +13,11 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "master"
 
-rocUrl: https://roc.demo.aetherproject.net/aether-roc-api/aether/v2.0.0/connectivity-service-v2/
-keycloakUrl: https://keycloak.demo.aetherproject.net/auth/realms/aether/protocol/openid-connect/token
-enterprise: ase-4g-enterprise
-site: ase-site-4g
-deviceGroup: ase-4g-device-group2
+rocUrl: http://aether-roc-api.aether-roc:8181/aether/v2.0.0/connectivity-service-v2/
+keycloakUrl: http://keycloak.aether-keycloak/auth/realms/aether/protocol/openid-connect/token
+enterprise: enterprise1
+site: site1
+deviceGroup: device-group1
 numDevices: 1
 mqttIp: 10.92.2.12
 
