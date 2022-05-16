@@ -17,5 +17,7 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: {{ .Values.service.port }}
+      protocol: UDP
   selector:
     {{- include "person-detection-app.selectorLabels" . | nindent 4 }}
