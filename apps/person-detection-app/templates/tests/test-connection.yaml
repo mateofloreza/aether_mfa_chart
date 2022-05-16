@@ -17,5 +17,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "person-detection-app.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "person-detection-app.fullname" . }}:{{ .Values.service.streaming.port }}']
   restartPolicy: Never

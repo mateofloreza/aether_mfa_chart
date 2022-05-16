@@ -48,8 +48,12 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: NodePort
-  port: 5000
+  streaming:
+    type: ClusterIP
+    port: 5000
+  input:
+    type: LoadBalancer
+    port: 5000
 
 ingress:
   enabled: false
