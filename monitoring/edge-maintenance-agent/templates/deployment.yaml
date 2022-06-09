@@ -41,6 +41,18 @@ spec:
           env:
             - name: AETHER_EDGE_STATUS_URL
               value: "{{ .Values.edgeMonitoringServerURL }}/{{ .Values.edgeName }}"
+            - name: AETHER_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: username
+                  optional: false
+            - name: AETHER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: password
+                  optional: false
           livenessProbe:
             httpGet:
               path: /healthz
