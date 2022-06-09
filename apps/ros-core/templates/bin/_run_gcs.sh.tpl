@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copyright 2021-present Open Networking Foundation
 #
-# SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+# SPDX-License-Identifier: Apache-2.0
 
 set -ex
 
